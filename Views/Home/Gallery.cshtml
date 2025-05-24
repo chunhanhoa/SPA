@@ -1,0 +1,133 @@
+@{
+    ViewData["Title"] = "Thư viện ảnh";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Thư Viện Ảnh</h1>
+        <p class="lead">Khám phá không gian và dịch vụ tại LoanSpa</p>
+    </div>
+
+    <!-- Filter buttons -->
+    <div class="text-center mb-4">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary active filter-btn" data-filter="all">Tất cả</button>
+            <button type="button" class="btn btn-outline-primary filter-btn" data-filter="spa">Không gian</button>
+            <button type="button" class="btn btn-outline-primary filter-btn" data-filter="treatment">Điều trị</button>
+            <button type="button" class="btn btn-outline-primary filter-btn" data-filter="massage">Massage</button>
+            <button type="button" class="btn btn-outline-primary filter-btn" data-filter="facial">Chăm sóc da</button>
+        </div>
+    </div>
+
+    <div class="row gallery-container">
+        <!-- Hình ảnh 1 -->
+        <div class="col-lg-4 col-md-6 mb-4 gallery-item spa">
+            <div class="card border-0 shadow-sm h-100">
+                <a href="~/images/gallery/spa-interior-1.jpg" data-lightbox="gallery" data-title="Không gian thư giãn">
+                    <img src="~/images/gallery/spa-interior-1.jpg" class="card-img-top" alt="Spa Interior" style="height: 250px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Không gian thư giãn</h5>
+                    <p class="card-text">Thiết kế hiện đại kết hợp với yếu tố tự nhiên tạo nên không gian thư giãn lý tưởng.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hình ảnh 2 -->
+        <div class="col-lg-4 col-md-6 mb-4 gallery-item treatment">
+            <div class="card border-0 shadow-sm h-100">
+                <a href="~/images/gallery/treatment-room.jpg" data-lightbox="gallery" data-title="Phòng điều trị">
+                    <img src="~/images/gallery/treatment-room.jpg" class="card-img-top" alt="Treatment Room" style="height: 250px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Phòng điều trị</h5>
+                    <p class="card-text">Phòng điều trị riêng tư với thiết bị chăm sóc da hiện đại.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hình ảnh 3 -->
+        <div class="col-lg-4 col-md-6 mb-4 gallery-item massage">
+            <div class="card border-0 shadow-sm h-100">
+                <a href="~/images/gallery/massage-service.jpg" data-lightbox="gallery" data-title="Dịch vụ massage">
+                    <img src="~/images/gallery/massage-service.jpg" class="card-img-top" alt="Massage Service" style="height: 250px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Dịch vụ massage</h5>
+                    <p class="card-text">Trải nghiệm massage thư giãn từ các chuyên gia có nhiều năm kinh nghiệm.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hình ảnh 4 -->
+        <div class="col-lg-4 col-md-6 mb-4 gallery-item facial">
+            <div class="card border-0 shadow-sm h-100">
+                <a href="~/images/gallery/facial-treatment.jpg" data-lightbox="gallery" data-title="Chăm sóc da mặt">
+                    <img src="~/images/gallery/facial-treatment.jpg" class="card-img-top" alt="Facial Treatment" style="height: 250px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Chăm sóc da mặt</h5>
+                    <p class="card-text">Quy trình chăm sóc da mặt chuyên sâu với sản phẩm cao cấp.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hình ảnh 5 -->
+        <div class="col-lg-4 col-md-6 mb-4 gallery-item spa">
+            <div class="card border-0 shadow-sm h-100">
+                <a href="~/images/gallery/spa-interior-2.jpg" data-lightbox="gallery" data-title="Sảnh chờ">
+                    <img src="~/images/gallery/spa-interior-2.jpg" class="card-img-top" alt="Spa Reception" style="height: 250px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Sảnh chờ</h5>
+                    <p class="card-text">Khu vực tiếp tân sang trọng với thiết kế tinh tế.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hình ảnh 6 -->
+        <div class="col-lg-4 col-md-6 mb-4 gallery-item facial">
+            <div class="card border-0 shadow-sm h-100">
+                <a href="~/images/gallery/facial-products.jpg" data-lightbox="gallery" data-title="Sản phẩm chăm sóc da">
+                    <img src="~/images/gallery/facial-products.jpg" class="card-img-top" alt="Facial Products" style="height: 250px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Sản phẩm chăm sóc da</h5>
+                    <p class="card-text">Bộ sưu tập sản phẩm chăm sóc da cao cấp được lựa chọn kỹ lưỡng.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Thêm các hình ảnh khác tương tự -->
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.filter-btn').click(function() {
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                var filterValue = $(this).data('filter');
+                
+                if(filterValue === 'all') {
+                    $('.gallery-item').show();
+                } else {
+                    $('.gallery-item').hide();
+                    $('.' + filterValue).show();
+                }
+            });
+            
+            lightbox.option({
+                'resizeDuration': 200,
+                'wrapAround': true
+            });
+        });
+    </script>
+}

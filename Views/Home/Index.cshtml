@@ -1,0 +1,205 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content">
+                <h1 class="hero-title animate-fade-up">Chào mừng đến với LoanSpa</h1>
+                <p class="hero-text animate-fade-up">Trải nghiệm các dịch vụ chăm sóc sắc đẹp và thư giãn hàng đầu, giúp bạn tìm lại sự cân bằng và tươi mới cho cơ thể và tâm hồn.</p>
+                <div class="animate-fade-up">
+                    <a href="#services" class="btn btn-primary me-3">Khám phá dịch vụ</a>
+                    <a asp-controller="Home" asp-action="Booking" class="btn btn-outline-primary">Đặt lịch ngay</a>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-image">
+                <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2350&q=80" alt="Spa Relaxation" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="services">
+    <div class="container">
+        <div class="section-title">
+            <h2>Dịch vụ của chúng tôi</h2>
+            <p class="section-subtitle">Khám phá các liệu pháp đặc biệt được thiết kế để mang lại sự thư giãn và làm đẹp toàn diện</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="card service-card">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Massage thư giãn">
+                    <div class="card-body">
+                        <h5 class="card-title">Massage thư giãn</h5>
+                        <p class="card-text">Liệu pháp massage truyền thống giúp giảm căng thẳng, thư giãn cơ bắp và cải thiện tuần hoàn máu.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="service-price">500.000 đ</span>
+                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="massage" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card service-card">
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Chăm sóc da mặt">
+                    <div class="card-body">
+                        <h5 class="card-title">Chăm sóc da mặt</h5>
+                        <p class="card-text">Liệu trình chăm sóc da chuyên sâu với các sản phẩm cao cấp, giúp da sáng mịn và trẻ hóa làn da.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="service-price">750.000 đ</span>
+                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="facial" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card service-card">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2338&q=80" class="card-img-top" alt="Tắm thảo dược">
+                    <div class="card-body">
+                        <h5 class="card-title">Tắm thảo dược</h5>
+                        <p class="card-text">Trải nghiệm tắm thảo dược thư giãn với các loại thảo mộc quý giúp đào thải độc tố và làm mềm da.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="service-price">650.000 đ</span>
+                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="herbal-bath" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card service-card">
+                    <img src="https://images.unsplash.com/photo-1600334088937-22a63270155d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Trị liệu đá nóng">
+                    <div class="card-body">
+                        <h5 class="card-title">Trị liệu đá nóng</h5>
+                        <p class="card-text">Liệu pháp sử dụng đá bazan nóng kết hợp với kỹ thuật massage giúp thư giãn sâu và giảm đau nhức.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="service-price">850.000 đ</span>
+                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="hot-stone" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card service-card">
+                    <img src="https://images.unsplash.com/photo-1596178060810-72f53ce9a65c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Làm móng chuyên nghiệp">
+                    <div class="card-body">
+                        <h5 class="card-title">Làm móng chuyên nghiệp</h5>
+                        <p class="card-text">Dịch vụ làm móng tay, móng chân với các sản phẩm cao cấp và kỹ thuật viên chuyên nghiệp.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="service-price">350.000 đ</span>
+                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="manicure" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card service-card">
+                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Liệu pháp tẩy da chết">
+                    <div class="card-body">
+                        <h5 class="card-title">Liệu pháp tẩy da chết</h5>
+                        <p class="card-text">Tẩy tế bào chết toàn thân với muối biển và tinh dầu thơm, giúp làm mịn da và cải thiện tuần hoàn.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="service-price">450.000 đ</span>
+                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="body-scrub" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a asp-controller="Home" asp-action="Services" class="btn btn-primary">Xem tất cả dịch vụ</a>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="About Our Spa" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <h2>Về chúng tôi</h2>
+                    <p>LoanSpa là thiên đường thư giãn và làm đẹp hàng đầu, nơi bạn được tận hưởng những phút giây thư thái trong không gian sang trọng và yên tĩnh.</p>
+                    <p>Với đội ngũ chuyên viên giàu kinh nghiệm và các sản phẩm chăm sóc cao cấp, chúng tôi cam kết mang đến cho khách hàng những trải nghiệm spa tuyệt vời nhất, giúp bạn tìm lại cân bằng và năng lượng tích cực.</p>
+                    <a asp-controller="Home" asp-action="About" class="btn btn-primary">Tìm hiểu thêm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Đánh giá từ khách hàng</h2>
+            <p class="section-subtitle">Khách hàng nói gì về trải nghiệm tại LoanSpa</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Dịch vụ massage tại đây thật sự tuyệt vời. Kỹ thuật viên rất chuyên nghiệp và không gian rất thư thái. Tôi đã thư giãn hoàn toàn và sẽ quay lại sớm!"</p>
+                    <p class="testimonial-author">- Nguyễn Thanh Hà</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Liệu trình chăm sóc da mặt đã làm cho làn da của tôi trở nên tươi sáng và khỏe mạnh hơn. Nhân viên rất tận tình và sản phẩm sử dụng rất chất lượng."</p>
+                    <p class="testimonial-author">- Trần Minh Tuấn</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"Tắm thảo dược là trải nghiệm tuyệt vời nhất mà tôi từng có. Mùi hương dịu nhẹ và cảm giác thư thái kéo dài cả ngày. Chắc chắn tôi sẽ giới thiệu cho bạn bè."</p>
+                    <p class="testimonial-author">- Phạm Thu Hương</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section py-5" style="background-color: var(--spa-secondary);">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-8">
+                <h2 class="mb-4">Đặt lịch hẹn ngay hôm nay</h2>
+                <p class="mb-5">Hãy để chúng tôi chăm sóc và làm đẹp cho bạn với các dịch vụ spa cao cấp.</p>
+                <a asp-controller="Home" asp-action="Booking" class="btn btn-primary btn-lg">Đặt lịch ngay</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,384 @@
+@{
+    ViewData["Title"] = "Chi tiết dịch vụ";
+    var serviceId = ViewBag.ServiceId;
+    
+    // Khởi tạo các biến mặc định
+    string serviceName = "Dịch vụ Spa";
+    string serviceImage = "/images/services/default.jpg";
+    string serviceDescription = "Mô tả chi tiết về dịch vụ";
+    string servicePrice = "500.000 VNĐ";
+    string serviceDuration = "60 phút";
+    string[] serviceBenefits = new string[] { "Lợi ích 1", "Lợi ích 2", "Lợi ích 3" };
+    string[] serviceProcess = new string[] { "Bước 1", "Bước 2", "Bước 3" };
+    string serviceNote = "Ghi chú đặc biệt về dịch vụ";
+    
+    // Thiết lập thông tin dựa trên serviceId
+    switch (serviceId)
+    {
+        case "massage":
+            serviceName = "Massage Trị Liệu";
+            serviceImage = "/images/services/massage.jpg";
+            serviceDescription = "Dịch vụ Massage Trị Liệu tại LoanSpa là sự kết hợp giữa các kỹ thuật massage truyền thống và hiện đại. Các kỹ thuật viên chuyên nghiệp của chúng tôi sẽ sử dụng các động tác nhẹ nhàng đến mạnh mẽ để tác động vào các nhóm cơ, giúp giải phóng căng thẳng, cải thiện tuần hoàn máu và mang lại cảm giác thư giãn sâu.";
+            servicePrice = "500.000 VNĐ";
+            serviceDuration = "60 phút";
+            serviceBenefits = new string[] { 
+                "Giảm căng thẳng và mệt mỏi",
+                "Cải thiện tuần hoàn máu",
+                "Giảm đau nhức cơ bắp",
+                "Tăng cường hệ miễn dịch",
+                "Cải thiện giấc ngủ"
+            };
+            serviceProcess = new string[] {
+                "Tư vấn và đánh giá tình trạng sức khỏe",
+                "Thư giãn với trà thảo mộc và khăn ấm",
+                "Massage toàn thân với dầu tinh chất tự nhiên",
+                "Tập trung vào các vùng căng cơ theo yêu cầu",
+                "Thư giãn và nghỉ ngơi"
+            };
+            serviceNote = "Không áp dụng cho phụ nữ mang thai 3 tháng đầu, người có vấn đề về tim mạch hoặc đang trong quá trình điều trị y tế đặc biệt.";
+            break;
+            
+        case "facial":
+            serviceName = "Chăm Sóc Da Mặt";
+            serviceImage = "/images/services/facial.jpg";
+            serviceDescription = "Liệu trình Chăm Sóc Da Mặt tại LoanSpa được thiết kế riêng cho từng loại da. Chúng tôi sử dụng các sản phẩm cao cấp từ thiên nhiên kết hợp với công nghệ làm đẹp hiện đại để nuôi dưỡng, tái tạo và trẻ hóa làn da của bạn. Quy trình toàn diện từ làm sạch sâu đến dưỡng ẩm chuyên sâu sẽ mang lại làn da tươi sáng, mịn màng.";
+            servicePrice = "650.000 VNĐ";
+            serviceDuration = "90 phút";
+            serviceBenefits = new string[] { 
+                "Làm sạch sâu và loại bỏ tế bào chết",
+                "Cấp ẩm và nuôi dưỡng da",
+                "Cải thiện kết cấu và độ đàn hồi",
+                "Giảm nếp nhăn và dấu hiệu lão hóa",
+                "Làm sáng da và đều màu da"
+            };
+            serviceProcess = new string[] {
+                "Tư vấn và phân tích tình trạng da",
+                "Làm sạch và tẩy trang",
+                "Tẩy tế bào chết và hút mụn (nếu cần)",
+                "Massage mặt thư giãn",
+                "Đắp mặt nạ đặc trị",
+                "Dưỡng ẩm và chống nắng"
+            };
+            serviceNote = "Sau khi trải nghiệm dịch vụ, bạn nên hạn chế ra nắng và sử dụng kem chống nắng đều đặn để duy trì hiệu quả.";
+            break;
+            
+        case "body-scrub":
+            serviceName = "Tẩy Tế Bào Chết Toàn Thân";
+            serviceImage = "/images/services/body_treatment.jpg";
+            serviceDescription = "Dịch vụ Tẩy Tế Bào Chết Toàn Thân tại LoanSpa sử dụng các thành phần tự nhiên như muối biển, đường, hạt cà phê hoặc bột trái cây để loại bỏ lớp tế bào chết, kích thích tái tạo tế bào da mới. Quy trình này không chỉ làm mềm mịn làn da mà còn giúp cơ thể đào thải độc tố, cải thiện tuần hoàn máu và mang lại cảm giác sảng khoái.";
+            servicePrice = "450.000 VNĐ";
+            serviceDuration = "45 phút";
+            serviceBenefits = new string[] { 
+                "Loại bỏ tế bào chết và làm mịn da",
+                "Kích thích tuần hoàn máu",
+                "Giúp da hấp thụ dưỡng chất tốt hơn",
+                "Ngăn ngừa mụn và viêm nang lông",
+                "Làm đều màu da"
+            };
+            serviceProcess = new string[] {
+                "Tắm nước ấm để làm mềm da",
+                "Tẩy tế bào chết với hỗn hợp đặc biệt",
+                "Tắm sạch với nước ấm",
+                "Massage nhẹ nhàng với kem dưỡng ẩm",
+                "Thư giãn với trà thảo mộc"
+            };
+            serviceNote = "Nên thực hiện 1-2 lần/tháng để có hiệu quả tốt nhất. Không áp dụng cho người có vết thương hở, bệnh da liễu hoặc đang bị cháy nắng.";
+            break;
+            
+        case "aromatherapy":
+            serviceName = "Liệu Pháp Hương Thơm";
+            serviceImage = "/images/services/aromatherapy.jpg";
+            serviceDescription = "Liệu Pháp Hương Thơm tại LoanSpa kết hợp các loại tinh dầu thiên nhiên với kỹ thuật massage đặc biệt nhằm cải thiện sức khỏe thể chất và tinh thần. Các tinh dầu được chọn lọc kỹ lưỡng dựa trên tác dụng đặc biệt và nhu cầu cá nhân của từng khách hàng, giúp cân bằng cơ thể, làm dịu tâm trí và phục hồi năng lượng.";
+            servicePrice = "550.000 VNĐ";
+            serviceDuration = "60 phút";
+            serviceBenefits = new string[] { 
+                "Giảm stress và lo âu",
+                "Cải thiện chất lượng giấc ngủ",
+                "Làm dịu các vấn đề về hô hấp",
+                "Giảm đau đầu và căng thẳng",
+                "Cân bằng cảm xúc và tăng cường năng lượng"
+            };
+            serviceProcess = new string[] {
+                "Tư vấn và lựa chọn tinh dầu phù hợp",
+                "Thư giãn với hương thơm từ máy khuếch tán",
+                "Massage toàn thân với tinh dầu đã chọn",
+                "Ứng dụng kỹ thuật xoa bóp sâu",
+                "Thư giãn và hít thở sâu"
+            };
+            serviceNote = "Vui lòng thông báo cho nhân viên nếu bạn có bất kỳ dị ứng hoặc nhạy cảm với mùi hương nào.";
+            break;
+            
+        case "manicure":
+            serviceName = "Chăm Sóc Móng Chuyên Nghiệp";
+            serviceImage = "/images/services/manicure.jpg";
+            serviceDescription = "Dịch vụ Chăm Sóc Móng Chuyên Nghiệp tại LoanSpa không chỉ mang đến móng tay, móng chân đẹp mà còn giúp bảo vệ và nuôi dưỡng móng khỏe mạnh. Đội ngũ kỹ thuật viên của chúng tôi sẽ chăm sóc từng chi tiết nhỏ, từ việc làm sạch, tạo hình đến phủ sơn với màu sắc thời thượng, cho bạn đôi bàn tay và bàn chân thật hoàn hảo.";
+            servicePrice = "300.000 VNĐ";
+            serviceDuration = "60 phút";
+            serviceBenefits = new string[] { 
+                "Làm sạch và tạo hình móng đẹp",
+                "Loại bỏ da chết và làm mềm da",
+                "Nuôi dưỡng móng khỏe mạnh",
+                "Ngăn ngừa móng bị gãy và nứt",
+                "Tăng cường tuần hoàn máu"
+            };
+            serviceProcess = new string[] {
+                "Ngâm tay/chân trong nước ấm với tinh dầu",
+                "Làm sạch, cắt và tạo hình móng",
+                "Đẩy da và chăm sóc cuticle",
+                "Tẩy tế bào chết và massage nhẹ nhàng",
+                "Phủ sơn với màu theo lựa chọn"
+            };
+            serviceNote = "Đem theo giày dép thoáng khí sau khi làm dịch vụ chăm sóc móng chân. Không sử dụng dịch vụ nếu có vết thương hở hoặc nhiễm trùng móng.";
+            break;
+            
+        case "hair-spa":
+            serviceName = "Chăm Sóc Tóc Cao Cấp";
+            serviceImage = "/images/services/hair_spa.jpg";
+            serviceDescription = "Dịch vụ Chăm Sóc Tóc Cao Cấp tại LoanSpa được thiết kế để phục hồi mái tóc hư tổn và nuôi dưỡng tóc từ gốc đến ngọn. Sử dụng các sản phẩm hàng đầu và kỹ thuật tiên tiến, chúng tôi giúp mái tóc của bạn trở nên khỏe mạnh, suôn mượt và tràn đầy sức sống. Liệu trình bao gồm các bước chăm sóc toàn diện từ làm sạch, dưỡng chất đến phục hồi cấu trúc tóc.";
+            servicePrice = "400.000 VNĐ";
+            serviceDuration = "60 phút";
+            serviceBenefits = new string[] { 
+                "Phục hồi tóc hư tổn",
+                "Nuôi dưỡng tóc từ sâu bên trong",
+                "Làm mềm mượt và óng ả",
+                "Kiểm soát tóc xơ rối",
+                "Bảo vệ tóc khỏi tác hại môi trường"
+            };
+            serviceProcess = new string[] {
+                "Tư vấn và đánh giá tình trạng tóc",
+                "Gội đầu với dầu gội đặc trị",
+                "Ủ tóc với mặt nạ dưỡng chất",
+                "Xông hơi để dưỡng chất thẩm thấu",
+                "Xả sạch và dưỡng tóc",
+                "Sấy tạo kiểu nhẹ nhàng"
+            };
+            serviceNote = "Nên thực hiện 2-4 tuần/lần để duy trì mái tóc khỏe đẹp. Hạn chế sử dụng máy sấy, máy uốn, máy ép trong vài ngày sau khi thực hiện dịch vụ.";
+            break;
+            
+        default:
+            // Giữ giá trị mặc định
+            break;
+    }
+}
+
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Services">Dịch vụ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@serviceName</li>
+        </ol>
+    </nav>
+    
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="service-image-container">
+                <img src="@serviceImage" alt="@serviceName" class="img-fluid rounded shadow">
+            </div>
+            
+            <div class="mt-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-clock text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Thời gian</h6>
+                                <p class="mb-0">@serviceDuration</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-tag text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Giá</h6>
+                                <p class="mb-0">@servicePrice</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <div class="d-grid gap-2">
+                    <a asp-controller="Home" asp-action="Booking" class="btn btn-primary btn-lg">Đặt lịch ngay</a>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#inquiryModal">
+                        <i class="fas fa-question-circle me-2"></i> Yêu cầu tư vấn
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <h1 class="mb-4">@serviceName</h1>
+            
+            <div class="mb-4">
+                <p class="lead">@serviceDescription</p>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="mb-3">Lợi ích</h4>
+                <ul class="list-group list-group-flush">
+                    @foreach (var benefit in serviceBenefits)
+                    {
+                        <li class="list-group-item bg-transparent ps-0">
+                            <i class="fas fa-check-circle text-success me-2"></i> @benefit
+                        </li>
+                    }
+                </ul>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="mb-3">Quy trình thực hiện</h4>
+                <ol class="list-group list-group-numbered">
+                    @for (int i = 0; i < serviceProcess.Length; i++)
+                    {
+                        <li class="list-group-item bg-transparent ps-0">@serviceProcess[i]</li>
+                    }
+                </ol>
+            </div>
+            
+            @if (!string.IsNullOrEmpty(serviceNote))
+            {
+                <div class="alert alert-info">
+                    <h5><i class="fas fa-info-circle me-2"></i> Lưu ý</h5>
+                    <p class="mb-0">@serviceNote</p>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="mt-5">
+        <h3 class="mb-4">Dịch vụ khác có thể bạn quan tâm</h3>
+        
+        <div class="row">
+            @{
+                var suggestedServices = new[] {
+                    new { Id = "massage", Name = "Massage Trị Liệu", Image = "/images/services/massage.jpg", Price = "500.000 VNĐ" },
+                    new { Id = "facial", Name = "Chăm Sóc Da Mặt", Image = "/images/services/facial.jpg", Price = "650.000 VNĐ" },
+                    new { Id = "aromatherapy", Name = "Liệu Pháp Hương Thơm", Image = "/images/services/aromatherapy.jpg", Price = "550.000 VNĐ" }
+                }.Where(s => s.Id != serviceId).Take(2);
+            }
+            
+            @foreach (var service in suggestedServices)
+            {
+                <div class="col-md-6">
+                    <div class="card mb-4 service-card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="@service.Image" class="img-fluid rounded-start h-100" alt="@service.Name" style="object-fit: cover;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@service.Name</h5>
+                                    <p class="card-text">
+                                        <span class="text-primary fw-bold">@service.Price</span>
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="@service.Id" class="btn btn-sm btn-outline-primary">Xem chi tiết</a>
+                                        <a asp-controller="Home" asp-action="Booking" class="btn btn-sm btn-primary">Đặt lịch</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Inquiry Modal -->
+<div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Yêu cầu tư vấn về @serviceName</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="inquiryForm">
+                    <div class="mb-3">
+                        <label for="inquiryName" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="inquiryName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inquiryPhone" class="form-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" id="inquiryPhone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inquiryEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="inquiryEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inquiryMessage" class="form-label">Câu hỏi của bạn</label>
+                        <textarea class="form-control" id="inquiryMessage" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="sendInquiry">Gửi yêu cầu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Xử lý khi nhấn nút gửi yêu cầu tư vấn
+            $("#sendInquiry").click(function() {
+                // Kiểm tra form hợp lệ
+                if ($("#inquiryForm")[0].checkValidity()) {
+                    alert("Cảm ơn bạn đã gửi yêu cầu! Chuyên viên tư vấn sẽ liên hệ với bạn trong thời gian sớm nhất.");
+                    $("#inquiryModal").modal("hide");
+                    $("#inquiryForm")[0].reset();
+                } else {
+                    // Kích hoạt validation của trình duyệt
+                    $("#inquiryForm")[0].reportValidity();
+                }
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .service-image-container {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .list-group-item {
+            border-left: none;
+            border-right: none;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        .list-group-item:first-child {
+            border-top: none;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+    </style>
+}

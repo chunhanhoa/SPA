@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Đặt lịch";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <h2 class="mb-4">Đặt Lịch Dịch Vụ</h2>
+            <p class="lead">Đặt lịch trước để có trải nghiệm tốt nhất tại LoanSpa</p>
+            <img src="~/images/booking-banner.jpg" alt="Booking" class="img-fluid rounded shadow-sm mb-4" style="height: 300px; object-fit: cover;">
+            
+            <div class="card border-0 bg-light p-4">
+                <div class="card-body p-0">
+                    <h5 class="card-title">Thông tin liên hệ</h5>
+                    <p><i class="fas fa-phone mr-2"></i> 0987 654 321</p>
+                    <p><i class="fas fa-envelope mr-2"></i> info@loanspa.com</p>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i> 123 Đường Nguyễn Huệ, Q.1, TP.HCM</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-4">Thông Tin Đặt Lịch</h3>
+                    <form id="bookingForm">
+                        <div class="form-group mb-3">
+                            <label for="fullName">Họ và tên <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="phoneNumber">Số điện thoại <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="email">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" placeholder="Nhập địa chỉ email" required>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="service">Dịch vụ <span class="text-danger">*</span></label>
+                            <select class="form-control" id="service" required>
+                                <option value="" selected disabled>Chọn dịch vụ</option>
+                                <option value="massage">Massage Trị Liệu</option>
+                                <option value="facial">Chăm Sóc Da Mặt</option>
+                                <option value="body">Tẩy Tế Bào Chết Toàn Thân</option>
+                                <option value="aroma">Liệu Pháp Hương Thơm</option>
+                                <option value="manicure">Chăm Sóc Móng Chuyên Nghiệp</option>
+                                <option value="hair">Chăm Sóc Tóc Cao Cấp</option>
+                            </select>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="bookingDate">Ngày <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="bookingDate" required min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="bookingTime">Giờ <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="bookingTime" required>
+                                        <option value="" selected disabled>Chọn giờ</option>
+                                        <option value="09:00">09:00</option>
+                                        <option value="10:00">10:00</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="13:30">13:30</option>
+                                        <option value="14:30">14:30</option>
+                                        <option value="15:30">15:30</option>
+                                        <option value="16:30">16:30</option>
+                                        <option value="17:30">17:30</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="notes">Ghi chú</label>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="Nhập yêu cầu đặc biệt hoặc ghi chú (nếu có)"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Đặt Lịch</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#bookingForm').submit(function(e) {
+                e.preventDefault();
+                alert('Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn để xác nhận trong thời gian sớm nhất.');
+                this.reset();
+            });
+        });
+    </script>
+}

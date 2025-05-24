@@ -1,0 +1,133 @@
+@{
+    ViewData["Title"] = "Liên hệ";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h1 class="display-4 mb-4">Liên Hệ</h1>
+            <p class="lead mb-4">Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ với chúng tôi bằng cách điền vào biểu mẫu hoặc thông qua các kênh liên lạc dưới đây.</p>
+            
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Thông tin liên hệ</h5>
+                    <div class="my-3">
+                        <p><i class="fas fa-map-marker-alt text-primary mr-2"></i> 123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
+                        <p><i class="fas fa-phone text-primary mr-2"></i> 0987 654 321</p>
+                        <p><i class="fas fa-envelope text-primary mr-2"></i> info@loanspa.com</p>
+                        <p><i class="fas fa-clock text-primary mr-2"></i> Thứ Hai - Chủ Nhật: 9:00 - 20:00</p>
+                    </div>
+                    <h5 class="mt-4">Kết nối với chúng tôi</h5>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-primary mr-3"><i class="fab fa-facebook-f fa-2x"></i></a>
+                        <a href="#" class="text-info mr-3"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-danger mr-3"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-danger mr-3"><i class="fab fa-youtube fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card border-0 shadow">
+                <div class="card-body p-0">
+                    <!-- Google Maps Embed -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4241674198073!2d106.70141917469453!3d10.78029088927363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xa5777fb3a5d0dde3!2zTmd1eeG7hW4gSHXhu4csIELhur9uIE5naGUsIFF14bqtbiAxLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1695903287008!5m2!1svi!2s" 
+                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-4">Gửi Tin Nhắn Cho Chúng Tôi</h3>
+                    <form id="contactForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fullName">Họ và tên <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" placeholder="Nhập email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="phoneNumber">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="subject">Tiêu đề <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="subject" placeholder="Nhập tiêu đề" required>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="message">Nội dung <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Nhập nội dung tin nhắn" required></textarea>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">
+                                    Tôi đồng ý với <a href="#">điều khoản và chính sách</a> của LoanSpa
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Gửi Tin Nhắn</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card border-0 bg-light mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Câu hỏi thường gặp</h5>
+                    <div class="accordion mt-3" id="faqAccordion">
+                        <div class="card border-0 mb-2">
+                            <div class="card-header bg-white" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left text-decoration-none" type="button" data-toggle="collapse" data-target="#collapseOne">
+                                        Làm thế nào để đặt lịch hẹn?
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    Bạn có thể đặt lịch hẹn trực tuyến thông qua mục "Đặt lịch" trên website, gọi điện trực tiếp hoặc liên hệ qua email.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 mb-2">
+                            <div class="card-header bg-white" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#collapseTwo">
+                                        LoanSpa có chính sách hủy đặt lịch không?
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    Có, khách hàng có thể hủy hoặc thay đổi lịch hẹn ít nhất 24 giờ trước thời gian đã đặt mà không bị tính phí.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#contactForm').submit(function(e) {
+                e.preventDefault();
+                alert('Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
+                this.reset();
+            });
+        });
+    </script>
+}
