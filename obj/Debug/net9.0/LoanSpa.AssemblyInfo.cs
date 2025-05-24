@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LoanSpa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4a2c6e0ab97628ab7400164c86fb29ad136c81e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d144403b4deb95a3bbcf496d10fe06c0adaf4bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("LoanSpa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LoanSpa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
