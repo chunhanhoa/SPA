@@ -92,9 +92,3 @@ dotnet run
 - `POST /api/Bookings` - Tạo lịch đặt mới
 - `PUT /api/Bookings/{id}` - Cập nhật lịch đặt
 - `DELETE /api/Bookings/{id}` - Hủy lịch đặt
-
-## Người đóng góp
-- Nguyễn Thị Loan - Người sáng lập
-
-## Giấy phép
-© 2024 LoanSpa. All rights reserved.
