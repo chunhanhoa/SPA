@@ -2,6 +2,8 @@ using LoanSpa.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using LoanSpa.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,10 @@ builder.Services.AddAuthentication(options =>
 
 // Đăng ký JwtService
 builder.Services.AddScoped<JwtService>();
+
+// Đăng ký DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

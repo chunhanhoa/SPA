@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<LoanSpa.Models.Service>
+@{
     ViewData["Title"] = "Trang chủ";
 }
 
@@ -28,89 +29,47 @@
         </div>
         
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="card service-card">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Massage thư giãn">
-                    <div class="card-body">
-                        <h5 class="card-title">Massage thư giãn</h5>
-                        <p class="card-text">Liệu pháp massage truyền thống giúp giảm căng thẳng, thư giãn cơ bắp và cải thiện tuần hoàn máu.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="service-price">500.000 đ</span>
-                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="massage" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var service in Model)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card service-card">
+                            <img src="@(string.IsNullOrEmpty(service.Picture) ? "/images/services/default.jpg" : service.Picture)" 
+                                 class="card-img-top" alt="@service.ServiceName" 
+                                 style="height: 220px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">@service.ServiceName</h5>
+                                <p class="card-text">@(string.IsNullOrEmpty(service.Description) ? "Mô tả sẽ được cập nhật sớm." : 
+                                    (service.Description.Length > 100 ? service.Description.Substring(0, 100) + "..." : service.Description))</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="service-price">@string.Format("{0:N0}", service.Price) VNĐ</span>
+                                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="@service.ServiceId" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Dịch vụ mặc định nếu không có dữ liệu -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card service-card">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Massage thư giãn">
+                        <div class="card-body">
+                            <h5 class="card-title">Massage thư giãn</h5>
+                            <p class="card-text">Liệu pháp massage truyền thống giúp giảm căng thẳng, thư giãn cơ bắp và cải thiện tuần hoàn máu.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="service-price">500.000 đ</span>
+                                <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="massage" class="btn btn-outline-primary btn-sm">Chi tiết</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card service-card">
-                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Chăm sóc da mặt">
-                    <div class="card-body">
-                        <h5 class="card-title">Chăm sóc da mặt</h5>
-                        <p class="card-text">Liệu trình chăm sóc da chuyên sâu với các sản phẩm cao cấp, giúp da sáng mịn và trẻ hóa làn da.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="service-price">750.000 đ</span>
-                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="facial" class="btn btn-outline-primary btn-sm">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card service-card">
-                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2338&q=80" class="card-img-top" alt="Tắm thảo dược">
-                    <div class="card-body">
-                        <h5 class="card-title">Tắm thảo dược</h5>
-                        <p class="card-text">Trải nghiệm tắm thảo dược thư giãn với các loại thảo mộc quý giúp đào thải độc tố và làm mềm da.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="service-price">650.000 đ</span>
-                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="herbal-bath" class="btn btn-outline-primary btn-sm">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card service-card">
-                    <img src="https://images.unsplash.com/photo-1600334088937-22a63270155d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Trị liệu đá nóng">
-                    <div class="card-body">
-                        <h5 class="card-title">Trị liệu đá nóng</h5>
-                        <p class="card-text">Liệu pháp sử dụng đá bazan nóng kết hợp với kỹ thuật massage giúp thư giãn sâu và giảm đau nhức.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="service-price">850.000 đ</span>
-                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="hot-stone" class="btn btn-outline-primary btn-sm">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card service-card">
-                    <img src="https://images.unsplash.com/photo-1596178060810-72f53ce9a65c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Làm móng chuyên nghiệp">
-                    <div class="card-body">
-                        <h5 class="card-title">Làm móng chuyên nghiệp</h5>
-                        <p class="card-text">Dịch vụ làm móng tay, móng chân với các sản phẩm cao cấp và kỹ thuật viên chuyên nghiệp.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="service-price">350.000 đ</span>
-                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="manicure" class="btn btn-outline-primary btn-sm">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="card service-card">
-                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Liệu pháp tẩy da chết">
-                    <div class="card-body">
-                        <h5 class="card-title">Liệu pháp tẩy da chết</h5>
-                        <p class="card-text">Tẩy tế bào chết toàn thân với muối biển và tinh dầu thơm, giúp làm mịn da và cải thiện tuần hoàn.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="service-price">450.000 đ</span>
-                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="body-scrub" class="btn btn-outline-primary btn-sm">Chi tiết</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
+                <!-- Thêm 2 dịch vụ mẫu khác ở đây -->
+            }
         </div>
         
         <div class="text-center mt-5">

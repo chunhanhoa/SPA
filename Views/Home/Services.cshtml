@@ -1,3 +1,5 @@
+@model IEnumerable<LoanSpa.Models.Service>
+
 @{
     ViewData["Title"] = "Dịch vụ";
 }
@@ -9,101 +11,44 @@
     </div>
 
     <div class="row">
-        <!-- Dịch vụ 1 -->
-        <div class="col-md-4 mb-4" id="massage">
-            <div class="card h-100">
-                <img src="~/images/services/massage.jpg" class="card-img-top" alt="Massage trị liệu" style="height: 220px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">Massage Trị Liệu</h5>
-                    <p class="card-text">Thư giãn với kỹ thuật massage chuyên nghiệp giúp xoa dịu căng thẳng và giảm đau nhức cơ bắp.</p>
-                    <p class="text-primary font-weight-bold">500.000 VNĐ / 60 phút</p>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var service in Model)
+            {
+                <div class="col-md-4 mb-4" id="@service.ServiceId">
+                    <div class="card service-card h-100">
+                        <img src="@(string.IsNullOrEmpty(service.Picture) ? "/images/services/default.jpg" : service.Picture)" 
+                            class="card-img-top" alt="@service.ServiceName" 
+                            style="height: 220px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@service.ServiceName</h5>
+                            <p class="card-text">
+                                @if (string.IsNullOrEmpty(service.Description))
+                                {
+                                    <span>Mô tả sẽ được cập nhật sớm.</span>
+                                }
+                                else
+                                {
+                                    @(service.Description.Length > 100 ? service.Description.Substring(0, 100) + "..." : service.Description)
+                                }
+                            </p>
+                            <p class="text-primary font-weight-bold">@string.Format("{0:N0}", service.Price) VNĐ / @service.Duration phút</p>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between">
+                            <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="@service.ServiceId" class="btn btn-outline-primary">Xem chi tiết</a>
+                            <a asp-controller="Home" asp-action="Booking" asp-route-serviceId="@service.ServiceId" class="btn btn-primary">Đặt Lịch</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-footer bg-white d-flex justify-content-between">
-                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="massage" class="btn btn-outline-primary">Xem chi tiết</a>
-                    <a asp-controller="Home" asp-action="Booking" class="btn btn-primary">Đặt Lịch</a>
-                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center py-5">
+                <h3>Hiện tại không có dịch vụ nào.</h3>
+                <p>Vui lòng quay lại sau.</p>
             </div>
-        </div>
-        
-        <!-- Dịch vụ 2 -->
-        <div class="col-md-4 mb-4" id="facial">
-            <div class="card h-100">
-                <img src="~/images/services/facial.jpg" class="card-img-top" alt="Chăm sóc da mặt" style="height: 220px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">Chăm Sóc Da Mặt</h5>
-                    <p class="card-text">Trẻ hóa làn da với công nghệ hiện đại và sản phẩm chăm sóc da cao cấp từ thiên nhiên.</p>
-                    <p class="text-primary font-weight-bold">650.000 VNĐ / 90 phút</p>
-                </div>
-                <div class="card-footer bg-white d-flex justify-content-between">
-                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="facial" class="btn btn-outline-primary">Xem chi tiết</a>
-                    <a asp-controller="Home" asp-action="Booking" class="btn btn-primary">Đặt Lịch</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Dịch vụ 3 -->
-        <div class="col-md-4 mb-4" id="body-scrub">
-            <div class="card h-100">
-                <img src="~/images/services/body_treatment.jpg" class="card-img-top" alt="Tẩy tế bào chết" style="height: 220px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">Tẩy Tế Bào Chết Toàn Thân</h5>
-                    <p class="card-text">Làm mới làn da với liệu trình tẩy tế bào chết toàn thân, mang lại làn da mịn màng và rạng rỡ.</p>
-                    <p class="text-primary font-weight-bold">450.000 VNĐ / 45 phút</p>
-                </div>
-                <div class="card-footer bg-white d-flex justify-content-between">
-                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="body-scrub" class="btn btn-outline-primary">Xem chi tiết</a>
-                    <a asp-controller="Home" asp-action="Booking" class="btn btn-primary">Đặt Lịch</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Dịch vụ 4 -->
-        <div class="col-md-4 mb-4" id="aromatherapy">
-            <div class="card h-100">
-                <img src="~/images/services/aromatherapy.jpg" class="card-img-top" alt="Liệu pháp hương thơm" style="height: 220px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">Liệu Pháp Hương Thơm</h5>
-                    <p class="card-text">Tận hưởng sự kết hợp giữa tinh dầu thiên nhiên và kỹ thuật massage giúp cân bằng cảm xúc.</p>
-                    <p class="text-primary font-weight-bold">550.000 VNĐ / 60 phút</p>
-                </div>
-                <div class="card-footer bg-white d-flex justify-content-between">
-                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="aromatherapy" class="btn btn-outline-primary">Xem chi tiết</a>
-                    <a asp-controller="Home" asp-action="Booking" class="btn btn-primary">Đặt Lịch</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Dịch vụ 5 -->
-        <div class="col-md-4 mb-4" id="manicure">
-            <div class="card h-100">
-                <img src="~/images/services/manicure.jpg" class="card-img-top" alt="Chăm sóc móng" style="height: 220px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">Chăm Sóc Móng Chuyên Nghiệp</h5>
-                    <p class="card-text">Dịch vụ chăm sóc móng tay và móng chân cao cấp, giúp bạn luôn tự tin với bàn tay và bàn chân đẹp.</p>
-                    <p class="text-primary font-weight-bold">300.000 VNĐ / 60 phút</p>
-                </div>
-                <div class="card-footer bg-white d-flex justify-content-between">
-                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="manicure" class="btn btn-outline-primary">Xem chi tiết</a>
-                    <a asp-controller="Home" asp-action="Booking" class="btn btn-primary">Đặt Lịch</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Dịch vụ 6 -->
-        <div class="col-md-4 mb-4" id="hair-spa">
-            <div class="card h-100">
-                <img src="~/images/services/hair_spa.jpg" class="card-img-top" alt="Chăm sóc tóc" style="height: 220px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">Chăm Sóc Tóc Cao Cấp</h5>
-                    <p class="card-text">Phục hồi tóc hư tổn với các sản phẩm chuyên nghiệp, mang lại mái tóc khỏe mạnh và óng ả.</p>
-                    <p class="text-primary font-weight-bold">400.000 VNĐ / 60 phút</p>
-                </div>
-                <div class="card-footer bg-white d-flex justify-content-between">
-                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="hair-spa" class="btn btn-outline-primary">Xem chi tiết</a>
-                    <a asp-controller="Home" asp-action="Booking" class="btn btn-primary">Đặt Lịch</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
     
     <div class="text-center mt-4">

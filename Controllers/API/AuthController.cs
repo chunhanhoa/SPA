@@ -1,9 +1,13 @@
+using LoanSpa.Data;
 using LoanSpa.Models;
 using LoanSpa.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LoanSpa.Controllers.API
 {
@@ -11,95 +15,118 @@ namespace LoanSpa.Controllers.API
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly ApplicationDbContext _context;
         private readonly JwtService _jwtService;
-        
-        // Danh sách users giả lập (trong thực tế bạn sẽ dùng database)
-        private static readonly List<AppUser> _users = new List<AppUser>
+        private readonly UserManager<AspNetUser> _userManager;
+        private readonly SignInManager<AspNetUser> _signInManager;
+
+        public AuthController(
+            ApplicationDbContext context,
+            JwtService jwtService,
+            UserManager<AspNetUser> userManager,
+            SignInManager<AspNetUser> signInManager)
         {
-            new AppUser
-            {
-                Id = "1",
-                Username = "admin",
-                Email = "admin@loanspa.com",
-                Password = "admin123", // Trong thực tế, lưu hash của password
-                FullName = "Admin",
-                PhoneNumber = "0123456789",
-                Role = "Admin"
-            },
-            new AppUser
-            {
-                Id = "2",
-                Username = "user",
-                Email = "user@example.com",
-                Password = "user123", // Trong thực tế, lưu hash của password
-                FullName = "Khách Hàng",
-                PhoneNumber = "0987654321",
-                Role = "User"
-            }
-        };
-        
-        public AuthController(JwtService jwtService)
-        {
+            _context = context;
             _jwtService = jwtService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
         
         // POST: api/Auth/login
         [HttpPost("login")]
-        public IActionResult Login(AuthRequest model)
+        public async Task<IActionResult> Login(LoginRequest model)
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            var user = await _userManager.FindByNameAsync(model.Username);
             
             if (user == null)
             {
-                return Unauthorized(new { message = "Tên đăng nhập hoặc mật khẩu không đúng" });
+                return Unauthorized(new { message = "Tên đăng nhập không tồn tại" });
             }
             
-            var token = _jwtService.GenerateToken(user);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            
+            if (!result.Succeeded)
+            {
+                return Unauthorized(new { message = "Mật khẩu không đúng" });
+            }
+            
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = _jwtService.GenerateToken(user, roles.FirstOrDefault() ?? "User");
+            
+            // Lấy thông tin khách hàng nếu có
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(c => c.UserId == user.Id);
             
             return Ok(new AuthResponse
             {
                 Id = user.Id,
-                Username = user.Username,
+                Username = user.UserName,
                 Email = user.Email,
-                FullName = user.FullName,
-                Role = user.Role,
+                FullName = customer?.FullName,
+                Role = roles.FirstOrDefault() ?? "User",
+                CustomerId = customer?.CustomerId,
                 Token = token
             });
         }
         
         // POST: api/Auth/register
         [HttpPost("register")]
-        public IActionResult Register(AppUser model)
+        public async Task<IActionResult> Register(RegisterRequest model)
         {
             // Kiểm tra username đã tồn tại chưa
-            if (_users.Any(x => x.Username == model.Username))
+            if (await _userManager.FindByNameAsync(model.Username) != null)
             {
                 return BadRequest(new { message = "Tên đăng nhập đã tồn tại" });
             }
             
-            // Giả lập tạo user mới
-            var newUser = new AppUser
+            // Kiểm tra email đã tồn tại chưa
+            if (await _userManager.FindByEmailAsync(model.Email) != null)
             {
-                Id = (_users.Count + 1).ToString(),
-                Username = model.Username,
+                return BadRequest(new { message = "Email đã được sử dụng" });
+            }
+            
+            // Tạo user mới
+            var user = new AspNetUser
+            {
+                UserName = model.Username,
                 Email = model.Email,
-                Password = model.Password, // Trong thực tế, hash password trước khi lưu
-                FullName = model.FullName,
                 PhoneNumber = model.PhoneNumber,
-                Role = "User" // Mặc định là User
+                EmailConfirmed = true // Trong thực tế nên xác nhận email
             };
             
-            _users.Add(newUser);
+            var result = await _userManager.CreateAsync(user, model.Password);
             
-            var token = _jwtService.GenerateToken(newUser);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "Đăng ký thất bại", errors = result.Errors });
+            }
+            
+            // Gán role User cho user mới
+            await _userManager.AddToRoleAsync(user, "User");
+            
+            // Tạo thông tin khách hàng
+            var customer = new Customer
+            {
+                UserId = user.Id,
+                FullName = model.FullName,
+                Phone = model.PhoneNumber,
+                CreatedDate = DateTime.Now
+            };
+            
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+            
+            // Tạo token JWT
+            var token = _jwtService.GenerateToken(user, "User");
             
             return Ok(new AuthResponse
             {
-                Id = newUser.Id,
-                Username = newUser.Username,
-                Email = newUser.Email,
-                FullName = newUser.FullName,
-                Role = newUser.Role,
+                Id = user.Id,
+                Username = user.UserName,
+                Email = user.Email,
+                FullName = customer.FullName,
+                Role = "User",
+                CustomerId = customer.CustomerId,
                 Token = token
             });
         }
@@ -107,26 +134,63 @@ namespace LoanSpa.Controllers.API
         // GET: api/Auth/profile
         [HttpGet("profile")]
         [Authorize]
-        public IActionResult GetProfile()
+        public async Task<IActionResult> GetProfile()
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
             
-            var user = _users.SingleOrDefault(x => x.Id == userId);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+            
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return NotFound();
             }
             
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+            
+            var roles = await _userManager.GetRolesAsync(user);
+            
             // Không trả về password
             return Ok(new
             {
-                user.Id,
-                user.Username,
-                user.Email,
-                user.FullName,
-                user.PhoneNumber,
-                user.Role
+                Id = user.Id,
+                Username = user.UserName,
+                Email = user.Email,
+                FullName = customer?.FullName,
+                PhoneNumber = user.PhoneNumber,
+                Role = roles.FirstOrDefault() ?? "User",
+                CustomerId = customer?.CustomerId
             });
         }
+    }
+
+    public class LoginRequest
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+
+    public class RegisterRequest
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+    }
+
+    public class AuthResponse
+    {
+        public string Id { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public int? CustomerId { get; set; }
+        public string Token { get; set; } = string.Empty;
     }
 }

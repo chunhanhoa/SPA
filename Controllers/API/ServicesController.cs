@@ -1,7 +1,10 @@
+using LoanSpa.Data;
 using LoanSpa.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LoanSpa.Controllers.API
 {
@@ -9,85 +12,96 @@ namespace LoanSpa.Controllers.API
     [ApiController]
     public class ServicesController : ControllerBase
     {
-        private static readonly Dictionary<string, Service> _services = new Dictionary<string, Service>
+        private readonly ApplicationDbContext _context;
+
+        public ServicesController(ApplicationDbContext context)
         {
-            {
-                "massage", new Service
-                {
-                    Id = "massage",
-                    Name = "Massage Trị Liệu",
-                    Image = "/images/services/massage.jpg",
-                    Description = "Dịch vụ Massage Trị Liệu tại LoanSpa là sự kết hợp giữa các kỹ thuật massage truyền thống và hiện đại.",
-                    Price = 500000,
-                    Duration = "60 phút",
-                    Benefits = new List<string>
-                    {
-                        "Giảm căng thẳng và mệt mỏi",
-                        "Cải thiện tuần hoàn máu",
-                        "Giảm đau nhức cơ bắp",
-                        "Tăng cường hệ miễn dịch",
-                        "Cải thiện giấc ngủ"
-                    },
-                    Process = new List<string>
-                    {
-                        "Tư vấn và đánh giá tình trạng sức khỏe",
-                        "Thư giãn với trà thảo mộc và khăn ấm",
-                        "Massage toàn thân với dầu tinh chất tự nhiên",
-                        "Tập trung vào các vùng căng cơ theo yêu cầu",
-                        "Thư giãn và nghỉ ngơi"
-                    },
-                    Note = "Không áp dụng cho phụ nữ mang thai 3 tháng đầu, người có vấn đề về tim mạch."
-                }
-            },
-            {
-                "facial", new Service
-                {
-                    Id = "facial",
-                    Name = "Chăm Sóc Da Mặt",
-                    Image = "/images/services/facial.jpg",
-                    Description = "Liệu trình Chăm Sóc Da Mặt tại LoanSpa được thiết kế riêng cho từng loại da.",
-                    Price = 650000,
-                    Duration = "90 phút",
-                    Benefits = new List<string>
-                    {
-                        "Làm sạch sâu và loại bỏ tế bào chết",
-                        "Cấp ẩm và nuôi dưỡng da",
-                        "Cải thiện kết cấu và độ đàn hồi",
-                        "Giảm nếp nhăn và dấu hiệu lão hóa",
-                        "Làm sáng da và đều màu da"
-                    },
-                    Process = new List<string>
-                    {
-                        "Tư vấn và phân tích tình trạng da",
-                        "Làm sạch và tẩy trang",
-                        "Tẩy tế bào chết và hút mụn (nếu cần)",
-                        "Massage mặt thư giãn",
-                        "Đắp mặt nạ đặc trị",
-                        "Dưỡng ẩm và chống nắng"
-                    },
-                    Note = "Sau khi trải nghiệm dịch vụ, bạn nên hạn chế ra nắng và sử dụng kem chống nắng."
-                }
-            }
-            // Có thể thêm các dịch vụ khác từ View của bạn
-        };
+            _context = context;
+        }
 
         // GET: api/Services
         [HttpGet]
-        public ActionResult<IEnumerable<Service>> GetServices()
+        public async Task<ActionResult<IEnumerable<Service>>> GetServices()
         {
-            return Ok(_services.Values);
+            return await _context.Services.ToListAsync();
         }
 
-        // GET: api/Services/massage
+        // GET: api/Services/5
         [HttpGet("{id}")]
-        public ActionResult<Service> GetService(string id)
+        public async Task<ActionResult<Service>> GetService(int id)
         {
-            if (!_services.ContainsKey(id))
+            var service = await _context.Services.FindAsync(id);
+
+            if (service == null)
             {
                 return NotFound();
             }
 
-            return _services[id];
+            return service;
+        }
+
+        // POST: api/Services
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Service>> CreateService(Service service)
+        {
+            _context.Services.Add(service);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetService), new { id = service.ServiceId }, service);
+        }
+
+        // PUT: api/Services/5
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateService(int id, Service service)
+        {
+            if (id != service.ServiceId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(service).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ServiceExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/Services/5
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteService(int id)
+        {
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            _context.Services.Remove(service);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool ServiceExists(int id)
+        {
+            return _context.Services.Any(e => e.ServiceId == id);
         }
     }
 }
