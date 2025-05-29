@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+using LoanSpa.Models;
 
-namespace LoanSpa.Models;
-
-public partial class AppointmentChair
+namespace QL_Spa.Models
 {
-    public int AppointmentId { get; set; }
-
-    public int ChairId { get; set; }
-
-    public int? Quantity { get; set; }
-
-    public virtual Appointment Appointment { get; set; } = null!;
-
-    public virtual Chair Chair { get; set; } = null!;
+    public class AppointmentChair
+    {
+        public int AppointmentId { get; set; }
+        public Appointment Appointment { get; set; }
+        public int ChairId { get; set; }
+        public Chair Chair { get; set; }
+        public int Quantity { get; set; }
+    }
 }

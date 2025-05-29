@@ -1,8 +1,9 @@
 using LoanSpa.Data;
 using LoanSpa.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,96 +13,55 @@ namespace LoanSpa.Controllers.API
     [ApiController]
     public class ServicesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly SpaDbContext _context;
+        private readonly ILogger<ServicesController> _logger;
 
-        public ServicesController(ApplicationDbContext context)
+        public ServicesController(SpaDbContext context, ILogger<ServicesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Services
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Service>>> GetServices()
         {
-            return await _context.Services.ToListAsync();
+            try
+            {
+                _logger.LogInformation("Đang truy vấn tất cả dịch vụ");
+                var services = await _context.Services.ToListAsync();
+                _logger.LogInformation($"Đã truy xuất {services.Count} dịch vụ");
+                return services;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi truy vấn dịch vụ");
+                return StatusCode(500, new { message = "Lỗi server khi truy xuất dữ liệu dịch vụ" });
+            }
         }
 
         // GET: api/Services/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetService(int id)
         {
-            var service = await _context.Services.FindAsync(id);
-
-            if (service == null)
-            {
-                return NotFound();
-            }
-
-            return service;
-        }
-
-        // POST: api/Services
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Service>> CreateService(Service service)
-        {
-            _context.Services.Add(service);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetService), new { id = service.ServiceId }, service);
-        }
-
-        // PUT: api/Services/5
-        [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateService(int id, Service service)
-        {
-            if (id != service.ServiceId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(service).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ServiceExists(id))
+                _logger.LogInformation($"Đang truy vấn dịch vụ ID={id}");
+                var service = await _context.Services.FindAsync(id);
+
+                if (service == null)
                 {
+                    _logger.LogWarning($"Không tìm thấy dịch vụ ID={id}");
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                return service;
             }
-
-            return NoContent();
-        }
-
-        // DELETE: api/Services/5
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteService(int id)
-        {
-            var service = await _context.Services.FindAsync(id);
-            if (service == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError(ex, $"Lỗi khi truy vấn dịch vụ ID={id}");
+                return StatusCode(500, new { message = "Lỗi server khi truy xuất dữ liệu dịch vụ" });
             }
-
-            _context.Services.Remove(service);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool ServiceExists(int id)
-        {
-            return _context.Services.Any(e => e.ServiceId == id);
         }
     }
 }

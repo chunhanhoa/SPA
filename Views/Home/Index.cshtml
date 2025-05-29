@@ -1,6 +1,23 @@
 ﻿@model IEnumerable<LoanSpa.Models.Service>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Trang chủ";
+    // Lấy lại tên người dùng từ Session và đặt vào ViewBag để _Layout có thể sử dụng
+    if (User.Identity.IsAuthenticated)
+    {
+        ViewBag.CustomerFullName = HttpContextAccessor.HttpContext.Session.GetString("CustomerFullName");
+    }
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="container mt-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
 }
 
 <section class="hero-section">

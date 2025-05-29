@@ -1,3 +1,11 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
     Layout = "_Layout";
+    
+    // Set tên người dùng cho tất cả các trang nếu đã đăng nhập
+    if (User.Identity?.IsAuthenticated == true)
+    {
+        ViewBag.CustomerFullName = HttpContextAccessor.HttpContext.Session.GetString("CustomerFullName");
+    }
 }
