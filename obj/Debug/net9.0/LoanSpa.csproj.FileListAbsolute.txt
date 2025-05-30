@@ -452,4 +452,4 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\tk9ei4xqft-8saedriwaz.gz
-C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\rjjsb8y1n3-8oayhj110j.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\rjjsb8y1n3-5h6qpz6obt.gz

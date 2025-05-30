@@ -12,43 +12,43 @@
                     <h4 class="mb-0">Đăng ký tài khoản mới</h4>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Register" method="post">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        
+                    <div id="registerMessage"></div>
+                    
+                    <form id="registerForm" method="post">
                         <div class="mb-3">
-                            <label asp-for="Username" class="form-label">Tên đăng nhập</label>
-                            <input asp-for="Username" class="form-control" />
-                            <span asp-validation-for="Username" class="text-danger"></span>
+                            <label for="registerUsername" class="form-label">Tên đăng nhập</label>
+                            <input id="registerUsername" name="Username" class="form-control" required />
+                            <span class="text-danger" id="usernameError"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="FullName" class="form-label">Họ và tên đầy đủ</label>
-                            <input asp-for="FullName" class="form-control" />
-                            <span asp-validation-for="FullName" class="text-danger"></span>
+                            <label for="registerFullName" class="form-label">Họ và tên đầy đủ</label>
+                            <input id="registerFullName" name="FullName" class="form-control" required />
+                            <span class="text-danger" id="fullNameError"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
-                            <input asp-for="PhoneNumber" class="form-control" type="tel" />
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            <label for="registerPhoneNumber" class="form-label">Số điện thoại</label>
+                            <input id="registerPhoneNumber" name="PhoneNumber" class="form-control" type="tel" />
+                            <span class="text-danger" id="phoneNumberError"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="Email" class="form-label">Email</label>
-                            <input asp-for="Email" class="form-control" type="email" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label for="registerEmail" class="form-label">Email</label>
+                            <input id="registerEmail" name="Email" class="form-control" type="email" required />
+                            <span class="text-danger" id="emailError"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="Password" class="form-label">Mật khẩu</label>
-                            <input asp-for="Password" class="form-control" type="password" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <label for="registerPassword" class="form-label">Mật khẩu</label>
+                            <input id="registerPassword" name="Password" class="form-control" type="password" required />
+                            <span class="text-danger" id="passwordError"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="ConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
-                            <input asp-for="ConfirmPassword" class="form-control" type="password" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <label for="registerConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                            <input id="registerConfirmPassword" name="ConfirmPassword" class="form-control" type="password" required />
+                            <span class="text-danger" id="confirmPasswordError"></span>
                         </div>
                         
                         <div class="mb-3 form-check">
@@ -72,4 +72,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/auth.js" asp-append-version="true"></script>
 }

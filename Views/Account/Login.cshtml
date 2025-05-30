@@ -20,30 +20,24 @@
                         </div>
                     }
 
-                    @if (ViewData.ModelState.ErrorCount > 0)
-                    {
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    }
-                    
-                    <form asp-action="Login" method="post">
+                    <div id="loginMessage"></div>
+
+                    <form id="loginForm" method="post">
                         <div class="mb-3">
-                            <label asp-for="Username" class="form-label">Tên đăng nhập</label>
-                            <input asp-for="Username" class="form-control" />
-                            <span asp-validation-for="Username" class="text-danger"></span>
+                            <label for="loginUsername" class="form-label">Tên đăng nhập</label>
+                            <input id="loginUsername" name="Username" class="form-control" required />
+                            <span class="text-danger" id="usernameError"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="Password" class="form-label">Mật khẩu</label>
-                            <input asp-for="Password" class="form-control" type="password" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <label for="loginPassword" class="form-label">Mật khẩu</label>
+                            <input id="loginPassword" name="Password" class="form-control" type="password" required />
+                            <span class="text-danger" id="passwordError"></span>
                         </div>
                         
                         <div class="mb-3 form-check">
-                            <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
-                            <label asp-for="RememberMe" class="form-check-label">Ghi nhớ đăng nhập</label>
+                            <input id="loginRememberMe" name="RememberMe" class="form-check-input" type="checkbox" />
+                            <label for="loginRememberMe" class="form-check-label">Ghi nhớ đăng nhập</label>
                         </div>
                         
                         <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
@@ -60,4 +54,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/auth.js" asp-append-version="true"></script>
 }

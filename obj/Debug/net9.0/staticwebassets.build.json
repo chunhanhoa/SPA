@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4iioQTIB3P/mFlvepy7aTP+twSVlF5GYWLULHnYU+t4=",
+  "Hash": "L+m34n5XCaikC2d8kYbXlPsfv5qFCcGKqdnOJEJFvo4=",
   "Source": "LoanSpa",
   "BasePath": "_content/LoanSpa",
   "Mode": "Default",
@@ -1088,12 +1088,12 @@
       "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-8oayhj110j.gz",
+      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-5h6qpz6obt.gz",
       "SourceId": "LoanSpa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/LoanSpa",
-      "RelativePath": "js/auth#[.{fingerprint=8oayhj110j}]?.js.gz",
+      "RelativePath": "js/auth#[.{fingerprint=5h6qpz6obt}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1102,8 +1102,8 @@
       "RelatedAsset": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\auth.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "1agln025j2",
-      "Integrity": "V+OSIobmliq3f14R/BBSYiy5iKW3ADw15WpsrYEJK80=",
+      "Fingerprint": "t0gy5dslpi",
+      "Integrity": "nf6E0QUVfEEcIkUko9zro9EtICJbE6nIiFLO2JezNys=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\auth.js"
@@ -1627,8 +1627,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8oayhj110j",
-      "Integrity": "iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y=",
+      "Fingerprint": "5h6qpz6obt",
+      "Integrity": "SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\auth.js"
@@ -4026,13 +4026,13 @@
       ]
     },
     {
-      "Route": "js/auth.8oayhj110j.js",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-8oayhj110j.gz",
+      "Route": "js/auth.5h6qpz6obt.js",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-5h6qpz6obt.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000393236335"
+          "Quality": "0.000421940928"
         }
       ],
       "ResponseHeaders": [
@@ -4042,15 +4042,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2542"
+          "Value": "2369"
         },
         {
           "Name": "ETag",
-          "Value": "\"V+OSIobmliq3f14R/BBSYiy5iKW3ADw15WpsrYEJK80=\""
+          "Value": "\"nf6E0QUVfEEcIkUko9zro9EtICJbE6nIiFLO2JezNys=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 May 2025 14:25:12 GMT"
+          "Value": "Fri, 30 May 2025 02:59:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4070,13 +4070,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y=\""
+          "Value": "W/\"SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8oayhj110j"
+          "Value": "5h6qpz6obt"
         },
         {
           "Name": "label",
@@ -4084,12 +4084,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y="
+          "Value": "sha256-SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o="
         }
       ]
     },
     {
-      "Route": "js/auth.8oayhj110j.js",
+      "Route": "js/auth.5h6qpz6obt.js",
       "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\auth.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -4099,7 +4099,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10634"
+          "Value": "10937"
         },
         {
           "Name": "Content-Type",
@@ -4107,11 +4107,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y=\""
+          "Value": "\"SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 May 2025 14:25:12 GMT"
+          "Value": "Fri, 30 May 2025 02:59:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4121,7 +4121,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8oayhj110j"
+          "Value": "5h6qpz6obt"
         },
         {
           "Name": "label",
@@ -4129,13 +4129,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y="
+          "Value": "sha256-SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o="
         }
       ]
     },
     {
-      "Route": "js/auth.8oayhj110j.js.gz",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-8oayhj110j.gz",
+      "Route": "js/auth.5h6qpz6obt.js.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-5h6qpz6obt.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4144,7 +4144,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2542"
+          "Value": "2369"
         },
         {
           "Name": "Content-Type",
@@ -4152,11 +4152,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"V+OSIobmliq3f14R/BBSYiy5iKW3ADw15WpsrYEJK80=\""
+          "Value": "\"nf6E0QUVfEEcIkUko9zro9EtICJbE6nIiFLO2JezNys=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 May 2025 14:25:12 GMT"
+          "Value": "Fri, 30 May 2025 02:59:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4174,7 +4174,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8oayhj110j"
+          "Value": "5h6qpz6obt"
         },
         {
           "Name": "label",
@@ -4182,18 +4182,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-V+OSIobmliq3f14R/BBSYiy5iKW3ADw15WpsrYEJK80="
+          "Value": "sha256-nf6E0QUVfEEcIkUko9zro9EtICJbE6nIiFLO2JezNys="
         }
       ]
     },
     {
       "Route": "js/auth.js",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-8oayhj110j.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-5h6qpz6obt.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000393236335"
+          "Quality": "0.000421940928"
         }
       ],
       "ResponseHeaders": [
@@ -4203,15 +4203,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2542"
+          "Value": "2369"
         },
         {
           "Name": "ETag",
-          "Value": "\"V+OSIobmliq3f14R/BBSYiy5iKW3ADw15WpsrYEJK80=\""
+          "Value": "\"nf6E0QUVfEEcIkUko9zro9EtICJbE6nIiFLO2JezNys=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 May 2025 14:25:12 GMT"
+          "Value": "Fri, 30 May 2025 02:59:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4231,13 +4231,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y=\""
+          "Value": "W/\"SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y="
+          "Value": "sha256-SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o="
         }
       ]
     },
@@ -4252,7 +4252,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10634"
+          "Value": "10937"
         },
         {
           "Name": "Content-Type",
@@ -4260,11 +4260,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y=\""
+          "Value": "\"SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 May 2025 14:25:12 GMT"
+          "Value": "Fri, 30 May 2025 02:59:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4274,13 +4274,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-iJff2WyTRfxMF//yUpI9/SH972gsknRErZ8BUDRwx1Y="
+          "Value": "sha256-SSiXt7xeIcB0J6R+oX3CSbznuuYvI2nmqLHp4EoLh9o="
         }
       ]
     },
     {
       "Route": "js/auth.js.gz",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-8oayhj110j.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\rjjsb8y1n3-5h6qpz6obt.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4289,7 +4289,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2542"
+          "Value": "2369"
         },
         {
           "Name": "Content-Type",
@@ -4297,11 +4297,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"V+OSIobmliq3f14R/BBSYiy5iKW3ADw15WpsrYEJK80=\""
+          "Value": "\"nf6E0QUVfEEcIkUko9zro9EtICJbE6nIiFLO2JezNys=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 May 2025 14:25:12 GMT"
+          "Value": "Fri, 30 May 2025 02:59:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4319,7 +4319,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-V+OSIobmliq3f14R/BBSYiy5iKW3ADw15WpsrYEJK80="
+          "Value": "sha256-nf6E0QUVfEEcIkUko9zro9EtICJbE6nIiFLO2JezNys="
         }
       ]
     },
