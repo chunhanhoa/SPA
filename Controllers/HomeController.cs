@@ -35,9 +35,18 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Booking()
+    public IActionResult Booking(int? serviceId)
     {
         ViewData["Title"] = "Đặt lịch";
+        if (serviceId.HasValue)
+        {
+            ViewData["ServiceId"] = serviceId.Value.ToString();
+            _logger.LogInformation($"Đang tải trang đặt lịch với dịch vụ ID: {serviceId.Value}");
+        }
+        else
+        {
+            _logger.LogInformation("Đang tải trang đặt lịch không có dịch vụ được chọn trước");
+        }
         return View();
     }
 

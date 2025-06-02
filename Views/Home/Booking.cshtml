@@ -1,6 +1,6 @@
 @{
     ViewData["Title"] = "Đặt lịch";
-    var serviceId = Context.Request.Query["serviceId"].ToString();
+    var serviceId = ViewData["ServiceId"]?.ToString() ?? "";
 }
 
 <div class="container py-5 animate__animated animate__fadeIn">
@@ -10,7 +10,7 @@
             <p class="lead">Đặt lịch trước để có trải nghiệm tốt nhất tại LoanSpa</p>
             
             <div class="position-relative mb-4">
-                <img src="~/images/booking/booking_1.jpg" alt="Booking" class="img-fluid rounded shadow-sm mb-4 booking-image" style="height: 300px; object-fit: cover;">
+                <img src="~/images/booking/booking_1.jpg" alt="Booking" class="img-fluid rounded shadow-sm mb-4 booking-image" style="height: 300px; object-fit: cover;" onerror="this.src='/images/spa-default.jpg'">
             </div>
             
             <div class="card border-0 bg-light p-4 info-card">
@@ -193,32 +193,56 @@
         $(document).ready(function() {
             AOS.init();
             
+            // ID của dịch vụ được chọn trước (nếu có)
+            const preselectedServiceId = "@serviceId";
+            console.log("Preselected service ID:", preselectedServiceId);
+            
             // Lấy danh sách dịch vụ từ API
             $.ajax({
-                url: '/api/Services',
+                url: '/api/ServiceApi',
                 type: 'GET',
+                dataType: 'json',
                 success: function(services) {
-                    if (services && services.length > 0) {
-                        var options = '';
+                    console.log("Danh sách dịch vụ từ API:", services);
+                    if (services && Array.isArray(services) && services.length > 0) {
+                        let options = '<option value="" selected disabled>Chọn dịch vụ</option>';
                         services.forEach(function(service) {
-                            var selected = (service.serviceId == "@serviceId") ? 'selected' : '';
-                            options += '<option value="' + service.serviceId + '" ' + selected + '>' + 
-                                       service.serviceName + ' - ' + new Intl.NumberFormat('vi-VN').format(service.price) + ' VNĐ</option>';
+                            // Kiểm tra xem service có hợp lệ và có ServiceId không
+                            if (service && service.ServiceId) {
+                                const isSelected = (service.ServiceId.toString() === preselectedServiceId) ? 'selected' : '';
+                                options += `<option value="${service.ServiceId}" data-price="${service.Price}" ${isSelected}>${service.ServiceName} - ${new Intl.NumberFormat('vi-VN').format(service.Price)} VNĐ</option>`;
+                            } else {
+                                console.warn("Dịch vụ không hợp lệ:", service);
+                            }
                         });
-                        $('#serviceId').append(options);
+                        $('#serviceId').html(options);
+                        
+                        // Cập nhật thông tin nếu có dịch vụ được chọn
+                        if (preselectedServiceId) {
+                            updateBookingSummary();
+                        }
+                    } else {
+                        console.warn("API trả về danh sách rỗng hoặc không phải mảng");
+                        $('#serviceId').html('<option value="" selected disabled>Không có dịch vụ nào</option>');
                     }
                 },
-                error: function(err) {
-                    console.error('Không thể lấy danh sách dịch vụ:', err);
+                error: function(xhr, status, error) {
+                    console.error('Lỗi khi lấy danh sách dịch vụ:', {
+                        status: status,
+                        error: error,
+                        responseText: xhr.responseText,
+                        statusCode: xhr.status
+                    });
+                    alert("Không thể tải danh sách dịch vụ. Vui lòng thử lại sau.");
+                    $('#serviceId').html('<option value="" selected disabled>Lỗi tải dịch vụ</option>');
                 }
             });
 
-            // Xử lý đặt lịch
+            // Xử lý submit form đặt lịch
             $('#bookingForm').submit(function(e) {
                 e.preventDefault();
                 
-                // Lấy dữ liệu từ form
-                var formData = {
+                const formData = {
                     fullName: $('#fullName').val(),
                     phoneNumber: $('#phoneNumber').val(),
                     email: $('#email').val(),
@@ -228,43 +252,63 @@
                     notes: $('#notes').val()
                 };
                 
-                // Gửi yêu cầu đặt lịch qua API
+                if (!formData.serviceId) {
+                    alert("Vui lòng chọn dịch vụ");
+                    return;
+                }
+                
+                $(this).find('button[type="submit"]').prop('disabled', true).html('<i class="spinner-border spinner-border-sm"></i> Đang xử lý...');
+                
                 $.ajax({
-                    url: '/api/Bookings',
+                    url: '/api/BookingApi/Create',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
-                        customerId: 1, // Tạm thời dùng ID 1, sau sẽ lấy từ thông tin đăng nhập
-                        serviceIds: { [formData.serviceId]: 1 }, // Key: serviceId, Value: số lượng
-                        startTime: formData.bookingDate + 'T' + formData.bookingTime,
-                        duration: 60, // Mặc định 60 phút
-                        totalAmount: 0 // Tạm thời để 0, sẽ tính ở server
+                        customerId: 0,
+                        fullName: formData.fullName,
+                        phoneNumber: formData.phoneNumber,
+                        email: formData.email,
+                        serviceId: parseInt(formData.serviceId),
+                        bookingDate: formData.bookingDate,
+                        bookingTime: formData.bookingTime,
+                        notes: formData.notes
                     }),
                     success: function(response) {
-                        alert('Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn để xác nhận trong thời gian sớm nhất.');
-                        $('#bookingForm')[0].reset();
+                        if (response.success) {
+                            alert('Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn để xác nhận trong thời gian sớm nhất.');
+                            $('#bookingForm')[0].reset();
+                            $('#serviceId').val(''); // Reset dropdown
+                        } else {
+                            alert('Có lỗi xảy ra: ' + response.message);
+                        }
+                        $('#bookingForm').find('button[type="submit"]').prop('disabled', false).html('<i class="bi bi-calendar2-check me-2"></i>Đặt Lịch Ngay');
                     },
-                    error: function(err) {
+                    error: function(xhr, status, error) {
+                        console.error('Lỗi đặt lịch:', {
+                            status: status,
+                            error: error,
+                            responseText: xhr.responseText,
+                            statusCode: xhr.status
+                        });
                         alert('Có lỗi xảy ra khi đặt lịch. Vui lòng thử lại sau.');
-                        console.error('Lỗi đặt lịch:', err);
+                        $('#bookingForm').find('button[type="submit"]').prop('disabled', false).html('<i class="bi bi-calendar2-check me-2"></i>Đặt Lịch Ngay');
                     }
                 });
             });
             
-            // Thêm hiệu ứng cho form
-            $('.form-control, .form-select').on('focus', function() {
-                $(this).parent().addClass('is-focused');
-            }).on('blur', function() {
-                if ($(this).val() === '') {
-                    $(this).parent().removeClass('is-focused');
+            // Hàm cập nhật thông tin dịch vụ được chọn
+            function updateBookingSummary() {
+                const selectedOption = $('#serviceId option:selected');
+                if (selectedOption.val()) {
+                    console.log("Đã chọn dịch vụ: " + selectedOption.text());
+                } else {
+                    console.warn("Không có dịch vụ nào được chọn");
                 }
-            });
+            }
             
-            // Hiệu ứng nút đặt lịch
-            $('.booking-btn').hover(function() {
-                $(this).addClass('animate__animated animate__pulse');
-            }, function() {
-                $(this).removeClass('animate__animated animate__pulse');
+            // Cập nhật khi thay đổi lựa chọn dịch vụ
+            $('#serviceId').change(function() {
+                updateBookingSummary();
             });
         });
     </script>

@@ -487,13 +487,10 @@ C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\QL_
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\QL_Spa.genruntimeconfig.cache
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\ref\QL_Spa.dll
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\0l9bhoevyz-56x52v415z.gz
-C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\imtks01wqn-pn8944lq0g.gz
-C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\95f48dxeww-mt8bau3ixh.gz
-C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\6j05f1ys5c-kwmlqsdr06.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\appsettings.json
-C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.staticwebassets.runtime.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.staticwebassets.endpoints.json
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.staticwebassets.runtime.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.exe
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.deps.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.runtimeconfig.json
