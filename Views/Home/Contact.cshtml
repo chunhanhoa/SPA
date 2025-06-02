@@ -2,27 +2,47 @@
     ViewData["Title"] = "Liên hệ";
 }
 
-<div class="container py-5">
+<div class="container py-5 animate__animated animate__fadeIn">
     <div class="row">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-            <h1 class="display-4 mb-4">Liên Hệ</h1>
+        <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+            <h1 class="display-4 mb-4 fw-bold text-primary">Liên Hệ</h1>
             <p class="lead mb-4">Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ với chúng tôi bằng cách điền vào biểu mẫu hoặc thông qua các kênh liên lạc dưới đây.</p>
             
-            <div class="card border-0 bg-light mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Thông tin liên hệ</h5>
-                    <div class="my-3">
-                        <p><i class="fas fa-map-marker-alt text-primary mr-2"></i> 123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
-                        <p><i class="fas fa-phone text-primary mr-2"></i> 0987 654 321</p>
-                        <p><i class="fas fa-envelope text-primary mr-2"></i> info@loanspa.com</p>
-                        <p><i class="fas fa-clock text-primary mr-2"></i> Thứ Hai - Chủ Nhật: 9:00 - 20:00</p>
+            <div class="card border-0 bg-light mb-4 contact-info-card">
+                <div class="card-body p-4">
+                    <h5 class="card-title fw-bold text-primary"><i class="bi bi-info-circle me-2"></i>Thông tin liên hệ</h5>
+                    <div class="my-4">
+                        <div class="contact-item d-flex align-items-center mb-3">
+                            <div class="contact-icon">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <p class="mb-0">123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
+                        </div>
+                        <div class="contact-item d-flex align-items-center mb-3">
+                            <div class="contact-icon">
+                                <i class="bi bi-telephone"></i>
+                            </div>
+                            <p class="mb-0">0987 654 321</p>
+                        </div>
+                        <div class="contact-item d-flex align-items-center mb-3">
+                            <div class="contact-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            <p class="mb-0">info@loanspa.com</p>
+                        </div>
+                        <div class="contact-item d-flex align-items-center mb-3">
+                            <div class="contact-icon">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <p class="mb-0">Thứ Hai - Chủ Nhật: 9:00 - 20:00</p>
+                        </div>
                     </div>
-                    <h5 class="mt-4">Kết nối với chúng tôi</h5>
+                    <h5 class="mt-4 fw-bold text-primary"><i class="bi bi-people me-2"></i>Kết nối với chúng tôi</h5>
                     <div class="social-icons mt-3">
-                        <a href="#" class="text-primary mr-3"><i class="fab fa-facebook-f fa-2x"></i></a>
-                        <a href="#" class="text-info mr-3"><i class="fab fa-twitter fa-2x"></i></a>
-                        <a href="#" class="text-danger mr-3"><i class="fab fa-instagram fa-2x"></i></a>
-                        <a href="#" class="text-danger mr-3"><i class="fab fa-youtube fa-2x"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -36,79 +56,86 @@
             </div>
         </div>
         
-        <div class="col-lg-6">
+        <div class="col-lg-6" data-aos="fade-left">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4">
-                    <h3 class="card-title mb-4">Gửi Tin Nhắn Cho Chúng Tôi</h3>
-                    <form id="contactForm">
+                    <h3 class="card-title mb-4 fw-bold text-primary"><i class="bi bi-chat-dots me-2"></i>Gửi Tin Nhắn Cho Chúng Tôi</h3>
+                    
+                    <!-- Form result messages will appear here -->
+                    <div id="formResult"></div>
+                    
+                    <form id="contactForm" class="contact-form">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="fullName">Họ và tên <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required>
+                                    <label for="fullName">Họ và tên <span class="text-danger">*</span></label>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="email">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" placeholder="Nhập email" required>
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" placeholder="Nhập email" required>
+                                    <label for="email">Email <span class="text-danger">*</span></label>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="form-group mb-3">
-                            <label for="phoneNumber">Số điện thoại</label>
+                        <div class="form-floating mb-3">
                             <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại">
+                            <label for="phoneNumber">Số điện thoại</label>
                         </div>
                         
-                        <div class="form-group mb-3">
-                            <label for="subject">Tiêu đề <span class="text-danger">*</span></label>
+                        <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="subject" placeholder="Nhập tiêu đề" required>
+                            <label for="subject">Tiêu đề <span class="text-danger">*</span></label>
                         </div>
                         
-                        <div class="form-group mb-3">
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="message" rows="5" style="height: 150px" placeholder="Nhập nội dung tin nhắn" required></textarea>
                             <label for="message">Nội dung <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="message" rows="5" placeholder="Nhập nội dung tin nhắn" required></textarea>
                         </div>
                         
-                        <div class="form-group mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
-                                <label class="form-check-label" for="agreeTerms">
-                                    Tôi đồng ý với <a href="#">điều khoản và chính sách</a> của LoanSpa
-                                </label>
-                            </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">
+                                Tôi đồng ý với <a href="#" class="text-primary">điều khoản và chính sách</a> của LoanSpa
+                            </label>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Gửi Tin Nhắn</button>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 submit-btn">
+                            <span class="submit-text"><i class="bi bi-send me-2"></i>Gửi Tin Nhắn</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        </button>
                     </form>
                 </div>
             </div>
             
             <div class="card border-0 bg-light mt-4">
+                <div class="card-header bg-white">
+                    <h5 class="card-title mb-0">Câu hỏi thường gặp</h5>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Câu hỏi thường gặp</h5>
-                    <div class="accordion mt-3" id="faqAccordion">
-                        <div class="card border-0 mb-2">
-                            <div class="card-header bg-white" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left text-decoration-none" type="button" data-toggle="collapse" data-target="#collapseOne">
-                                        Làm thế nào để đặt lịch hẹn?
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseOne" class="collapse" data-parent="#faqAccordion">
-                                <div class="card-body">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Làm thế nào để đặt lịch hẹn?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
                                     Bạn có thể đặt lịch hẹn trực tuyến thông qua mục "Đặt lịch" trên website, gọi điện trực tiếp hoặc liên hệ qua email.
                                 </div>
                             </div>
                         </div>
-                        <div class="card border-0 mb-2">
-                            <div class="card-header bg-white" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#collapseTwo">
-                                        LoanSpa có chính sách hủy đặt lịch không?
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" data-parent="#faqAccordion">
-                                <div class="card-body">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    LoanSpa có chính sách hủy đặt lịch không?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
                                     Có, khách hàng có thể hủy hoặc thay đổi lịch hẹn ít nhất 24 giờ trước thời gian đã đặt mà không bị tính phí.
                                 </div>
                             </div>
@@ -120,13 +147,112 @@
     </div>
 </div>
 
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        .contact-info-card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .contact-form .form-control {
+            padding: 1rem 0.75rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25);
+            border-color: var(--primary-color);
+        }
+        
+        .submit-btn {
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+    </style>
+}
+
 @section Scripts {
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="~/js/contact.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#contactForm').submit(function(e) {
-                e.preventDefault();
-                alert('Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
-                this.reset();
+        document.addEventListener("DOMContentLoaded", function() {
+            AOS.init();
+            
+            // Thêm hiệu ứng cho form
+            const formControls = document.querySelectorAll('.form-control');
+            formControls.forEach(control => {
+                control.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                control.addEventListener('blur', function() {
+                    if (this.value === '') {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
             });
         });
     </script>

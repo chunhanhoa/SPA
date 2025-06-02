@@ -1,0 +1,168 @@
+@{
+    ViewData["Title"] = "Quản lý phòng";
+}
+
+<div class="container py-4">
+    <h1>@ViewData["Title"]</h1>
+    
+    <div class="mb-4 d-flex justify-content-between">
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </a>
+        <button type="button" class="btn btn-success" id="createRoomBtn" data-bs-toggle="modal" data-bs-target="#roomModal">
+            <i class="bi bi-plus-circle"></i> Thêm phòng mới
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Danh sách phòng</h5>
+            <button id="refreshRoomsBtn" class="btn btn-sm btn-light">
+                <i class="bi bi-arrow-clockwise"></i> Làm mới
+            </button>
+        </div>
+        <div class="card-body">
+            <div id="roomsContainer">
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="mt-2">Đang tải dữ liệu phòng...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Debug Panel (can be removed in production) -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#debugPanel">
+                Debug Panel
+            </button>
+        </div>
+        <div class="collapse" id="debugPanel">
+            <div class="card-body">
+                <h6>API URL: <code>@Url.Action("GetRooms", "RoomApi", new { area = "" }, Context.Request.Scheme)</code></h6>
+                <h6>Current User: <code>@User.Identity.Name</code></h6>
+                <h6>Is Admin: <code>@User.IsInRole("Admin")</code></h6>
+                <h6>Console Log:</h6>
+                <pre id="debugConsole" class="border p-2 bg-light" style="max-height: 200px; overflow-y: auto;"></pre>
+                <button class="btn btn-sm btn-outline-secondary" id="testApiBtn">Test API Connection</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Room Modal - Used for both Create and Edit -->
+<div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roomModalLabel">Thêm phòng mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="roomForm">
+                    <input type="hidden" id="roomId" name="roomId" value="0" />
+                    
+                    <div class="mb-3">
+                        <label for="roomName" class="form-label">Tên phòng</label>
+                        <input type="text" class="form-control" id="roomName" name="roomName" maxlength="50" required>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable">
+                        <label class="form-check-label" for="isAvailable">Có sẵn</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="saveRoomBtn">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteRoomModal" tabindex="-1" aria-labelledby="deleteRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRoomModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa phòng <span id="deleteRoomName" class="fw-bold"></span>?</p>
+                <p class="text-danger">Hành động này không thể hoàn tác.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin-room.js"></script>
+    <script>
+        // Debug functionality
+        (function() {
+            // Override console.log to also show in debug panel
+            const originalConsoleLog = console.log;
+            const originalConsoleError = console.error;
+            const debugConsole = document.getElementById('debugConsole');
+            
+            console.log = function() {
+                originalConsoleLog.apply(console, arguments);
+                if (debugConsole) {
+                    const args = Array.from(arguments).map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return arg;
+                    }).join(' ');
+                    debugConsole.innerHTML += `<div class="text-dark">${args}</div>`;
+                    debugConsole.scrollTop = debugConsole.scrollHeight;
+                }
+            };
+            
+            console.error = function() {
+                originalConsoleError.apply(console, arguments);
+                if (debugConsole) {
+                    const args = Array.from(arguments).map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return arg;
+                    }).join(' ');
+                    debugConsole.innerHTML += `<div class="text-danger">${args}</div>`;
+                    debugConsole.scrollTop = debugConsole.scrollHeight;
+                }
+            };
+            
+            // Test API connection button
+            document.getElementById('testApiBtn').addEventListener('click', function() {
+                console.log('Testing API connection...');
+                fetch('/api/RoomApi/test', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    credentials: 'same-origin'
+                })
+                .then(response => {
+                    console.log('Test API response status:', response.status);
+                    return response.text();
+                })
+                .then(text => {
+                    console.log('Test API response:', text);
+                })
+                .catch(error => {
+                    console.error('Test API error:', error);
+                });
+            });
+        })();
+    </script>
+}

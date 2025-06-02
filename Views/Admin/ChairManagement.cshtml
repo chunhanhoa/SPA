@@ -1,0 +1,354 @@
+@{
+    ViewData["Title"] = "Quản lý ghế";
+}
+
+<div class="container py-4">
+    <h1>@ViewData["Title"]</h1>
+    
+    <div class="mb-4 d-flex justify-content-between">
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </a>
+        <button type="button" class="btn btn-success" id="createChairBtn" data-bs-toggle="modal" data-bs-target="#chairModal">
+            <i class="bi bi-plus-circle"></i> Thêm ghế mới
+        </button>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Lọc ghế theo phòng</h5>
+        </div>
+        <div class="card-body">
+            <div class="row align-items-end">
+                <div class="col-md-6">
+                    <label for="roomFilter" class="form-label">Chọn phòng</label>
+                    <select id="roomFilter" class="form-select">
+                        <option value="0">Tất cả các phòng</option>
+                        @foreach (var room in ViewBag.Rooms)
+                        {
+                            <option value="@room.RoomId">@room.RoomName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <button id="filterChairsBtn" class="btn btn-primary w-100">
+                        <i class="bi bi-funnel"></i> Lọc ghế
+                    </button>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <button id="refreshChairsBtn" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-arrow-clockwise"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Danh sách ghế</h5>
+            <span id="currentRoomDisplay" class="badge bg-light text-dark">Tất cả các phòng</span>
+        </div>
+        <div class="card-body">
+            <div id="chairsContainer">
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="mt-2">Đang tải dữ liệu ghế...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Debug Panel (can be removed in production) -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#debugPanel">
+                Debug Panel
+            </button>
+        </div>
+        <div class="collapse" id="debugPanel">
+            <div class="card-body">
+                <h6>API URL: <code>@Url.Action("GetChairs", "ChairApi", new { area = "" }, Context.Request.Scheme)</code></h6>
+                <h6>Current User: <code>@User.Identity.Name</code></h6>
+                <h6>Is Admin: <code>@User.IsInRole("Admin")</code></h6>
+                <h6>Console Log:</h6>
+                <pre id="debugConsole" class="border p-2 bg-light" style="max-height: 200px; overflow-y: auto;"></pre>
+                <button class="btn btn-sm btn-outline-secondary" id="testApiBtn">Test API Connection</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Công cụ kiểm tra và gỡ lỗi</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <button id="simpleTestBtn" class="btn btn-info w-100">
+                        <i class="bi bi-bug"></i> Kiểm tra API đơn giản
+                    </button>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button id="createTestChairBtn" class="btn btn-warning w-100">
+                        <i class="bi bi-plus-square"></i> Tạo ghế thử nghiệm
+                    </button>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button id="showDbInfoBtn" class="btn btn-primary w-100">
+                        <i class="bi bi-info-circle"></i> Thông tin Database
+                    </button>
+                </div>
+            </div>
+            <div id="testResultsContainer" class="border p-3 mt-2 bg-light" style="display:none;">
+                <h6 class="mb-2">Kết quả kiểm tra:</h6>
+                <pre id="testResults" class="mb-0"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chair Modal - Used for both Create and Edit -->
+<div class="modal fade" id="chairModal" tabindex="-1" aria-labelledby="chairModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chairModalLabel">Thêm ghế mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="chairForm">
+                    <input type="hidden" id="chairId" name="chairId" value="0" />
+                    
+                    <div class="mb-3">
+                        <label for="chairName" class="form-label">Tên ghế</label>
+                        <input type="text" class="form-control" id="chairName" name="chairName" maxlength="50" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="roomId" class="form-label">Phòng</label>
+                        <select class="form-select" id="roomId" name="roomId" required>
+                            <option value="">-- Chọn phòng --</option>
+                            @foreach (var room in ViewBag.Rooms)
+                            {
+                                <option value="@room.RoomId">@room.RoomName</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable" checked>
+                        <label class="form-check-label" for="isAvailable">Có sẵn</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="saveChairBtn">Lưu</button>
+                <button type="button" class="btn btn-warning" id="sqlTestBtn" style="display:none;">SQL Test</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteChairModal" tabindex="-1" aria-labelledby="deleteChairModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteChairModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa ghế <span id="deleteChairName" class="fw-bold"></span>?</p>
+                <p class="text-danger">Hành động này không thể hoàn tác.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin-chair.js"></script>
+    <script>
+        // Debug functionality
+        (function() {
+            // Override console.log to also show in debug panel
+            const originalConsoleLog = console.log;
+            const originalConsoleError = console.error;
+            const debugConsole = document.getElementById('debugConsole');
+            
+            console.log = function() {
+                originalConsoleLog.apply(console, arguments);
+                if (debugConsole) {
+                    const args = Array.from(arguments).map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return arg;
+                    }).join(' ');
+                    debugConsole.innerHTML += `<div class="text-dark">${args}</div>`;
+                    debugConsole.scrollTop = debugConsole.scrollHeight;
+                }
+            };
+            
+            console.error = function() {
+                originalConsoleError.apply(console, arguments);
+                if (debugConsole) {
+                    const args = Array.from(arguments).map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return arg;
+                    }).join(' ');
+                    debugConsole.innerHTML += `<div class="text-danger">${args}</div>`;
+                    debugConsole.scrollTop = debugConsole.scrollHeight;
+                }
+            };
+            
+            // Test API connection button
+            document.getElementById('testApiBtn').addEventListener('click', function() {
+                console.log('Testing API connection...');
+                fetch('/api/ChairApi', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    credentials: 'same-origin'
+                })
+                .then(response => {
+                    console.log('Test API response status:', response.status);
+                    return response.text();
+                })
+                .then(text => {
+                    console.log('Test API response:', text);
+                })
+                .catch(error => {
+                    console.error('Test API error:', error);
+                });
+            });
+            
+            // Simple API test
+            document.getElementById('simpleTestBtn').addEventListener('click', function() {
+                fetch('/api/ChairApi/simple-test')
+                    .then(response => response.text())
+                    .then(text => {
+                        showTestResults('Simple API Test', text);
+                    })
+                    .catch(error => {
+                        showTestResults('Simple API Test Error', error.message);
+                    });
+            });
+            
+            // Create test chair
+            document.getElementById('createTestChairBtn').addEventListener('click', function() {
+                fetch('/api/ChairApi/create-test-chair')
+                    .then(response => response.text())
+                    .then(text => {
+                        showTestResults('Create Test Chair', text);
+                        loadChairs(); // Refresh the chair list
+                    })
+                    .catch(error => {
+                        showTestResults('Create Test Chair Error', error.message);
+                    });
+            });
+            
+            // Show database info
+            document.getElementById('showDbInfoBtn').addEventListener('click', function() {
+                fetch('/api/ChairApi/test')
+                    .then(response => response.text())
+                    .then(text => {
+                        showTestResults('Database Info', text);
+                    })
+                    .catch(error => {
+                        showTestResults('Database Info Error', error.message);
+                    });
+            });
+            
+            // Helper function to show test results
+            function showTestResults(title, content) {
+                const container = document.getElementById('testResultsContainer');
+                const results = document.getElementById('testResults');
+                
+                container.style.display = 'block';
+                results.innerHTML = `<strong>${title}:</strong>\n${content}`;
+            }
+            
+            // Add a test save function
+            const testSaveBtn = document.getElementById('testSaveBtn');
+            if (testSaveBtn) {
+                testSaveBtn.style.display = 'inline-block'; // Make the button visible
+                testSaveBtn.addEventListener('click', function() {
+                    console.log('Testing direct chair creation...');
+                    
+                    const testChairData = {
+                        ChairName: "Test Chair " + new Date().toISOString(),
+                        RoomId: parseInt(document.getElementById('roomId').value) || 1,
+                        IsAvailable: true
+                    };
+                    
+                    console.log('Sending test data:', testChairData);
+                    
+                    fetch('/api/ChairApi', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(testChairData)
+                    })
+                    .then(response => {
+                        console.log('Test API status:', response.status);
+                        return response.text();
+                    })
+                    .then(text => {
+                        console.log('Test API response:', text);
+                        alert('Check console for test results');
+                    })
+                    .catch(error => {
+                        console.error('Test error:', error);
+                        alert('Test failed: ' + error.message);
+                    });
+                });
+            }
+            
+            // Add a direct SQL test button
+            const sqlTestBtn = document.getElementById('sqlTestBtn');
+            if (sqlTestBtn) {
+                sqlTestBtn.style.display = 'inline-block'; // Make the button visible
+                sqlTestBtn.addEventListener('click', function() {
+                    const chairName = document.getElementById('chairName').value || 'Test Chair';
+                    const roomId = parseInt(document.getElementById('roomId').value) || 1;
+                    
+                    console.log('Testing direct SQL chair creation...');
+                    
+                    fetch('/api/ChairApi/directsql', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            chairName: chairName,
+                            roomId: roomId,
+                            isAvailable: true
+                        })
+                    })
+                    .then(response => response.text())
+                    .then(text => {
+                        console.log('SQL Test result:', text);
+                        alert('SQL Test completed - check console for results');
+                    })
+                    .catch(error => {
+                        console.error('SQL Test error:', error);
+                        alert('SQL Test failed: ' + error.message);
+                    });
+                });
+            }
+        })();
+    </script>
+}

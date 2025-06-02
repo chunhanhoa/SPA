@@ -1,0 +1,65 @@
+@model QL_Spa.Models.EditUserViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa người dùng";
+}
+
+<div class="container py-4">
+    <h1>@ViewData["Title"]</h1>
+    
+    <div class="mb-4">
+        <a asp-controller="Admin" asp-action="UserManagement" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Thông tin tài khoản</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Tên đăng nhập:</dt>
+                        <dd class="col-sm-8">@Model.UserName</dd>
+                        
+                        <dt class="col-sm-4">Email:</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+                    </dl>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Phân quyền</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditUser" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="UserName" />
+                        <input type="hidden" asp-for="Email" />
+                        
+                        <div class="form-group">
+                            <label>Chọn vai trò cho người dùng:</label>
+                            @foreach (var role in Model.AllRoles)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="SelectedRoles" value="@role" id="role-@role" 
+                                           @(Model.UserRoles.Contains(role) ? "checked" : "") />
+                                    <label class="form-check-label" for="role-@role">
+                                        @role
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

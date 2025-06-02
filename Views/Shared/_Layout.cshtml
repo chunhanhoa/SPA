@@ -1,134 +1,201 @@
 ﻿<!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LoanSpa</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <title>@ViewData["Title"] - QL_Spa</title>
+    <script type="importmap"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LoanSpa.styles.css" asp-append-version="true" />
-    @await RenderSectionAsync("Styles", required: false)
+    <link rel="stylesheet" href="~/QL_Spa.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        body {
+        #page-container {
+            position: relative;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
-        .page-content {
+        
+        #content-wrap {
             flex: 1 0 auto;
-            margin-top: 70px;
         }
-        .footer {
+        
+        #footer {
             flex-shrink: 0;
+            margin-top: 1rem; /* Điều chỉnh khoảng cách giữa nội dung và footer */
         }
     </style>
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <span class="spa-logo">Loan</span><span class="spa-tagline">spa & wellness</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Services">Dịch vụ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Gallery">Thư viện</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">Giới thiệu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Liên hệ</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span id="userDisplayName">Tài khoản</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li id="loginMenuItem"><a class="dropdown-item" asp-controller="Account" asp-action="Login">Đăng nhập</a></li>
-                                <li id="registerMenuItem"><a class="dropdown-item" asp-controller="Account" asp-action="Register">Đăng ký</a></li>
-                                <li id="profileMenuItem" class="d-none"><a class="dropdown-item" id="profileLink" asp-controller="Account" asp-action="Profile">Thông tin cá nhân</a></li>
-                                <li id="bookingMenuItem" class="d-none"><a class="dropdown-item" id="myBookingsLink" asp-controller="Account" asp-action="Bookings">Lịch đặt của tôi</a></li>
-                                <li id="logoutMenuItem" class="d-none"><hr class="dropdown-divider"></li>
-                                <li id="logoutMenuItem" class="d-none"><a class="dropdown-item" href="#" id="logoutLink">Đăng xuất</a></li>
+    <div id="page-container">
+        <div id="content-wrap">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                    <div class="container-fluid">
+                        <a class="navbar-brand d-flex flex-column align-items-start" asp-area="" asp-controller="Home" asp-action="Index">
+                            <span class="spa-logo" style="color: #9370DB; font-weight: bold; font-size: 1.5rem; line-height: 1;">Loan</span>
+                            <span class="spa-tagline" style="font-size: 0.9rem; line-height: 1;">spa & wellness</span>
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">Giới Thiệu</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Liên Hệ</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Services">Dịch Vụ</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Booking">Đặt Hẹn</a>
+                                </li>
+                                
+                                <!-- Management Dropdown - Only visible to Admin role -->
+
+                                
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarAdminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Quản trị
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarAdminDropdown">
+                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="UserManagement">Quản lý người dùng</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="RoomManagement">Quản lý phòng</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="ChairManagement">Quản lý ghế</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="#">Cài đặt hệ thống</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary booking-btn ms-3" asp-area="" asp-controller="Home" asp-action="Booking">Đặt lịch</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="page-content">
-        @RenderBody()
-    </div>
-
-    <footer class="footer bg-light py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h4 class="footer-heading">LoanSpa</h4>
-                    <p>Nơi tận hưởng những phút giây thư giãn.</p>
-                    <div class="social-icons">
-                        <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="me-2"><i class="fab fa-pinterest"></i></a>
+                            <div class="d-flex align-items-center">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="d-flex align-items-center me-3">
+                                        <partial name="_ProfilePartial" />
+                                    </div>
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
+                                        <button type="submit" class="btn btn-outline-danger">Đăng xuất</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-outline-primary me-2" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+                                    <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Đăng ký</a>
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h4 class="footer-heading">Giờ mở cửa</h4>
-                    <ul class="list-unstyled opening-hours">
-                        <li>Thứ Hai - Thứ Sáu: 9:00 - 21:00</li>
-                        <li>Thứ Bảy - Chủ Nhật: 10:00 - 22:00</li>
-                        <li>Ngày lễ: 10:00 - 18:00</li>
-                    </ul>
-                    <p><i class="fas fa-phone me-2"></i> 0123 456 789</p>
-                    <p><i class="fas fa-envelope me-2"></i> info@loanspa.com</p>
-                </div>
-                <div class="col-md-4">
-                    <h4 class="footer-heading">Đăng ký nhận tin</h4>
-                    <p>Nhận thông tin về các chương trình khuyến mãi và dịch vụ mới của chúng tôi.</p>
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email của bạn" aria-label="Email của bạn">
-                        <button class="btn btn-primary" type="button">Đăng ký</button>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="copyright">© 2025 - LoanSpa. Đã đăng ký bản quyền.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách bảo mật</a></p>
-                </div>
+                </nav>
+            </header>
+            
+            <div class="container">
+                <main role="main">
+                    @RenderBody()
+                </main>
             </div>
         </div>
-    </footer>
 
+        <footer id="footer" class="bg-light py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <h4 class="footer-heading">LoanSpa</h4>
+                        <p>Nơi tận hưởng những phút giây thư giãn.</p>
+                        <div class="social-icons">
+                            <a href="#" class="me-2 text-primary"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="me-2 text-danger"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="me-2 text-info"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="me-2 text-danger"><i class="bi bi-pinterest"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <h4 class="footer-heading">Giờ mở cửa</h4>
+                        <ul class="list-unstyled opening-hours">
+                            <li>Thứ Hai - Thứ Sáu: 9:00 - 21:00</li>
+                            <li>Thứ Bảy - Chủ Nhật: 10:00 - 22:00</li>
+                            <li>Ngày lễ: 10:00 - 18:00</li>
+                        </ul>
+                        <p><i class="bi bi-telephone me-2"></i> 0123 456 789</p>
+                        <p><i class="bi bi-envelope me-2"></i> info@loanspa.com</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="footer-heading">Đăng ký nhận tin</h4>
+                        <p>Nhận thông tin về các chương trình khuyến mãi và dịch vụ mới của chúng tôi.</p>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email của bạn" aria-label="Email của bạn">
+                            <button class="btn btn-primary" type="button">Đăng ký</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="copyright">© 2025 - LoanSpa. Đã đăng ký bản quyền.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách bảo mật</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/auth.js" asp-append-version="true"></script>
+    <script src="~/js/home.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    
+    <!-- Tắt hiệu ứng chuyển trang cho thanh header -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tìm tất cả các liên kết trong thanh điều hướng
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link, .navbar-brand');
+            
+            // Loại bỏ mọi hiệu ứng hoặc class animation nếu có
+            navLinks.forEach(link => {
+                link.classList.remove('animate__animated');
+                
+                // Đảm bảo không có transition CSS
+                link.style.transition = 'none';
+                
+                // Chắc chắn rằng khi click vào link, trang chuyển ngay lập tức
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        // Không thực hiện những xử lý phức tạp khi chuyển trang
+                        document.body.classList.remove('animated', 'fadeOut');
+                        document.body.style.transition = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

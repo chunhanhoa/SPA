@@ -1,5 +1,3 @@
-using LoanSpa.Models;
-
 namespace QL_Spa.Models
 {
     public class InvoiceService

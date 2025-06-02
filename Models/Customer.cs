@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace LoanSpa.Models
+namespace QL_Spa.Models
 {
     public class Customer
     {

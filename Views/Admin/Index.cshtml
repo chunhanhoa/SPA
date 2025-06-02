@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container py-4">
+    <h1>@ViewData["Title"]</h1>
+    <p class="lead">Chào mừng đến với bảng điều khiển quản trị.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Quản lý người dùng</h5>
+                    <p class="card-text">Xem, chỉnh sửa và quản lý người dùng trong hệ thống.</p>
+                    <a asp-controller="Admin" asp-action="UserManagement" class="btn btn-primary">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Quản lý phòng</h5>
+                    <p class="card-text">Thêm, sửa, xóa phòng và kiểm tra tình trạng phòng.</p>
+                    <a asp-controller="Admin" asp-action="RoomManagement" class="btn btn-primary">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Báo cáo</h5>
+                    <p class="card-text">Xem thống kê và báo cáo hoạt động của hệ thống.</p>
+                    <a href="#" class="btn btn-primary">Truy cập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

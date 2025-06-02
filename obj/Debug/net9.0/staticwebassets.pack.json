@@ -1,8 +1,8 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\LoanSpa.bundle.scp.css",
-      "PackagePath": "staticwebassets\\LoanSpa.8o0xo4ef9f.bundle.scp.css"
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\QL_Spa.bundle.scp.css",
+      "PackagePath": "staticwebassets\\QL_Spa.alofo50opn.bundle.scp.css"
     },
     {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\css\\site.css",
@@ -11,6 +11,26 @@
     {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\images\\about\\person_1.jpg",
+      "PackagePath": "staticwebassets\\images\\about\\person_1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\images\\about\\person_2.jpg",
+      "PackagePath": "staticwebassets\\images\\about\\person_2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\images\\about\\person_3.jpg",
+      "PackagePath": "staticwebassets\\images\\about\\person_3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\images\\booking\\booking_1.jpg",
+      "PackagePath": "staticwebassets\\images\\booking\\booking_1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\images\\services\\LoanSpa_Exterior.jpg",
+      "PackagePath": "staticwebassets\\images\\services\\LoanSpa_Exterior.jpg"
     },
     {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\images\\services\\aromatherapy.jpg",
@@ -37,12 +57,36 @@
       "PackagePath": "staticwebassets\\images\\services\\massage.jpg"
     },
     {
-      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\auth.js",
-      "PackagePath": "staticwebassets\\js\\auth.js"
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\admin-chair.js",
+      "PackagePath": "staticwebassets\\js\\admin-chair.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\admin-room.js",
+      "PackagePath": "staticwebassets\\js\\admin-room.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\contact.js",
+      "PackagePath": "staticwebassets\\js\\contact.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\home.js",
+      "PackagePath": "staticwebassets\\js\\home.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\management.js",
+      "PackagePath": "staticwebassets\\js\\management.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\profile.js",
+      "PackagePath": "staticwebassets\\js\\profile.js"
     },
     {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\room.js",
       "PackagePath": "staticwebassets\\js\\room.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\services.js",
+      "PackagePath": "staticwebassets\\js\\services.js"
     },
     {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\site.js",
@@ -289,24 +333,24 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
     },
     {
-      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.LoanSpa.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.QL_Spa.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
-      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.LoanSpa.Microsoft.AspNetCore.StaticWebAssets.props",
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.QL_Spa.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
     {
-      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.LoanSpa.props",
-      "PackagePath": "build\\LoanSpa.props"
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.QL_Spa.props",
+      "PackagePath": "build\\QL_Spa.props"
     },
     {
-      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.LoanSpa.props",
-      "PackagePath": "buildMultiTargeting\\LoanSpa.props"
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.QL_Spa.props",
+      "PackagePath": "buildMultiTargeting\\QL_Spa.props"
     },
     {
-      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.LoanSpa.props",
-      "PackagePath": "buildTransitive\\LoanSpa.props"
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.QL_Spa.props",
+      "PackagePath": "buildTransitive\\QL_Spa.props"
     }
   ],
   "ElementsToRemove": []

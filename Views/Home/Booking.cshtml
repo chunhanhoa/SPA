@@ -3,62 +3,77 @@
     var serviceId = Context.Request.Query["serviceId"].ToString();
 }
 
-<div class="container py-5">
+<div class="container py-5 animate__animated animate__fadeIn">
     <div class="row">
-        <div class="col-lg-6 mb-4">
-            <h2 class="mb-4">Đặt Lịch Dịch Vụ</h2>
+        <div class="col-lg-6 mb-4" data-aos="fade-right">
+            <h2 class="mb-4 fw-bold text-primary">Đặt Lịch Dịch Vụ</h2>
             <p class="lead">Đặt lịch trước để có trải nghiệm tốt nhất tại LoanSpa</p>
-            <img src="~/images/booking-banner.jpg" alt="Booking" class="img-fluid rounded shadow-sm mb-4" style="height: 300px; object-fit: cover;">
             
-            <div class="card border-0 bg-light p-4">
+            <div class="position-relative mb-4">
+                <img src="~/images/booking/booking_1.jpg" alt="Booking" class="img-fluid rounded shadow-sm mb-4 booking-image" style="height: 300px; object-fit: cover;">
+            </div>
+            
+            <div class="card border-0 bg-light p-4 info-card">
                 <div class="card-body p-0">
-                    <h5 class="card-title">Thông tin liên hệ</h5>
-                    <p><i class="fas fa-phone mr-2"></i> 0987 654 321</p>
-                    <p><i class="fas fa-envelope mr-2"></i> info@loanspa.com</p>
-                    <p><i class="fas fa-map-marker-alt mr-2"></i> 123 Đường Nguyễn Huệ, Q.1, TP.HCM</p>
+                    <h5 class="card-title fw-bold text-primary"><i class="bi bi-info-circle me-2"></i>Thông tin liên hệ</h5>
+                    <div class="mt-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-telephone-fill text-primary me-2"></i>
+                            <p class="mb-0">0987 654 321</p>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-envelope-fill text-primary me-2"></i>
+                            <p class="mb-0">info@loanspa.com</p>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                            <p class="mb-0">123 Đường Nguyễn Huệ, Q.1, TP.HCM</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="col-lg-6">
+        <div class="col-lg-6" data-aos="fade-left">
             <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white p-3">
+                    <h3 class="card-title mb-0"><i class="bi bi-calendar-check me-2"></i>Thông Tin Đặt Lịch</h3>
+                </div>
                 <div class="card-body p-4">
-                    <h3 class="card-title mb-4">Thông Tin Đặt Lịch</h3>
                     <form id="bookingForm">
-                        <div class="form-group mb-3">
-                            <label for="fullName">Họ và tên <span class="text-danger">*</span></label>
+                        <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Nhập họ và tên" required>
+                            <label for="fullName">Họ và tên <span class="text-danger">*</span></label>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="phoneNumber">Số điện thoại <span class="text-danger">*</span></label>
+                        <div class="form-floating mb-3">
                             <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại" required>
+                            <label for="phoneNumber">Số điện thoại <span class="text-danger">*</span></label>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="email">Email <span class="text-danger">*</span></label>
+                        <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="email" name="email" placeholder="Nhập địa chỉ email" required>
+                            <label for="email">Email <span class="text-danger">*</span></label>
                         </div>
                         
-                        <div class="form-group mb-3">
-                            <label for="serviceId">Dịch vụ <span class="text-danger">*</span></label>
-                            <select class="form-control" id="serviceId" name="serviceId" required>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="serviceId" name="serviceId" required>
                                 <option value="" selected disabled>Chọn dịch vụ</option>
                                 <!-- Các options sẽ được nạp từ API -->
                             </select>
+                            <label for="serviceId">Dịch vụ <span class="text-danger">*</span></label>
                         </div>
                         
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="bookingDate">Ngày <span class="text-danger">*</span></label>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
                                     <input type="date" class="form-control" id="bookingDate" name="bookingDate" required min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                    <label for="bookingDate">Ngày <span class="text-danger">*</span></label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="bookingTime">Giờ <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="bookingTime" name="bookingTime" required>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <select class="form-select" id="bookingTime" name="bookingTime" required>
                                         <option value="" selected disabled>Chọn giờ</option>
                                         <option value="09:00">09:00</option>
                                         <option value="10:00">10:00</option>
@@ -69,16 +84,19 @@
                                         <option value="16:30">16:30</option>
                                         <option value="17:30">17:30</option>
                                     </select>
+                                    <label for="bookingTime">Giờ <span class="text-danger">*</span></label>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="form-group mb-3">
+                        <div class="form-floating mb-4">
+                            <textarea class="form-control" id="notes" name="notes" rows="3" style="height: 100px" placeholder="Nhập yêu cầu đặc biệt hoặc ghi chú (nếu có)"></textarea>
                             <label for="notes">Ghi chú</label>
-                            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Nhập yêu cầu đặc biệt hoặc ghi chú (nếu có)"></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Đặt Lịch</button>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 booking-btn">
+                            <i class="bi bi-calendar2-check me-2"></i>Đặt Lịch Ngay
+                        </button>
                     </form>
                 </div>
             </div>
@@ -86,9 +104,95 @@
     </div>
 </div>
 
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        .booking-image {
+            border-radius: 15px;
+            transition: all 0.5s ease;
+        }
+        
+        .booking-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .booking-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        @@keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(var(--primary-rgb), 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+            }
+        }
+        
+        .info-card {
+            transition: all 0.3s ease;
+            border-radius: 15px;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 1rem 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25);
+        }
+        
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-light));
+        }
+        
+        .booking-btn {
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .booking-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+        }
+    </style>
+}
+
 @section Scripts {
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         $(document).ready(function() {
+            AOS.init();
+            
             // Lấy danh sách dịch vụ từ API
             $.ajax({
                 url: '/api/Services',
@@ -145,6 +249,22 @@
                         console.error('Lỗi đặt lịch:', err);
                     }
                 });
+            });
+            
+            // Thêm hiệu ứng cho form
+            $('.form-control, .form-select').on('focus', function() {
+                $(this).parent().addClass('is-focused');
+            }).on('blur', function() {
+                if ($(this).val() === '') {
+                    $(this).parent().removeClass('is-focused');
+                }
+            });
+            
+            // Hiệu ứng nút đặt lịch
+            $('.booking-btn').hover(function() {
+                $(this).addClass('animate__animated animate__pulse');
+            }, function() {
+                $(this).removeClass('animate__animated animate__pulse');
             });
         });
     </script>

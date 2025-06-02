@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using LoanSpa.Data;
-using System.Text;
+using QL_Spa.Data;
+using QL_Spa.Services; // Add this namespace for RoleInitializer
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +16,13 @@ builder.Services.AddControllersWithViews()
     });
 
 // Add API controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.AllowTrailingCommas = true;
+        options.JsonSerializerOptions.ReadCommentHandling = System.Text.Json.JsonCommentHandling.Skip;
+    });
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -36,53 +40,12 @@ builder.Services.AddDbContext<SpaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
-    // Cấu hình tùy chọn cho Identity
-    options.Password.RequireDigit = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false;
-    
-    // Cấu hình khóa tài khoản
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    
-    // Cấu hình yêu cầu xác thực email
-    options.SignIn.RequireConfirmedEmail = false;
-})
-.AddEntityFrameworkStores<SpaDbContext>()
-.AddDefaultTokenProviders();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<SpaDbContext>()
+    .AddDefaultTokenProviders();
 
-// Configure JWT Authentication
-builder.Services.AddAuthentication(options => 
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options => 
-{
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-    };
-});
-
-// Add services
-builder.Services.AddHttpContextAccessor(); // Thêm dòng này
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+// Add RoleInitializer service
+builder.Services.AddScoped<RoleInitializer>();
 
 var app = builder.Build();
 
@@ -98,6 +61,8 @@ else
     app.UseDeveloperExceptionPage();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -107,13 +72,39 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Configure app
-app.UseSession();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllers(); // Add this for API endpoints
+
+// Initialize roles and create default admin user
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        // Apply database migrations
+        var context = services.GetRequiredService<SpaDbContext>();
+        context.Database.Migrate();
+        
+        // Execute script to add missing columns
+        var logger = services.GetRequiredService<ILogger<AddMissingColumnsScript>>();
+        var script = new AddMissingColumnsScript(context, logger);
+        script.ExecuteAsync().GetAwaiter().GetResult();
+        
+        var roleInitializer = services.GetRequiredService<RoleInitializer>();
+        // Run this synchronously to avoid issues in Program.cs
+        roleInitializer.InitializeAsync().GetAwaiter().GetResult();
+        
+        // Optionally create a default admin (you can change these values or remove this line in production)
+        roleInitializer.CreateAdminUserAsync("admin", "admin@example.com", "Admin123!").GetAwaiter().GetResult();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while initializing roles or applying migrations");
+    }
+}
 
 app.Run();

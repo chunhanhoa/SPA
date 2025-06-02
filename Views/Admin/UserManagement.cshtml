@@ -1,0 +1,56 @@
+@model List<QL_Spa.Models.UserViewModel>
+
+@{
+    ViewData["Title"] = "Quản lý người dùng";
+}
+
+<div class="container py-4">
+    <h1>@ViewData["Title"]</h1>
+    
+    <div class="mb-4">
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Danh sách người dùng</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tên đăng nhập</th>
+                            <th>Email</th>
+                            <th>Họ và tên</th>
+                            <th>Ngày tạo</th>
+                            <th>Vai trò</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>@user.FullName</td>
+                                <td>@(user.CreatedDate.HasValue ? user.CreatedDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                                <td>
+                                    @string.Join(", ", user.Roles)
+                                </td>
+                                <td>
+                                    <a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-pencil"></i> Chỉnh sửa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,92 +1,56 @@
-﻿@model IEnumerable<LoanSpa.Models.Service>
-@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor HttpContextAccessor
-@{
+﻿@{
     ViewData["Title"] = "Trang chủ";
     // Lấy lại tên người dùng từ Session và đặt vào ViewBag để _Layout có thể sử dụng
-    if (User.Identity.IsAuthenticated)
-    {
-        ViewBag.CustomerFullName = HttpContextAccessor.HttpContext.Session.GetString("CustomerFullName");
-    }
+   //<h1 class="display-4">Welcome, Huy dep trai</h1>
+   //<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 }
+<!-- Ghi chú -->
+<div class="text-center">
+<!-- Ghi chú -->
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="container mt-3">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-}
-
-<section class="hero-section">
+<!-- Chào mừng đến với LoanSpa -->
+<section class="hero-section position-relative overflow-hidden">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 hero-content">
-                <h1 class="hero-title animate-fade-up">Chào mừng đến với LoanSpa</h1>
-                <p class="hero-text animate-fade-up">Trải nghiệm các dịch vụ chăm sóc sắc đẹp và thư giãn hàng đầu, giúp bạn tìm lại sự cân bằng và tươi mới cho cơ thể và tâm hồn.</p>
-                <div class="animate-fade-up">
-                    <a href="#services" class="btn btn-primary me-3">Khám phá dịch vụ</a>
-                    <a asp-controller="Home" asp-action="Booking" class="btn btn-outline-primary">Đặt lịch ngay</a>
+            <div class="col-lg-6 hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <h1 class="hero-title display-4 fw-bold mb-4 text-primary">Chào mừng đến với LoanSpa</h1>
+                <p class="hero-text lead mb-4">Trải nghiệm các dịch vụ chăm sóc sắc đẹp và thư giãn hàng đầu, giúp bạn tìm lại sự cân bằng và tươi mới cho cơ thể và tâm hồn.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#services" class="btn btn-primary btn-lg pulse-btn"><i class="bi bi-search me-2"></i>Khám phá dịch vụ</a>
+                    <a asp-controller="Home" asp-action="Booking" class="btn btn-outline-primary btn-lg"><i class="bi bi-calendar-check me-2"></i>Đặt lịch ngay</a>
                 </div>
             </div>
-            <div class="col-lg-6 hero-image">
-                <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2350&q=80" alt="Spa Relaxation" class="img-fluid">
+            <div class="col-lg-6 hero-image" data-aos="fade-left" data-aos-duration="1000">
+                <img src="~/images/services/LoanSpa_Exterior.jpg" alt="Spa Relaxation" class="img-fluid rounded-lg hero-img shadow">
+                <div class="floating-card d-none d-md-block">
+                    <div class="card border-0 shadow">
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="custom-shape-divider-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+        </svg>
     </div>
 </section>
 
-<section class="section" id="services">
+<!-- 2.Dịch vụ của chúng tôi TT -BD-->
+<section class="section" id="services" data-aos="fade-up">
     <div class="container">
         <div class="section-title">
             <h2>Dịch vụ của chúng tôi</h2>
             <p class="section-subtitle">Khám phá các liệu pháp đặc biệt được thiết kế để mang lại sự thư giãn và làm đẹp toàn diện</p>
         </div>
         
-        <div class="row">
-            @if (Model != null && Model.Any())
-            {
-                foreach (var service in Model)
-                {
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card service-card">
-                            <img src="@(string.IsNullOrEmpty(service.Picture) ? "/images/services/default.jpg" : service.Picture)" 
-                                 class="card-img-top" alt="@service.ServiceName" 
-                                 style="height: 220px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title">@service.ServiceName</h5>
-                                <p class="card-text">@(string.IsNullOrEmpty(service.Description) ? "Mô tả sẽ được cập nhật sớm." : 
-                                    (service.Description.Length > 100 ? service.Description.Substring(0, 100) + "..." : service.Description))</p>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <span class="service-price">@string.Format("{0:N0}", service.Price) VNĐ</span>
-                                    <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="@service.ServiceId" class="btn btn-outline-primary btn-sm">Chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <!-- Dịch vụ mặc định nếu không có dữ liệu -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card service-card">
-                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" class="card-img-top" alt="Massage thư giãn">
-                        <div class="card-body">
-                            <h5 class="card-title">Massage thư giãn</h5>
-                            <p class="card-text">Liệu pháp massage truyền thống giúp giảm căng thẳng, thư giãn cơ bắp và cải thiện tuần hoàn máu.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="service-price">500.000 đ</span>
-                                <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="massage" class="btn btn-outline-primary btn-sm">Chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row" id="featuredServicesContainer">
+            <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Đang tải...</span>
                 </div>
-                
-                <!-- Thêm 2 dịch vụ mẫu khác ở đây -->
-            }
+                <p class="mt-2">Đang tải dịch vụ...</p>
+            </div>
         </div>
         
         <div class="text-center mt-5">
@@ -94,8 +58,10 @@
         </div>
     </div>
 </section>
+<!-- 2.Dịch vụ của chúng tôi TT -end-->
 
-<section class="section bg-light py-5">
+
+<section class="section bg-light py-5" style="background-color: var(--primary-very-light) !important;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
@@ -167,15 +133,185 @@
         </div>
     </div>
 </section>
+</div>
 
-<section class="section py-5" style="background-color: var(--spa-secondary);">
-    <div class="container">
-        <div class="row justify-content-center text-center">
-            <div class="col-md-8">
-                <h2 class="mb-4">Đặt lịch hẹn ngay hôm nay</h2>
-                <p class="mb-5">Hãy để chúng tôi chăm sóc và làm đẹp cho bạn với các dịch vụ spa cao cấp.</p>
-                <a asp-controller="Home" asp-action="Booking" class="btn btn-primary btn-lg">Đặt lịch ngay</a>
-            </div>
-        </div>
-    </div>
-</section>
+@section Styles {
+    <style>
+        /* Hero Section */
+        .hero-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-title {
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-img {
+            transition: all 0.5s ease-in-out;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 20px;
+        }
+        
+        .hero-img:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pulse-btn {
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @@keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(var(--primary-rgb), 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+            }
+        }
+        
+        .floating-card {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            animation: float 3s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        @@keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .custom-shape-divider-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        
+        .custom-shape-divider-bottom svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+        
+        .custom-shape-divider-bottom .shape-fill {
+            fill: #FFFFFF;
+        }
+        
+        /* Services */
+        .service-item {
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* Testimonials */
+        .testimonial-item {
+            padding: 25px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .testimonial-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .section-title h2 {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            AOS.init();
+            
+            // Hàm tải dịch vụ nổi bật
+            function loadFeaturedServices() {
+                // Gọi API hoặc thực hiện hành động cần thiết để lấy dữ liệu dịch vụ
+                // Ví dụ sử dụng jQuery để gọi API
+                $.ajax({
+                    url: '/api/services/featured', // Đường dẫn đến API lấy dịch vụ nổi bật
+                    method: 'GET',
+                    success: function(data) {
+                        // Xử lý dữ liệu trả về và hiển thị lên giao diện
+                        var servicesContainer = $('#featuredServicesContainer');
+                        servicesContainer.empty(); // Xóa nội dung hiện tại
+                        
+                        if (data && data.length > 0) {
+                            // Duyệt qua danh sách dịch vụ và tạo phần tử HTML cho mỗi dịch vụ
+                            $.each(data, function(index, service) {
+                                var serviceItem = `
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <div class="service-item">
+                                            <div class="service-icon">
+                                                <i class="fas fa-spa"></i>
+                                            </div>
+                                            <div class="service-content">
+                                                <h3 class="service-title">${service.title}</h3>
+                                                <p class="service-description">${service.description}</p>
+                                                <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="${service.id}" class="btn btn-primary">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                servicesContainer.append(serviceItem);
+                            });
+                        } else {
+                            servicesContainer.append('<p class="text-muted">Không có dịch vụ nổi bật nào để hiển thị.</p>');
+                        }
+                    },
+                    error: function() {
+                        var servicesContainer = $('#featuredServicesContainer');
+                        servicesContainer.empty();
+                        servicesContainer.append('<p class="text-danger">Đã xảy ra lỗi khi tải dịch vụ. Vui lòng thử lại sau.</p>');
+                    }
+                });
+            }
+
+            // Gọi hàm để tải dịch vụ nổi bật khi trang được tải
+            loadFeaturedServices();
+        });
+    </script>
+}

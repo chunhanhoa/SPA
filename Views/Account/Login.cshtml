@@ -1,50 +1,48 @@
-@model LoanSpa.Models.LoginViewModel
+@model QL_Spa.Models.LoginViewModel
 
-@{
-    ViewData["Title"] = "Đăng nhập";
-}
-
-<div class="container py-5 mt-5">
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card border-0 shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Đăng nhập</h4>
-                </div>
-                <div class="card-body">
-                    @if (TempData["SuccessMessage"] != null)
-                    {
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            @TempData["SuccessMessage"]
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    }
-
-                    <div id="loginMessage"></div>
-
-                    <form id="loginForm" method="post">
-                        <div class="mb-3">
-                            <label for="loginUsername" class="form-label">Tên đăng nhập</label>
-                            <input id="loginUsername" name="Username" class="form-control" required />
-                            <span class="text-danger" id="usernameError"></span>
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-primary"><i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</h2>
+                        <p class="text-muted">Đăng nhập để trải nghiệm dịch vụ của LoanSpa</p>
+                    </div>
+                    
+                    <form asp-action="Login" method="post" class="needs-validation" novalidate>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Username" class="form-control" placeholder="Nhập tên người dùng" required />
+                            <label asp-for="Username"><i class="bi bi-person me-1"></i>Tên người dùng</label>
+                            <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="loginPassword" class="form-label">Mật khẩu</label>
-                            <input id="loginPassword" name="Password" class="form-control" type="password" required />
-                            <span class="text-danger" id="passwordError"></span>
+                        <div class="form-floating mb-3 password-field">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                            <label asp-for="Password"><i class="bi bi-lock me-1"></i>Mật khẩu</label>
+                            <span class="password-toggle" onclick="togglePassword()">
+                                <i class="bi bi-eye"></i>
+                            </span>
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         
-                        <div class="mb-3 form-check">
-                            <input id="loginRememberMe" name="RememberMe" class="form-check-input" type="checkbox" />
-                            <label for="loginRememberMe" class="form-check-label">Ghi nhớ đăng nhập</label>
+                        <div class="form-check mb-3">
+                            <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                            <label class="form-check-label" asp-for="RememberMe">Ghi nhớ đăng nhập</label>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary w-100 py-2 mb-3 login-btn">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập
+                        </button>
                     </form>
                     
-                    <div class="mt-4 text-center">
-                        <p>Chưa có tài khoản? <a asp-action="Register">Đăng ký ngay</a></p>
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <a href="#" class="text-decoration-none text-primary">Quên mật khẩu?</a>
+                        </div>
+                        <div class="col-6 text-end">
+                            <a asp-action="Register" class="text-decoration-none text-primary">Tạo tài khoản mới</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,7 +50,105 @@
     </div>
 </div>
 
+@section Styles {
+    <style>
+        .card {
+            border-radius: 15px;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 1rem 0.75rem;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25);
+        }
+        
+        .password-field {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+            z-index: 10;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+        
+        .login-btn {
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+        }
+        
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+}
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="~/js/auth.js" asp-append-version="true"></script>
+    <script>
+        function togglePassword() {
+            const field = document.getElementById('Password');
+            const icon = event.currentTarget.querySelector('i');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+        
+        // Hiệu ứng cho form
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-control');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.value === '') {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+                
+                // Kiểm tra nếu đã có giá trị
+                if (input.value !== '') {
+                    input.parentElement.classList.add('focused');
+                }
+            });
+        });
+    </script>
 }

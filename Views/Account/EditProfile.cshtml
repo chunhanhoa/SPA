@@ -1,132 +1,43 @@
-@model LoanSpa.Models.EditProfileViewModel
+@model QL_Spa.Models.EditProfileViewModel
 
 @{
-    ViewData["Title"] = "Cập nhật hồ sơ";
+    ViewData["Title"] = "Chỉnh sửa thông tin cá nhân";
 }
 
-<div class="container py-5 mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card border-0 shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Cập nhật thông tin cá nhân</h4>
-                </div>
-                <div class="card-body">
-                    <form asp-action="EditProfile" method="post">
-                        <input type="hidden" asp-for="CustomerId" />
-                        
-                        <div class="mb-3">
-                            <label asp-for="FullName" class="form-label">Họ và tên</label>
-                            <input asp-for="FullName" class="form-control" />
-                            <span asp-validation-for="FullName" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="Phone" class="form-label">Số điện thoại</label>
-                            <input asp-for="Phone" class="form-control" />
-                            <span asp-validation-for="Phone" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="Email" class="form-label">Email</label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a asp-action="Profile" class="btn btn-outline-secondary">Quay lại</a>
-                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-                        </div>
-                    </form>
-                </div>
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["StatusMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["StatusMessage"]
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="EditProfile" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             
-            <div class="card border-0 shadow mt-4">
-                <div class="card-header bg-danger text-white">
-                    <h4 class="mb-0">Đổi mật khẩu</h4>
-                </div>
-                <div class="card-body">
-                    <div id="passwordChangeAlert" class="alert d-none" role="alert"></div>
-                    
-                    <form id="changePasswordForm">
-                        <div class="mb-3">
-                            <label for="currentPassword" class="form-label">Mật khẩu hiện tại</label>
-                            <input type="password" id="currentPassword" class="form-control" required />
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="newPassword" class="form-label">Mật khẩu mới</label>
-                            <input type="password" id="newPassword" class="form-control" required />
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="confirmNewPassword" class="form-label">Xác nhận mật khẩu mới</label>
-                            <input type="password" id="confirmNewPassword" class="form-control" required />
-                        </div>
-                        
-                        <button type="submit" class="btn btn-danger">Đổi mật khẩu</button>
-                    </form>
-                </div>
+            <div class="form-group mb-3">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
-        </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
     </div>
 </div>
 
 @section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Xử lý đổi mật khẩu
-            document.getElementById('changePasswordForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const currentPassword = document.getElementById('currentPassword').value;
-                const newPassword = document.getElementById('newPassword').value;
-                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
-                const alertElement = document.getElementById('passwordChangeAlert');
-                
-                // Kiểm tra mật khẩu khớp nhau
-                if (newPassword !== confirmNewPassword) {
-                    alertElement.textContent = 'Mật khẩu mới không khớp!';
-                    alertElement.className = 'alert alert-danger';
-                    return;
-                }
-                
-                // Gửi yêu cầu đổi mật khẩu
-                try {
-                    const token = localStorage.getItem('token');
-                    if (!token) {
-                        throw new Error('Bạn chưa đăng nhập');
-                    }
-                    
-                    const response = await fetch('/api/Auth/changePassword', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({
-                            currentPassword,
-                            newPassword
-                        })
-                    });
-                    
-                    if (!response.ok) {
-                        const data = await response.json();
-                        throw new Error(data.message || 'Đổi mật khẩu thất bại');
-                    }
-                    
-                    // Thành công
-                    alertElement.textContent = 'Đổi mật khẩu thành công!';
-                    alertElement.className = 'alert alert-success';
-                    document.getElementById('changePasswordForm').reset();
-                } catch (error) {
-                    alertElement.textContent = error.message || 'Đã có lỗi xảy ra. Vui lòng thử lại.';
-                    alertElement.className = 'alert alert-danger';
-                }
-                
-                // Hiện alert
-                alertElement.classList.remove('d-none');
-            });
-        });
-    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

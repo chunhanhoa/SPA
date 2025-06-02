@@ -1,140 +1,86 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using LoanSpa.Models;
-using LoanSpa.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
+using QL_Spa.Models;
 
-namespace LoanSpa.Controllers;
+namespace QL_Spa.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly SpaDbContext _context;
-    private readonly UserManager<IdentityUser> _userManager; // Sửa thành IdentityUser
 
-    public HomeController(ILogger<HomeController> logger, SpaDbContext context, UserManager<IdentityUser> userManager) // Sửa thành IdentityUser
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        _context = context;
-        _userManager = userManager;
     }
 
-    private async Task SetCustomerInfo()
+    public IActionResult Index()
     {
-        if (User.Identity.IsAuthenticated)
+        return View();
+    }
+
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    public IActionResult About()
+    {
+        ViewData["Title"] = "Về chúng tôi";
+        return View();
+    }
+    
+    public IActionResult Contact()
+    {
+        ViewData["Title"] = "Liên hệ";
+        return View();
+    }
+
+    public IActionResult Booking()
+    {
+        ViewData["Title"] = "Đặt lịch";
+        return View();
+    }
+
+    public IActionResult Services()
+    {
+        ViewData["Title"] = "Dịch vụ";
+        return View();
+    }
+
+    public async Task<IActionResult> ServiceDetails(int id)
+    {
+        try
         {
-            var userId = _userManager.GetUserId(User);
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(c => c.UserId == userId);
+            // Get service details from the API
+            using (var httpClient = new HttpClient())
+            {
+                string apiUrl = $"{Request.Scheme}://{Request.Host}/api/ServiceApi/{id}";
+                var response = await httpClient.GetAsync(apiUrl);
                 
-            if (customer != null)
-            {
-                ViewBag.CustomerFullName = customer.FullName;
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var service = System.Text.Json.JsonSerializer.Deserialize<Service>(
+                        jsonString, 
+                        new System.Text.Json.JsonSerializerOptions 
+                        { 
+                            PropertyNameCaseInsensitive = true 
+                        }
+                    );
+                    
+                    return View(service);
+                }
+                else
+                {
+                    _logger.LogWarning("Service with ID {ServiceId} not found", id);
+                    return View(null);
+                }
             }
-            else
-            {
-                var user = await _userManager.GetUserAsync(User);
-                ViewBag.CustomerFullName = user?.UserName;
-            }
-        }
-    }
-
-    public async Task<IActionResult> Index()
-    {
-        try
-        {
-            await SetCustomerInfo();
-            
-            // Lấy 6 dịch vụ nổi bật để hiển thị trên trang chủ
-            var featuredServices = await _context.Services
-                .OrderBy(s => s.ServiceId)
-                .Take(6)
-                .ToListAsync();
-            
-            _logger.LogInformation($"Found {featuredServices.Count} featured services for home page");
-            
-            return View(featuredServices);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Lỗi khi tải dữ liệu dịch vụ cho trang chủ");
-            return View(new List<Service>());
-        }
-    }
-
-    public async Task<IActionResult> Privacy()
-    {
-        await SetCustomerInfo();
-        return View();
-    }
-
-    public async Task<IActionResult> About()
-    {
-        await SetCustomerInfo();
-        return View();
-    }
-
-    public async Task<IActionResult> Contact()
-    {
-        await SetCustomerInfo();
-        return View();
-    }
-
-    public async Task<IActionResult> Booking()
-    {
-        await SetCustomerInfo();
-        return View();
-    }
-
-    // Thêm log để debug
-    public async Task<IActionResult> Services()
-    {
-        await SetCustomerInfo();
-        
-        try
-        {
-            // Đếm số lượng dịch vụ
-            var count = await _context.Services.CountAsync();
-            _logger.LogInformation($"Found {count} services in database");
-            
-            // Lấy tất cả dịch vụ từ database
-            var services = await _context.Services.ToListAsync();
-            return View(services);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error loading services");
-            return View(new List<Service>());
-        }
-    }
-
-    public async Task<IActionResult> ServiceDetail(int id)
-    {
-        await SetCustomerInfo();
-        
-        try
-        {
-            // Lấy thông tin chi tiết dịch vụ từ database theo id
-            var service = await _context.Services.FindAsync(id);
-            _logger.LogInformation($"Loading service detail for ID {id}: {service?.ServiceName ?? "Not found"}");
-            
-            // Nếu không tìm thấy dịch vụ, trả về trang lỗi hoặc chuyển hướng
-            if (service == null)
-            {
-                return RedirectToAction("Services");
-            }
-            
-            return View(service);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error loading service detail for ID {id}");
-            return RedirectToAction("Services");
+            _logger.LogError(ex, "Error retrieving service details for ID {ServiceId}", id);
+            return View(null);
         }
     }
 

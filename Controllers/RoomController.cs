@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LoanSpa.Data;
+using QL_Spa.Data;
 using System.Threading.Tasks;
 
 namespace QL_Spa.Controllers
