@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QL_Spa.Controllers.Api
 {
-    [Route("api/[controller]")]
+    [Route("api/RoleApi")]
     [ApiController]
     [Authorize] // Require authentication to access this API
     public class RoleApiController : ControllerBase
@@ -27,7 +27,7 @@ namespace QL_Spa.Controllers.Api
             _logger = logger;
         }
 
-        // GET: api/Role/UserRoles
+        // GET: api/RoleApi/UserRoles
         [HttpGet("UserRoles")]
         public async Task<ActionResult<IEnumerable<string>>> GetUserRoles()
         {
@@ -47,7 +47,7 @@ namespace QL_Spa.Controllers.Api
             return Ok(roles);
         }
 
-        // GET: api/Role/IsAdmin
+        // GET: api/RoleApi/IsAdmin
         [HttpGet("IsAdmin")]
         public async Task<ActionResult<bool>> IsAdmin()
         {
@@ -64,10 +64,10 @@ namespace QL_Spa.Controllers.Api
             }
 
             var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-            return Ok(isAdmin);
+            return Ok(new { isAdmin });
         }
 
-        // GET: api/Role/HasRole/{roleName}
+        // GET: api/RoleApi/HasRole/{roleName}
         [HttpGet("HasRole/{roleName}")]
         public async Task<ActionResult<bool>> HasRole(string roleName)
         {
@@ -92,7 +92,7 @@ namespace QL_Spa.Controllers.Api
             return Ok(hasRole);
         }
 
-        // GET: api/Role/HasManagementAccess
+        // GET: api/RoleApi/HasManagementAccess
         [HttpGet("HasManagementAccess")]
         public async Task<ActionResult<bool>> HasManagementAccess()
         {

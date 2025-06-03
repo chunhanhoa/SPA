@@ -37,11 +37,12 @@
 </section>
 
 <!-- 2.Dịch vụ của chúng tôi TT -BD-->
-<section class="section" id="services" data-aos="fade-up">
+<!-- Dịch vụ của chúng tôi -->
+<section class="section services-section" id="services" data-aos="fade-up" data-aos-duration="1000">
     <div class="container">
-        <div class="section-title">
-            <h2>Dịch vụ của chúng tôi</h2>
-            <p class="section-subtitle">Khám phá các liệu pháp đặc biệt được thiết kế để mang lại sự thư giãn và làm đẹp toàn diện</p>
+        <div class="section-title text-center">
+            <h2 class="fw-bold display-5">Dịch vụ của chúng tôi</h2>
+            <p class="section-subtitle text-muted mb-5">Khám phá các liệu pháp đặc biệt được thiết kế để mang lại sự thư giãn và làm đẹp toàn diện</p>
         </div>
         
         <div class="row" id="featuredServicesContainer">
@@ -49,12 +50,14 @@
                 <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Đang tải...</span>
                 </div>
-                <p class="mt-2">Đang tải dịch vụ...</p>
+                <p class="mt-3">Đang tải dịch vụ...</p>
             </div>
         </div>
         
         <div class="text-center mt-5">
-            <a asp-controller="Home" asp-action="Services" class="btn btn-primary">Xem tất cả dịch vụ</a>
+            <a asp-controller="Home" asp-action="Services" class="btn btn-primary btn-lg pulse-btn">
+                <i class="bi bi-arrow-right-circle me-2"></i>Xem tất cả dịch vụ
+            </a>
         </div>
     </div>
 </section>
@@ -267,51 +270,9 @@
         document.addEventListener("DOMContentLoaded", function() {
             AOS.init();
             
-            // Hàm tải dịch vụ nổi bật
-            function loadFeaturedServices() {
-                // Gọi API hoặc thực hiện hành động cần thiết để lấy dữ liệu dịch vụ
-                // Ví dụ sử dụng jQuery để gọi API
-                $.ajax({
-                    url: '/api/services/featured', // Đường dẫn đến API lấy dịch vụ nổi bật
-                    method: 'GET',
-                    success: function(data) {
-                        // Xử lý dữ liệu trả về và hiển thị lên giao diện
-                        var servicesContainer = $('#featuredServicesContainer');
-                        servicesContainer.empty(); // Xóa nội dung hiện tại
-                        
-                        if (data && data.length > 0) {
-                            // Duyệt qua danh sách dịch vụ và tạo phần tử HTML cho mỗi dịch vụ
-                            $.each(data, function(index, service) {
-                                var serviceItem = `
-                                    <div class="col-lg-4 col-md-6 mb-4">
-                                        <div class="service-item">
-                                            <div class="service-icon">
-                                                <i class="fas fa-spa"></i>
-                                            </div>
-                                            <div class="service-content">
-                                                <h3 class="service-title">${service.title}</h3>
-                                                <p class="service-description">${service.description}</p>
-                                                <a asp-controller="Home" asp-action="ServiceDetail" asp-route-id="${service.id}" class="btn btn-primary">Xem chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                                servicesContainer.append(serviceItem);
-                            });
-                        } else {
-                            servicesContainer.append('<p class="text-muted">Không có dịch vụ nổi bật nào để hiển thị.</p>');
-                        }
-                    },
-                    error: function() {
-                        var servicesContainer = $('#featuredServicesContainer');
-                        servicesContainer.empty();
-                        servicesContainer.append('<p class="text-danger">Đã xảy ra lỗi khi tải dịch vụ. Vui lòng thử lại sau.</p>');
-                    }
-                });
-            }
-
-            // Gọi hàm để tải dịch vụ nổi bật khi trang được tải
-            loadFeaturedServices();
+            // Hàm tải dịch vụ nổi bật đã chuyển sang file home.js
+            // Không cần tự gọi loadFeaturedServices() ở đây nữa
+            // vì file home.js (được import trong _Layout) sẽ tự gọi
         });
     </script>
 }

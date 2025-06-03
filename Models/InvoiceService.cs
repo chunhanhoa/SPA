@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace QL_Spa.Models
 {
     public class InvoiceService
@@ -7,5 +9,8 @@ namespace QL_Spa.Models
         public int ServiceId { get; set; }
         public Service Service { get; set; }
         public int Quantity { get; set; }
+        
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Price { get; set; }
     }
 }

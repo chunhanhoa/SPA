@@ -7,7 +7,17 @@
     <p class="lead">Chào mừng đến với bảng điều khiển quản trị.</p>
 
     <div class="row mt-4">
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Quản lý đặt lịch</h5>
+                    <p class="card-text">Xem, chỉnh sửa và quản lý lịch đặt của khách hàng.</p>
+                    <a asp-controller="Admin" asp-action="BookingManagement" class="btn btn-primary">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">Quản lý người dùng</h5>
@@ -17,7 +27,7 @@
             </div>
         </div>
         
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">Quản lý phòng</h5>
@@ -26,13 +36,13 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-4 mb-4">
+
+        <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Báo cáo</h5>
-                    <p class="card-text">Xem thống kê và báo cáo hoạt động của hệ thống.</p>
-                    <a href="#" class="btn btn-primary">Truy cập</a>
+                    <h5 class="card-title">Quản lý ghế</h5>
+                    <p class="card-text">Quản lý thông tin và tình trạng ghế ngồi.</p>
+                    <a asp-controller="Admin" asp-action="ChairManagement" class="btn btn-primary">Truy cập</a>
                 </div>
             </div>
         </div>

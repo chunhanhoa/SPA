@@ -13,16 +13,23 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult BookingConfirmation(int id)
     {
-        return View();
+        ViewData["Title"] = "Xác nhận đặt lịch";
+        
+        if (id <= 0)
+        {
+            _logger.LogWarning("Truy cập trang xác nhận đặt lịch với ID không hợp lệ: {ID}", id);
+            return BadRequest("ID lịch hẹn không hợp lệ");
+        }
+        
+        _logger.LogInformation("Đang tải trang xác nhận đặt lịch ID: {ID}", id);
+        return View(id);
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
+    // Các action khác giữ nguyên
+    public IActionResult Index() => View();
+    public IActionResult Privacy() => View();
     public IActionResult About()
     {
         ViewData["Title"] = "Về chúng tôi";
@@ -60,7 +67,6 @@ public class HomeController : Controller
     {
         try
         {
-            // Get service details from the API
             using (var httpClient = new HttpClient())
             {
                 string apiUrl = $"{Request.Scheme}://{Request.Host}/api/ServiceApi/{id}";
@@ -76,7 +82,6 @@ public class HomeController : Controller
                             PropertyNameCaseInsensitive = true 
                         }
                     );
-                    
                     return View(service);
                 }
                 else

@@ -1,0 +1,130 @@
+@using QL_Spa.Models
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - Quản trị LoanSpa</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Admin CSS -->
+    <link href="~/css/admin.css" rel="stylesheet" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="/Admin">LoanSpa Admin</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+            <i class="fas fa-bars"></i>
+        </button>
+        <!-- Navbar Search-->
+        <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Tìm kiếm..." aria-label="Tìm kiếm..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user fa-fw"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/Account/Profile">Hồ sơ</a></li>
+                    <li><a class="dropdown-item" href="/Home">Trang chủ website</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                        <form asp-controller="Account" asp-action="Logout" method="post">
+                            <button type="submit" class="dropdown-item">Đăng xuất</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Chính</div>
+                        <a class="nav-link @(Context.Request.Path == "/Admin" ? "active" : "")" href="/Admin">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Tổng quan
+                        </a>
+                        
+                        <div class="sb-sidenav-menu-heading">Quản lý</div>
+                        
+                        <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/BookingManagement") ? "active" : "")" href="/Admin/BookingManagement">
+                            <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+                            Quản lý đặt lịch
+                        </a>
+                        
+                        <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/UserManagement") ? "active" : "")" href="/Admin/UserManagement">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Quản lý người dùng
+                        </a>
+                        
+                        <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/RoomManagement") ? "active" : "")" href="/Admin/RoomManagement">
+                            <div class="sb-nav-link-icon"><i class="fas fa-door-open"></i></div>
+                            Quản lý phòng
+                        </a>
+                        
+                        <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/ChairManagement") ? "active" : "")" href="/Admin/ChairManagement">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chair"></i></div>
+                            Quản lý ghế
+                        </a>
+                        
+                        <div class="sb-sidenav-menu-heading">Thống kê</div>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                            Báo cáo
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Đăng nhập với:</div>
+                    @User.Identity.Name
+                </div>
+            </nav>
+        </div>
+        
+        <div id="layoutSidenav_content">
+            <main>
+                @RenderBody()
+            </main>
+            
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Bản quyền &copy; LoanSpa Admin 2023</div>
+                        <div>
+                            <a href="#">Chính sách bảo mật</a>
+                            &middot;
+                            <a href="#">Điều khoản &amp; Điều kiện</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Admin JS -->
+    <script src="~/js/admin.js"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

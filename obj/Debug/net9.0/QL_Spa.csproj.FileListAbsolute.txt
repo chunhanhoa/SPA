@@ -404,12 +404,8 @@ C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\com
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\sr7lqlvdlx-e1apbahjux.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\9gbwvl8fbs-eshnz72y10.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\afszay24bs-ay4p9f55a6.gz
-C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\carnxhd2rc-t1z5l4pyyh.gz
-C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\70iqvo8ug7-mauod9596g.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\j98ftmkp1e-61xx7bm37k.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\8ji717yfm0-8saedriwaz.gz
-C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\j7c77sxv0j-30c37fzkws.gz
-C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\s79m6p67tp-l094c03ezm.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\cj2sntel6a-bqjiyaj88i.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\xggi9jchl8-c2jlpeoesf.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\sbz9a2ni1i-erw9l3u2r3.gz
@@ -487,10 +483,17 @@ C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\QL_
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\QL_Spa.genruntimeconfig.cache
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\ref\QL_Spa.dll
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\0l9bhoevyz-56x52v415z.gz
+C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\d6fpie7tse-61l7sdicd4.gz
+C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\uqhe1oegeo-ubex6ri3wr.gz
+C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\imtks01wqn-iqi5p2k9bi.gz
+C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\s79m6p67tp-tgjkv8d5oc.gz
+C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\70iqvo8ug7-mauod9596g.gz
+C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\j7c77sxv0j-30c37fzkws.gz
+C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\obj\Debug\net9.0\compressed\carnxhd2rc-pj9bx4jz4e.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\appsettings.json
-C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.staticwebassets.endpoints.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.staticwebassets.runtime.json
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.staticwebassets.endpoints.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.exe
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.deps.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.runtimeconfig.json
@@ -645,17 +648,20 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\scopedcss\bundle\QL_Spa.styles.css
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\scopedcss\projectbundle\QL_Spa.bundle.scp.css
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\d6fpie7tse-61l7sdicd4.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\0l9bhoevyz-56x52v415z.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\cs3iaygimh-61n19gt1b8.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\imtks01wqn-iqi5p2k9bi.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\sr7lqlvdlx-e1apbahjux.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\9gbwvl8fbs-eshnz72y10.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\uqhe1oegeo-ubex6ri3wr.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\afszay24bs-ay4p9f55a6.gz
-C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\carnxhd2rc-t1z5l4pyyh.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\carnxhd2rc-m9s3oxlpr7.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\70iqvo8ug7-mauod9596g.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\j98ftmkp1e-61xx7bm37k.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\8ji717yfm0-8saedriwaz.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\j7c77sxv0j-30c37fzkws.gz
-C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\s79m6p67tp-l094c03ezm.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\s79m6p67tp-tgjkv8d5oc.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\cj2sntel6a-bqjiyaj88i.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\xggi9jchl8-c2jlpeoesf.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\sbz9a2ni1i-erw9l3u2r3.gz

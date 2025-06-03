@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace QL_Spa.Models
 {
     public class Invoice
@@ -10,5 +12,13 @@ namespace QL_Spa.Models
         public decimal PaidAmount { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+        
+        // Thêm navigation property
+        public ICollection<InvoiceService> InvoiceServices { get; set; }
+        
+        public Invoice()
+        {
+            InvoiceServices = new List<InvoiceService>();
+        }
     }
 }

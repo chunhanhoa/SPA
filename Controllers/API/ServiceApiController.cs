@@ -98,6 +98,37 @@ namespace QL_Spa.Controllers.Api
             }
         }
 
+        // GET: api/ServiceApi/featured
+        [HttpGet("featured")]
+        public async Task<ActionResult<IEnumerable<object>>> GetFeaturedServices()
+        {
+            try
+            {
+                _logger.LogInformation("Retrieving featured services");
+
+                var services = await _context.Services
+                    .Take(4) // Lấy 4 dịch vụ nổi bật
+                    .Select(s => new
+                    {
+                        id = s.ServiceId,
+                        title = s.ServiceName,
+                        description = s.Description,
+                        price = s.Price,
+                        duration = s.Duration,
+                        picture = s.Picture
+                    })
+                    .ToListAsync();
+
+                _logger.LogInformation($"Retrieved {services.Count} featured services");
+                return services;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving featured services");
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // Only admins can modify services
         // POST: api/ServiceApi
         [HttpPost]

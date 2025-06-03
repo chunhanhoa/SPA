@@ -17,18 +17,18 @@ namespace QL_Spa.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SpaDbContext _context;
-        private readonly ILogger<AdminController> _logger; // Added missing logger field
+        private readonly ILogger<AdminController> _logger;
 
         public AdminController(
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             SpaDbContext context,
-            ILogger<AdminController> logger) // Added logger parameter
+            ILogger<AdminController> logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
-            _logger = logger; // Initialize the logger
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -125,10 +125,8 @@ namespace QL_Spa.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult RoomManagement()
         {
-            // Add logging to help with debugging
             _logger.LogInformation("Admin accessing RoomManagement page");
             
-            // Check if the user is really in Admin role
             if (!User.IsInRole("Admin"))
             {
                 _logger.LogWarning("Non-admin user attempted to access RoomManagement: {Username}", User.Identity.Name);
@@ -141,19 +139,30 @@ namespace QL_Spa.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult ChairManagement()
         {
-            // Add logging for debugging
             _logger.LogInformation("Admin accessing ChairManagement page");
             
-            // Check if user is in Admin role
             if (!User.IsInRole("Admin"))
             {
                 _logger.LogWarning("Non-admin user attempted to access ChairManagement: {Username}", User.Identity.Name);
                 return Forbid();
             }
             
-            // Pass the list of rooms to the view for the dropdown
             var rooms = _context.Rooms.ToList();
             ViewBag.Rooms = rooms;
+            
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult BookingManagement()
+        {
+            _logger.LogInformation("Admin accessing BookingManagement page");
+            
+            if (!User.IsInRole("Admin"))
+            {
+                _logger.LogWarning("Non-admin user attempted to access BookingManagement: {Username}", User.Identity.Name);
+                return Forbid();
+            }
             
             return View();
         }

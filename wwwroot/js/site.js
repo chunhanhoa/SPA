@@ -5,33 +5,53 @@
 
 // Function to check if user has admin role
 function checkAdminAccess() {
-    fetch('/api/Role/IsAdmin')
+    return fetch('/api/RoleApi/IsAdmin')
         .then(response => {
-            if (response.ok) {
-                return response.json();
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-            throw new Error('Failed to fetch admin status');
+            return response.json();
         })
-        .then(isAdmin => {
-            // Show/hide elements based on admin status
-            const adminElements = document.querySelectorAll('.admin-only');
-            adminElements.forEach(element => {
-                if (isAdmin) {
-                    element.classList.remove('d-none');
-                } else {
-                    element.classList.add('d-none');
-                }
-            });
+        .then(data => {
+            console.log('Admin access check:', data);
+            return data.isAdmin === true;
         })
         .catch(error => {
-            console.error('Error checking admin status:', error);
+            console.error('Error checking admin role:', error);
+            return false;
         });
 }
 
-// Run on page load if user is authenticated
-document.addEventListener('DOMContentLoaded', function() {
-    // Only run if user is logged in (check for logout button as an indicator)
-    if (document.querySelector('form[asp-controller="Account"][asp-action="Logout"]')) {
-        checkAdminAccess();
+// Display or hide admin menu based on user role
+function updateAdminMenuVisibility() {
+    const adminMenuItems = document.querySelectorAll('.admin-only');
+    if (!adminMenuItems || adminMenuItems.length === 0) {
+        return; // No admin menu items to update
     }
+    
+    checkAdminAccess()
+        .then(isAdmin => {
+            adminMenuItems.forEach(item => {
+                item.style.display = isAdmin ? 'block' : 'none';
+            });
+        });
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    // Update admin menu visibility
+    updateAdminMenuVisibility();
+    
+    // Auto-hide alerts after 5 seconds
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');
+        alerts.forEach(alert => {
+            alert.classList.add('fade');
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 500);
+        });
+    }, 5000);
 });

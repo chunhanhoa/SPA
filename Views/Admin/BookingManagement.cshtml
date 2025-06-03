@@ -1,0 +1,511 @@
+@{
+    ViewData["Title"] = "Quản lý đặt lịch";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">@ViewData["Title"]</h1>
+
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Admin">Tổng quan</a></li>
+        <li class="breadcrumb-item active">Quản lý đặt lịch</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-calendar-alt me-1"></i>
+                Danh sách đặt lịch
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm" id="btnRefresh">
+                    <i class="fas fa-sync"></i> Làm mới dữ liệu
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <select id="statusFilter" class="form-select">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="Chờ xác nhận">Chờ xác nhận</option>
+                        <option value="Đã xác nhận">Đã xác nhận</option>
+                        <option value="Đang thực hiện">Đang thực hiện</option>
+                        <option value="Hoàn thành">Hoàn thành</option>
+                        <option value="Đã hủy">Đã hủy</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="date" id="dateFilter" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="searchInput" class="form-control"
+                        placeholder="Tìm kiếm theo tên, số điện thoại..." />
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="bookingsTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Khách hàng</th>
+                            <th>SĐT</th>
+                            <th>Ngày đặt</th>
+                            <th>Thời gian</th>
+                            <th>Dịch vụ</th>
+                            <th>Phòng</th>
+                            <th>Ghế</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Đang tải...</span>
+                                </div>
+                                <p class="mt-2">Đang tải dữ liệu...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chi tiết đặt lịch -->
+<div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết đặt lịch</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="bookingDetailContent">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="mt-2">Đang tải dữ liệu...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cập nhật trạng thái -->
+<div class="modal fade" id="updateStatusModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập nhật trạng thái</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="updateBookingId" />
+
+                <div class="mb-3">
+                    <label for="bookingStatus" class="form-label">Trạng thái</label>
+                    <select class="form-select" id="bookingStatus">
+                        <option value="Chờ xác nhận">Chờ xác nhận</option>
+                        <option value="Đã xác nhận">Đã xác nhận</option>
+                        <option value="Đang thực hiện">Đang thực hiện</option>
+                        <option value="Hoàn thành">Hoàn thành</option>
+                        <option value="Đã hủy">Đã hủy</option>
+                    </select>
+                </div>
+
+                <div class="alert d-none" id="updateStatusMessage"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnUpdateStatus">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Hàm tải dữ liệu đặt lịch
+            function loadBookings() {
+                $.ajax({
+                    url: '/api/Booking/All', // Đảm bảo API endpoint chính xác
+                    type: 'GET',
+                    success: function (bookings) {
+                        renderBookingsTable(bookings);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Lỗi khi tải danh sách đặt lịch:', error);
+                        $('#bookingsTableBody').html(`
+                                <tr>
+                                    <td colspan="9" class="text-center text-danger">
+                                        <i class="fas fa-exclamation-circle me-2"></i>
+                                        Không thể tải dữ liệu. Lỗi: ${xhr.status} ${xhr.statusText}
+                                    </td>
+                                </tr>
+                            `);
+                    }
+                });
+            }
+
+            // Hàm hiển thị dữ liệu trong bảng
+            function renderBookingsTable(bookings) {
+                if (!bookings || bookings.length === 0) {
+                    $('#bookingsTableBody').html(`
+                <tr>
+                    <td colspan="10" class="text-center">
+                        Không có dữ liệu đặt lịch
+                    </td>
+                </tr>
+            `);
+                    return;
+                }
+
+                const statusFilter = $('#statusFilter').val();
+                const dateFilter = $('#dateFilter').val();
+                const searchTerm = $('#searchInput').val().toLowerCase();
+
+                // Lọc dữ liệu
+                let filteredBookings = bookings;
+
+                if (statusFilter) {
+                    filteredBookings = filteredBookings.filter(b => b.status === statusFilter);
+                }
+
+                if (dateFilter) {
+                    const dateString = dateFilter + "T00:00:00";
+                    filteredBookings = filteredBookings.filter(b => {
+                        if (!b.startTime) return false;
+                        const bookingDate = new Date(b.startTime);
+                        const filterDate = new Date(dateString);
+                        if (isNaN(bookingDate.getTime()) || isNaN(filterDate.getTime())) return false;
+                        return bookingDate.toDateString() === filterDate.toDateString();
+                    });
+                }
+
+                if (searchTerm) {
+                    filteredBookings = filteredBookings.filter(b =>
+                        (b.customer && b.customer.fullName && b.customer.fullName.toLowerCase().includes(searchTerm)) ||
+                        (b.customer && b.customer.phone && b.customer.phone.toLowerCase().includes(searchTerm)));
+                }
+
+                if (filteredBookings.length === 0) {
+                    $('#bookingsTableBody').html(`
+                <tr>
+                    <td colspan="10" class="text-center">
+                        Không tìm thấy thông tin lịch hẹn.
+                    </td>
+                </tr>
+            `);
+                    return;
+                }
+
+                let html = '';
+                filteredBookings.forEach(booking => {
+                    if (!booking) return;
+
+                    let statusClass = 'secondary';
+                    switch (booking.status) {
+                        case 'Chờ xác nhận': statusClass = 'warning'; break;
+                        case 'Đã xác nhận': statusClass = 'success'; break;
+                        case 'Đang thực hiện': statusClass = 'info'; break;
+                        case 'Hoàn thành': statusClass = 'primary'; break;
+                        case 'Đã hủy': statusClass = 'danger'; break;
+                    }
+
+                    let formattedDate = 'N/A';
+                    let formattedTime = 'N/A';
+
+                    if (booking.startTime) {
+                        try {
+                            const startTime = new Date(booking.startTime);
+                            if (!isNaN(startTime.getTime())) {
+                                formattedDate = startTime.toLocaleDateString('vi-VN');
+                                formattedTime = startTime.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                            }
+                        } catch (e) {
+                            console.error('Lỗi khi xử lý thời gian:', e);
+                        }
+                    }
+
+                    // Sửa ánh xạ ServiceName
+                    let services = 'Không có dịch vụ';
+                    if (booking.services && booking.services.length > 0) {
+                        services = booking.services.map(s => s.ServiceName || s.serviceName || 'Không có tên').join(', ');
+                    }
+
+                    // Sửa ánh xạ RoomName
+                    let rooms = 'N/A';
+                    if (booking.rooms && booking.rooms.length > 0) {
+                        rooms = booking.rooms.map(r => r.RoomName || r.roomName || 'Không có tên').join(', ');
+                    }
+
+                    // Thêm ghế
+                    let chairs = 'N/A';
+                    if (booking.chairs && booking.chairs.length > 0) {
+                        chairs = booking.chairs.map(c => c.ChairName || c.chairName || 'Không có tên').join(', ');
+                    }
+
+                    const appointmentId = booking.appointmentId || 'N/A';
+                    const customerName = booking.customer && booking.customer.fullName ? booking.customer.fullName : 'N/A';
+                    const customerPhone = booking.customer && booking.customer.phone ? booking.customer.phone : 'N/A';
+
+                    html += `
+                <tr>
+                    <td>${appointmentId}</td>
+                    <td>${customerName}</td>
+                    <td>${customerPhone}</td>
+                    <td>${formattedDate}</td>
+                    <td>${formattedTime}</td>
+                    <td>${services}</td>
+                    <td>${rooms}</td>
+                    <td>${chairs}</td>
+                    <td><span class="badge bg-${statusClass}">${booking.status || 'N/A'}</span></td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-info btn-view" data-id="${appointmentId}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-primary btn-status" data-id="${appointmentId}" data-status="${booking.status || ''}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-delete" data-id="${appointmentId}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+                });
+
+                $('#bookingsTableBody').html(html);
+            }
+
+            // Xem chi tiết đặt lịch
+            $(document).on('click', '.btn-view', function () {
+                const id = $(this).data('id');
+
+                $.ajax({
+                    url: `/api/BookingApi/Details/${id}`,
+                    type: 'GET',
+                    success: function (data) {
+                        // Kiểm tra data trả về
+                        if (!data || !data.appointment) {
+                            alert('Không có dữ liệu chi tiết đặt lịch');
+                            return;
+                        }
+
+                        // Xử lý thời gian
+                        let formattedStartDate = 'N/A';
+                        let formattedStartTime = 'N/A';
+                        let formattedEndTime = 'N/A';
+
+                        try {
+                            if (data.appointment.startTime) {
+                                const startTime = new Date(data.appointment.startTime);
+                                if (!isNaN(startTime.getTime())) {
+                                    formattedStartDate = startTime.toLocaleDateString('vi-VN');
+                                    formattedStartTime = startTime.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                                }
+                            }
+
+                            if (data.appointment.endTime) {
+                                const endTime = new Date(data.appointment.endTime);
+                                if (!isNaN(endTime.getTime())) {
+                                    formattedEndTime = endTime.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                                }
+                            }
+                        } catch (e) {
+                            console.error('Lỗi khi xử lý thời gian:', e);
+                        }
+
+                        // Danh sách dịch vụ
+                        let servicesList = '<p>Không có dịch vụ</p>';
+                        if (data.services && data.services.length > 0) {
+                            servicesList = '';
+                            data.services.forEach(service => {
+                                const serviceName = service.serviceName || 'Không có tên';
+                                const servicePrice = service.price || 0;
+                                servicesList += `
+                                        <div class="d-flex justify-content-between">
+                                            <span>${serviceName}</span>
+                                            <span>${new Intl.NumberFormat('vi-VN').format(servicePrice)} VNĐ</span>
+                                        </div>
+                                    `;
+                            });
+                        }
+
+                        // Danh sách phòng và ghế
+                        let roomsList = 'N/A';
+                        let chairsList = 'N/A';
+
+                        if (data.rooms && data.rooms.length > 0) {
+                            roomsList = data.rooms.map(r => r.roomName || 'Không có tên').join(', ');
+                        }
+
+                        if (data.chairs && data.chairs.length > 0) {
+                            chairsList = data.chairs.map(c => c.chairName || 'Không có tên').join(', ');
+                        }
+
+                        // Định dạng số tiền
+                        const totalAmount = data.appointment.totalAmount || 0;
+
+                        // Xác định class cho trạng thái
+                        let statusClass = 'secondary';
+                        const status = data.appointment.status || 'N/A';
+                        switch (status) {
+                            case 'Chờ xác nhận': statusClass = 'warning'; break;
+                            case 'Đã xác nhận': statusClass = 'success'; break;
+                            case 'Đang thực hiện': statusClass = 'info'; break;
+                            case 'Hoàn thành': statusClass = 'primary'; break;
+                            case 'Đã hủy': statusClass = 'danger'; break;
+                        }
+
+                        // Thông tin khách hàng
+                        const customerName = data.appointment.customer && data.appointment.customer.fullName ?
+                            data.appointment.customer.fullName : 'N/A';
+                        const customerPhone = data.appointment.customer && data.appointment.customer.phone ?
+                            data.appointment.customer.phone : 'N/A';
+
+                        const notes = data.appointment.notes || 'Không có';
+
+                        $('#bookingDetailContent').html(`
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Thông tin khách hàng</h6>
+                                        <div class="mb-3">
+                                            <p class="mb-1"><strong>Họ tên:</strong> ${customerName}</p>
+                                            <p class="mb-1"><strong>SĐT:</strong> ${customerPhone}</p>
+                                        </div>
+                                    
+                                        <h6>Thông tin cuộc hẹn</h6>
+                                        <div>
+                                            <p class="mb-1"><strong>Ngày:</strong> ${formattedStartDate}</p>
+                                            <p class="mb-1"><strong>Giờ:</strong> ${formattedStartTime} - ${formattedEndTime}</p>
+                                            <p class="mb-1"><strong>Trạng thái:</strong> <span class="badge bg-${statusClass}">${status}</span></p>
+                                            <p class="mb-1"><strong>Phòng:</strong> ${roomsList}</p>
+                                            <p class="mb-1"><strong>Ghế:</strong> ${chairsList}</p>
+                                            <p class="mb-1"><strong>Ghi chú:</strong> ${notes}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Dịch vụ đã đặt</h6>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                ${servicesList}
+                                                <hr>
+                                                <div class="d-flex justify-content-between fw-bold">
+                                                    <span>Tổng tiền:</span>
+                                                    <span>${new Intl.NumberFormat('vi-VN').format(totalAmount)} VNĐ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+
+                        $('#bookingDetailModal').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Lỗi khi tải chi tiết đặt lịch:', error);
+                        alert(`Không thể tải thông tin đặt lịch. Lỗi: ${xhr.status} ${xhr.statusText}`);
+                    }
+                });
+            });
+
+            // Mở modal cập nhật trạng thái
+            $(document).on('click', '.btn-status', function () {
+                const id = $(this).data('id');
+                const status = $(this).data('status');
+
+                $('#updateBookingId').val(id);
+                $('#bookingStatus').val(status);
+                $('#updateStatusMessage').addClass('d-none');
+                $('#updateStatusModal').modal('show');
+            });
+
+            // Cập nhật trạng thái
+            $('#btnUpdateStatus').click(function () {
+                const id = $('#updateBookingId').val();
+                const status = $('#bookingStatus').val();
+
+                $.ajax({
+                    url: `/api/BookingApi/${id}/UpdateStatus`,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ status: status }),
+                    beforeSend: function () {
+                        $('#btnUpdateStatus').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...');
+                    },
+                    success: function (response) {
+                        $('#updateStatusMessage').removeClass('d-none alert-danger').addClass('alert-success').text('Cập nhật trạng thái thành công');
+
+                        setTimeout(function () {
+                            $('#updateStatusModal').modal('hide');
+                            loadBookings();
+                        }, 1000);
+                    },
+                    error: function (xhr, status, error) {
+                        let message = 'Có lỗi xảy ra khi cập nhật trạng thái';
+                        try {
+                            const resp = JSON.parse(xhr.responseText);
+                            if (resp && resp.message) {
+                                message = resp.message;
+                            }
+                        } catch (e) { }
+
+                        $('#updateStatusMessage').removeClass('d-none alert-success').addClass('alert-danger').text(message);
+                    },
+                    complete: function () {
+                        $('#btnUpdateStatus').prop('disabled', false).text('Cập nhật');
+                    }
+                });
+            });
+
+            // Xóa đặt lịch
+            $(document).on('click', '.btn-delete', function () {
+                const id = $(this).data('id');
+
+                if (confirm('Bạn có chắc chắn muốn xóa đặt lịch này?')) {
+                    $.ajax({
+                        url: `/api/BookingApi/${id}`,
+                        type: 'DELETE',
+                        success: function () {
+                            alert('Xóa đặt lịch thành công');
+                            loadBookings();
+                        },
+                        error: function (xhr, status, error) {
+                            alert(`Không thể xóa đặt lịch. Lỗi: ${xhr.status} ${xhr.statusText}`);
+                        }
+                    });
+                }
+            });
+
+            // Áp dụng bộ lọc
+            $('#statusFilter, #dateFilter').change(function () {
+                loadBookings();
+            });
+
+            // Tìm kiếm
+            $('#searchInput').on('keyup', function () {
+                loadBookings();
+            });
+
+            // Làm mới dữ liệu
+            $('#btnRefresh').click(function () {
+                $('#statusFilter').val('');
+                $('#dateFilter').val('');
+                $('#searchInput').val('');
+                loadBookings();
+            });
+
+            // Tải dữ liệu ban đầu
+            loadBookings();
+        });
+    </script>
+}
