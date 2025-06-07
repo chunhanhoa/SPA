@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BuBE1h9BrYM=",
+  "dgSpecHash": "u0LrssvSKQA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ASUS\\Downloads\\QL_Spa\\QL_Spa\\QL_Spa.csproj",
+  "projectFilePath": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\QL_Spa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
