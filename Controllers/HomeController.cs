@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using QL_Spa.Data; // Add this to access SpaDbContext
 using QL_Spa.Models;
 
 namespace QL_Spa.Controllers;
@@ -7,24 +9,43 @@ namespace QL_Spa.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly SpaDbContext _context; // Changed from ApplicationDbContext to SpaDbContext
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, SpaDbContext context) // Changed from ApplicationDbContext to SpaDbContext
     {
         _logger = logger;
+        _context = context;
     }
 
-    public IActionResult BookingConfirmation(int id)
+    public async Task<IActionResult> BookingConfirmation(int id)
     {
-        ViewData["Title"] = "Xác nhận đặt lịch";
-        
-        if (id <= 0)
+        var appointment = await _context.Appointments
+            .Include(a => a.Customer)
+            .Include(a => a.AppointmentServices)
+                .ThenInclude(aps => aps.Service)
+            .Include(a => a.AppointmentChairs)
+                .ThenInclude(ac => ac.Chair)
+                    .ThenInclude(c => c.Room)
+            .FirstOrDefaultAsync(a => a.AppointmentId == id);
+
+        if (appointment == null)
         {
-            _logger.LogWarning("Truy cập trang xác nhận đặt lịch với ID không hợp lệ: {ID}", id);
-            return BadRequest("ID lịch hẹn không hợp lệ");
+            return NotFound();
         }
-        
-        _logger.LogInformation("Đang tải trang xác nhận đặt lịch ID: {ID}", id);
-        return View(id);
+
+        // Get grouped rooms and chairs
+        var roomsWithChairs = appointment.AppointmentChairs
+            .Where(ac => ac.Chair?.Room != null)
+            .GroupBy(ac => ac.Chair.Room.RoomId)
+            .Select(group => new {
+                Room = group.First().Chair.Room,
+                Chairs = group.Select(ac => ac.Chair.ChairName).ToList()
+            })
+            .ToList();
+
+        ViewBag.RoomsWithChairs = roomsWithChairs;
+
+        return View(appointment);
     }
 
     // Các action khác giữ nguyên

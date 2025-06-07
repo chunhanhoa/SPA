@@ -1,40 +1,146 @@
-@model int
+@model QL_Spa.Models.Appointment
 @{
     ViewData["Title"] = "Xác nhận đặt lịch";
-    var bookingId = Model;
-    var invoiceId = Context.Request.Query["invoiceId"];
 }
 
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0"><i class="bi bi-check-circle-fill me-2"></i>Đặt lịch thành công</h3>
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="mb-0 text-center"><i class="bi bi-check-circle-fill me-2"></i>Đặt lịch thành công</h2>
                 </div>
-                <div class="card-body" id="bookingDetails">
-                    <div class="text-center mb-4">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Đang tải...</span>
-                        </div>
-                        <p class="mt-2">Đang tải thông tin đặt lịch...</p>
+                <div class="card-body p-4">
+                    <div class="alert alert-success mb-4">
+                        <h5 class="alert-heading"><i class="bi bi-check2-circle me-2"></i>Cảm ơn bạn đã đặt lịch!</h5>
+                        <p class="mb-0">Lịch hẹn của bạn đã được xác nhận. Mã đặt lịch: <strong>LS-@Model.AppointmentId.ToString("D4")</strong></p>
                     </div>
-                </div>
-                <div class="card-body" id="invoiceDetails">
-                    <div class="text-center mb-4">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Đang tải...</span>
+                    
+                    <h5 class="mb-3">Thông tin lịch hẹn</h5>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4 fw-bold">Ngày giờ:</div>
+                                <div class="col-md-8">@Model.StartTime.ToString("dd/MM/yyyy") lúc @Model.StartTime.ToString("HH:mm")</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 fw-bold">Thời gian kết thúc dự kiến:</div>
+                                <div class="col-md-8">@Model.EndTime.ToString("dd/MM/yyyy") lúc @Model.EndTime.ToString("HH:mm")</div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(Model.Notes))
+                            {
+                                <div class="row mb-0">
+                                    <div class="col-md-4 fw-bold">Ghi chú:</div>
+                                    <div class="col-md-8">@Model.Notes</div>
+                                </div>
+                            }
                         </div>
-                        <p class="mt-2">Đang tải thông tin hóa đơn...</p>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-between">
-                        <a href="/Home" class="btn btn-outline-secondary">
-                            <i class="bi bi-house-door me-1"></i> Quay lại trang chủ
+
+                    <!-- Customer information -->
+                    <h5 class="mb-3">Thông tin khách hàng</h5>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            @if (Model.Customer != null)
+                            {
+                                <div class="row mb-3">
+                                    <div class="col-md-4 fw-bold">Họ tên:</div>
+                                    <div class="col-md-8">@Model.Customer.FullName</div>
+                                </div>
+                                <div class="row mb-0">
+                                    <div class="col-md-4 fw-bold">Số điện thoại:</div>
+                                    <div class="col-md-8">@Model.Customer.Phone</div>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">Không có thông tin khách hàng</p>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Service information -->
+                    <h5 class="mb-3">Dịch vụ đã đặt</h5>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            @if (Model.AppointmentServices != null && Model.AppointmentServices.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th scope="col">Dịch vụ</th>
+                                                <th scope="col" class="text-center">Số lượng</th>
+                                                <th scope="col" class="text-end">Giá</th>
+                                                <th scope="col" class="text-end">Thành tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.AppointmentServices)
+                                            {
+                                                <tr>
+                                                    <td>@item.Service?.ServiceName</td>
+                                                    <td class="text-center">@item.Quantity</td>
+                                                    <td class="text-end">@item.Price.ToString("#,##0") VNĐ</td>
+                                                    <td class="text-end">@((item.Price * item.Quantity).ToString("#,##0")) VNĐ</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="3" class="text-end">Tổng cộng:</th>
+                                                <th class="text-end">@Model.TotalAmount.ToString("#,##0") VNĐ</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0">Không có dịch vụ nào được đặt</p>
+                            }
+                        </div>
+                    </div>
+                    
+                    <!-- Display rooms and chairs information -->
+                    <h5 class="mb-3">Thông tin phòng và ghế</h5>
+                    @if (ViewBag.RoomsWithChairs != null)
+                    {
+                        foreach (var item in ViewBag.RoomsWithChairs)
+                        {
+                            <div class="card mb-3">
+                                <div class="card-header bg-info text-white">
+                                    <strong>Phòng: @item.Room.RoomName</strong>
+                                </div>
+                                <div class="card-body">
+                                    <p class="mb-0">Ghế: @string.Join(", ", item.Chairs)</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else if (Model.AppointmentChairs != null && Model.AppointmentChairs.Any())
+                    {
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <p><strong>Ghế:</strong> 
+                                @string.Join(", ", Model.AppointmentChairs.Select(c => c.Chair?.ChairName).Where(n => !string.IsNullOrEmpty(n)))
+                                </p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mb-4">
+                            <p class="mb-0">Không có thông tin về ghế và phòng</p>
+                        </div>
+                    }
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary">
+                            <i class="bi bi-house me-2"></i>Trang chủ
                         </a>
-                        <a href="/Home/Services" class="btn btn-primary">
-                            <i class="bi bi-list-check me-1"></i> Xem các dịch vụ khác
+                        <a href="@Url.Action("Booking", "Home")" class="btn btn-primary">
+                            <i class="bi bi-calendar-plus me-2"></i>Đặt lịch mới
                         </a>
                     </div>
                 </div>
@@ -46,196 +152,8 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            loadBookingDetails(@bookingId);
-            loadInvoiceDetails('@invoiceId');
-
-            function loadBookingDetails(id) {
-                $.ajax({
-                    url: '/api/Booking/Details/' + id,
-                    method: 'GET',
-                    success: function(response) {
-                        renderBookingDetails(response);
-                    },
-                    error: function(xhr) {
-                        $('#bookingDetails').html(`
-                            <div class="alert alert-danger">
-                                ${xhr.responseJSON?.message || 'Không thể tải thông tin đặt lịch.'}
-                            </div>
-                        `);
-                    }
-                });
-            }
-
-            function loadInvoiceDetails(id) {
-                if (!id) {
-                    $('#invoiceDetails').html('<div class="alert alert-info">Không có hóa đơn.</div>');
-                    return;
-                }
-                $.ajax({
-                    url: '/api/Invoice/' + id,
-                    method: 'GET',
-                    success: function(response) {
-                        renderInvoiceDetails(response);
-                    },
-                    error: function(xhr) {
-                        $('#invoiceDetails').html(`
-                            <div class="alert alert-danger">
-                                ${xhr.responseJSON?.message || 'Không thể tải thông tin hóa đơn.'}
-                            </div>
-                        `);
-                    }
-                });
-            }
-
-            function renderBookingDetails(data) {
-                const appointment = data.appointment || {};
-                const services = data.services || [];
-                const rooms = data.rooms || [];
-                const chairs = data.chairs || [];
-
-                if (!appointment.AppointmentId) {
-                    $('#bookingDetails').html('<div class="alert alert-danger">Không tìm thấy thông tin lịch hẹn.</div>');
-                    return;
-                }
-
-                const startTime = new Date(appointment.StartTime);
-                const endTime = new Date(appointment.EndTime);
-                const formattedDate = startTime.toLocaleDateString('vi-VN');
-                const formattedTime = startTime.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-                const formattedEndTime = endTime.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-                const formattedAmount = new Intl.NumberFormat('vi-VN').format(appointment.TotalAmount);
-
-                let html = `
-                    <div class="booking-confirmed mb-4 text-center">
-                        <div class="success-icon mb-3">
-                            <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
-                        </div>
-                        <h4>Lịch hẹn #${appointment.AppointmentId}</h4>
-                        <p class="text-muted">Cảm ơn bạn đã đặt lịch tại LoanSpa. Chúng tôi sẽ liên hệ xác nhận sớm nhất.</p>
-                    </div>
-                    
-                    <div class="booking-details">
-                        <h5 class="mb-3 border-bottom pb-2">Chi tiết lịch hẹn</h5>
-                        <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Trạng thái:</div>
-                            <div class="col-md-8">
-                                <span class="badge bg-warning">${appointment.Status}</span>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Ngày:</div>
-                            <div class="col-md-8">${formattedDate}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Giờ bắt đầu:</div>
-                            <div class="col-md-8">${formattedTime}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Giờ kết thúc:</div>
-                            <div class="col-md-8">${formattedEndTime}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Phòng:</div>
-                            <div class="col-md-8">${rooms[0]?.RoomName || 'N/A'}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Ghế:</div>
-                            <div class="col-md-8">${chairs.map(c => c.ChairName).join(', ') || 'N/A'}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Tổng tiền:</div>
-                            <div class="col-md-8 fw-bold text-primary">${formattedAmount} VNĐ</div>
-                        </div>
-                        <div class="mt-4">
-                            <h5 class="mb-3 border-bottom pb-2">Dịch vụ đã đặt</h5>
-                            <table class="table table-sm">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Tên dịch vụ</th>
-                                        <th class="text-end">Đơn giá</th>
-                                        <th class="text-center">Số lượng</th>
-                                        <th class="text-end">Thành tiền</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${services.map(s => `
-                                        <tr>
-                                            <td>${s.ServiceName}</td>
-                                            <td class="text-end">${new Intl.NumberFormat('vi-VN').format(s.Price)} VNĐ</td>
-                                            <td class="text-center">${s.Quantity}</td>
-                                            <td class="text-end">${new Intl.NumberFormat('vi-VN').format(s.Price * s.Quantity)} VNĐ</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                `;
-                $('#bookingDetails').html(html);
-            }
-
-            function renderInvoiceDetails(data) {
-                const invoice = data;
-                const services = data.services || [];
-
-                if (!invoice.invoiceId) {
-                    $('#invoiceDetails').html('<div class="alert alert-danger">Không tìm thấy thông tin hóa đơn.</div>');
-                    return;
-                }
-
-                const formattedDate = new Date(invoice.createdDate).toLocaleDateString('vi-VN');
-                const totalAmount = new Intl.NumberFormat('vi-VN').format(invoice.totalAmount);
-                const finalAmount = new Intl.NumberFormat('vi-VN').format(invoice.finalAmount);
-
-                let html = `
-                    <div class="mt-4">
-                        <h5 class="mb-4 border-bottom pb-2">Chi tiết hóa đơn #${invoice.invoiceId}</h5>
-                        <p><strong>Ngày tạo:</strong> ${formattedDate}</p>
-                        <p><strong>Khách hàng:</strong> ${invoice.customer?.fullName || 'N/A'} (${invoice.customer?.phone || 'N/A'})</p>
-                        <table class="table table-sm">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Tên dịch vụ</th>
-                                    <th class="text-end">Đơn giá</th>
-                                    <th class="text-center">Số lượng</th>
-                                    <th class="text-end">Thành tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${services.map(s => `
-                                    <tr>
-                                        <td>${s.serviceName}</td>
-                                        <td class="text-end">${new Intl.NumberFormat('vi-VN').format(s.price)} VNĐ</td>
-                                    <td class="text-center">${s.quantity}</td>
-                                    <td class="text-end">${new Intl.NumberFormat('vi-VN').format(s.price * s.quantity)} VNĐ</tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                        <p><strong>Tổng tiền:</strong> ${totalAmount} VNĐ</p>
-                        <p><strong>Thành tiền:</strong> ${finalAmount} VNĐ</p>
-                    </div>
-                `;
-                $('#invoiceDetails').html(html);
-            }
+            // Highlight the booking confirmation info with animation
+            $('.alert-success').hide().fadeIn(1000);
         });
     </script>
-}
-
-@section Styles {
-    <style>
-        .booking-notes {
-            padding-left: 20px;
-        }
-        .booking-notes li {
-            margin-bottom: 8px;
-        }
-        .success-icon {
-            animation: pulse 2s infinite;
-        }
-        @@keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-    </style>
 }

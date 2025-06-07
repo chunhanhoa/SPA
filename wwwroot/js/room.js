@@ -3,16 +3,8 @@
 function loadRooms() {
     console.log('Loading rooms...');
     
-    // Display loading state
-    const container = document.getElementById('roomsContainer');
-    container.innerHTML = `
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p>Đang tải dữ liệu...</p>
-        </div>
-    `;
+    // Sử dụng hàm setLoading từ management.js
+    setLoading('roomsContainer');
     
     fetch('/api/RoomApi')
         .then(response => {
@@ -28,13 +20,8 @@ function loadRooms() {
         })
         .catch(error => {
             console.error('Error fetching rooms:', error);
-            container.innerHTML = `
-                <div class="alert alert-danger">
-                    <h4>Error loading rooms</h4>
-                    <p>${error.message}</p>
-                    <button class="btn btn-primary mt-2" onclick="loadRooms()">Try Again</button>
-                </div>
-            `;
+            // Sử dụng hàm handleApiError từ management.js
+            handleApiError(error, 'roomsContainer', 'loadRooms');
         });
 }
 

@@ -188,11 +188,15 @@
                 if (debugConsole) {
                     const args = Array.from(arguments).map(arg => {
                         if (typeof arg === 'object') {
-                            return JSON.stringify(arg, null, 2);
+                            try {
+                                return JSON.stringify(arg, null, 2);
+                            } catch (e) {
+                                return String(arg);
+                            }
                         }
-                        return arg;
+                        return String(arg);
                     }).join(' ');
-                    debugConsole.innerHTML += `<div class="text-dark">${args}</div>`;
+                    debugConsole.innerHTML += `<div class="text-dark">${escapeHtml(args)}</div>`;
                     debugConsole.scrollTop = debugConsole.scrollHeight;
                 }
             };
@@ -202,14 +206,28 @@
                 if (debugConsole) {
                     const args = Array.from(arguments).map(arg => {
                         if (typeof arg === 'object') {
-                            return JSON.stringify(arg, null, 2);
+                            try {
+                                return JSON.stringify(arg, null, 2);
+                            } catch (e) {
+                                return String(arg);
+                            }
                         }
-                        return arg;
+                        return String(arg);
                     }).join(' ');
-                    debugConsole.innerHTML += `<div class="text-danger">${args}</div>`;
+                    debugConsole.innerHTML += `<div class="text-danger">${escapeHtml(args)}</div>`;
                     debugConsole.scrollTop = debugConsole.scrollHeight;
                 }
             };
+            
+            // Hàm escapeHtml để tránh XSS trong console log
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
             
             // Test API connection button
             document.getElementById('testApiBtn').addEventListener('click', function() {

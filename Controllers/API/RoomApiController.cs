@@ -29,29 +29,45 @@ namespace QL_Spa.Controllers.Api
 
         // GET: api/RoomApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> GetRooms()
+        public async Task<IActionResult> GetRooms()
         {
             try
             {
                 _logger.LogInformation("Retrieving all rooms");
                 
                 var rooms = await _context.Rooms
-                    .Select(r => new 
-                    {
-                        r.RoomId,
-                        r.RoomName,
-                        r.IsAvailable
-                    })
+                    .OrderBy(r => r.RoomId)
                     .ToListAsync();
+
+                var result = new List<object>();
                 
+                foreach (var room in rooms)
+                {
+                    // Load chairs for this room separately
+                    var chairs = await _context.Chairs
+                        .Where(c => c.RoomId == room.RoomId)
+                        .ToListAsync();
+                    
+                    result.Add(new
+                    {
+                        roomId = room.RoomId,
+                        roomName = room.RoomName,
+                        // Remove reference to Capacity property as it doesn't exist in Room model
+                        isAvailable = room.IsAvailable,
+                        chairsCount = chairs.Count,
+                        availableChairsCount = chairs.Count(c => c.IsAvailable)
+                    });
+                }
+
                 _logger.LogInformation($"Retrieved {rooms.Count} rooms");
-                return rooms;
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error retrieving rooms");
                 string innerMessage = ex.InnerException?.Message ?? ex.Message;
-                return StatusCode(500, $"Internal server error: {innerMessage}");
+                // Return error response
+                return StatusCode(500, new { error = innerMessage });
             }
         }
 

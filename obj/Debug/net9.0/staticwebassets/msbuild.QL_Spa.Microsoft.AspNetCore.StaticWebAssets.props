@@ -30,8 +30,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>56x52v415z</Fingerprint>
-      <Integrity>0yrTTf4hDMm/M2XRIhO+wVpa6zoT0Wio83EYlqoMHpI=</Integrity>
+      <Fingerprint>t0xttr8je8</Fingerprint>
+      <Integrity>bRXRxNfMbqoi0UwNTBGjQL3OW+4KIUY6EfXnYZR1ZXc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</OriginalItemSpec>
@@ -264,8 +264,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ubex6ri3wr</Fingerprint>
-      <Integrity>Nkf5pfTKg0HXqbzMBAKn9i1Bw/oeRposrRGT9AvL6Zo=</Integrity>
+      <Fingerprint>h10kxg5zmw</Fingerprint>
+      <Integrity>y7EFlnvqEsLIQiN2ZRoEJ/PAe0W1s6vV9v5DTZFD33c=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin.js'))</OriginalItemSpec>
@@ -282,8 +282,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>iqi5p2k9bi</Fingerprint>
-      <Integrity>Gm8aUMS7a0ZMCKYCrEBTcb2hoCXSrDGWZ8ZB1s8uz7c=</Integrity>
+      <Fingerprint>8z13weybex</Fingerprint>
+      <Integrity>PNsFTxGx7lTIR0pHFhfVPLfkgavVin7VC3gBTGivFBs=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin-booking.js'))</OriginalItemSpec>
@@ -318,11 +318,29 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>eshnz72y10</Fingerprint>
-      <Integrity>Micg+H0qNGyG6cHPD8FGG+SjOJPgsF8t0BDCU8ZaQlg=</Integrity>
+      <Fingerprint>2tkzk4u20k</Fingerprint>
+      <Integrity>6ie70UXvaWzwu0bQd45n0+ooReNAWe9jjVCiKGEn9ZI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin-room.js'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\booking.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>QL_Spa</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QL_Spa</BasePath>
+      <RelativePath>js/booking.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>ckqgnvlqld</Fingerprint>
+      <Integrity>hPLUcRPS9vDJABOxGBjgsXyodVLEok3qF37lX1mxWLE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\booking.js'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\contact.js'))">
       <SourceType>Package</SourceType>
@@ -408,8 +426,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>8saedriwaz</Fingerprint>
-      <Integrity>GMeTo+jrTSl7noDdvYHjs5zTJXBvax/a/GMV0v22W/g=</Integrity>
+      <Fingerprint>zb92q75600</Fingerprint>
+      <Integrity>v0HnnkldAiU6v1/VhhL9SVWV9CqxYyfUHMiKDa1XOUk=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\room.js'))</OriginalItemSpec>
@@ -1530,23 +1548,23 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\LICENSE.txt'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\QL_Spa.alofo50opn.bundle.scp.css'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\QL_Spa.lpk99cjea9.bundle.scp.css'))">
       <SourceType>Package</SourceType>
       <SourceId>QL_Spa</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/QL_Spa</BasePath>
-      <RelativePath>QL_Spa.alofo50opn.bundle.scp.css</RelativePath>
+      <RelativePath>QL_Spa.lpk99cjea9.bundle.scp.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>Reference</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ProjectBundle</AssetTraitValue>
-      <Fingerprint>alofo50opn</Fingerprint>
-      <Integrity>PnZimFx+iDMS7OdPHUsNuLWf6I9QGRFUxFECbB2zdeI=</Integrity>
+      <Fingerprint>lpk99cjea9</Fingerprint>
+      <Integrity>5yVPH3Zs4cXZzBIEA6NPttVxZVAkrU7xhKlTgMk8G5o=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\QL_Spa.alofo50opn.bundle.scp.css'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\QL_Spa.lpk99cjea9.bundle.scp.css'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

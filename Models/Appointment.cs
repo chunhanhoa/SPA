@@ -29,7 +29,7 @@ namespace QL_Spa.Models
         
         [Required]
         [StringLength(50)]
-        public string Status { get; set; } = "Chờ xác nhận";
+        public string Status { get; set; } = "Đã xác nhận";
         
         [StringLength(500)]
         public string? Notes { get; set; }

@@ -28,7 +28,6 @@
                 <div class="col-md-3">
                     <select id="statusFilter" class="form-select">
                         <option value="">Tất cả trạng thái</option>
-                        <option value="Chờ xác nhận">Chờ xác nhận</option>
                         <option value="Đã xác nhận">Đã xác nhận</option>
                         <option value="Đang thực hiện">Đang thực hiện</option>
                         <option value="Hoàn thành">Hoàn thành</option>
@@ -56,7 +55,7 @@
                             <th>Dịch vụ</th>
                             <th>Phòng</th>
                             <th>Ghế</th>
-                            <th>Trạng thái</th>
+                            <!-- Removed Status column -->
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -209,15 +208,8 @@
                 filteredBookings.forEach(booking => {
                     if (!booking) return;
 
-                    let statusClass = 'secondary';
-                    switch (booking.status) {
-                        case 'Chờ xác nhận': statusClass = 'warning'; break;
-                        case 'Đã xác nhận': statusClass = 'success'; break;
-                        case 'Đang thực hiện': statusClass = 'info'; break;
-                        case 'Hoàn thành': statusClass = 'primary'; break;
-                        case 'Đã hủy': statusClass = 'danger'; break;
-                    }
-
+                    // Remove status display logic since we're not showing it anymore
+                    
                     let formattedDate = 'N/A';
                     let formattedTime = 'N/A';
 
@@ -245,10 +237,48 @@
                         rooms = booking.rooms.map(r => r.RoomName || r.roomName || 'Không có tên').join(', ');
                     }
 
-                    // Thêm ghế
+                    // Enhanced chair information display
                     let chairs = 'N/A';
-                    if (booking.chairs && booking.chairs.length > 0) {
-                        chairs = booking.chairs.map(c => c.ChairName || c.chairName || 'Không có tên').join(', ');
+                    
+                    // Try to get chair info from appointmentChairs nested object
+                    if (booking.appointmentChairs && booking.appointmentChairs.length > 0) {
+                        const chairsData = booking.appointmentChairs
+                            .filter(ac => ac && ac.chair)
+                            .map(ac => {
+                                const chair = ac.chair;
+                                const chairName = chair.chairName || chair.ChairName || 'Không có tên';
+                                const roomName = chair.room ? (chair.room.roomName || chair.room.RoomName || '') : '';
+                                const isAvailable = chair.isAvailable !== undefined ? chair.isAvailable : chair.IsAvailable;
+                                const status = isAvailable ? 'Còn trống' : 'Đã đặt';
+                                
+                                return `${chairName} (${status})`;
+                            });
+                            
+                        if (chairsData.length > 0) {
+                            chairs = chairsData.join(', ');
+                        }
+                    }
+
+                    // Try to get chair info from chairs array if appointmentChairs didn't work
+                    if (chairs === 'N/A' && booking.chairs && booking.chairs.length > 0) {
+                        const chairsData = booking.chairs
+                            .filter(c => c)
+                            .map(c => {
+                                const chairName = c.chairName || c.ChairName || 'Không có tên';
+                                const isAvailable = c.isAvailable !== undefined ? c.isAvailable : c.IsAvailable;
+                                const status = isAvailable ? 'Còn trống' : 'Đã đặt';
+                                
+                                return `${chairName} (${status})`;
+                            });
+                            
+                        if (chairsData.length > 0) {
+                            chairs = chairsData.join(', ');
+                        }
+                    }
+                    
+                    // Fallback to see if there's a direct chairNames array
+                    if (chairs === 'N/A' && booking.chairNames && booking.chairNames.length > 0) {
+                        chairs = booking.chairNames.join(', ');
                     }
 
                     const appointmentId = booking.appointmentId || 'N/A';
@@ -265,7 +295,6 @@
                     <td>${services}</td>
                     <td>${rooms}</td>
                     <td>${chairs}</td>
-                    <td><span class="badge bg-${statusClass}">${booking.status || 'N/A'}</span></td>
                     <td>
                         <div class="btn-group btn-group-sm">
                             <button class="btn btn-info btn-view" data-id="${appointmentId}">
@@ -352,6 +381,16 @@
                             chairsList = data.chairs.map(c => c.chairName || 'Không có tên').join(', ');
                         }
 
+                        // Updated chair list handling
+                        if (data.appointment && data.appointment.appointmentChairs && data.appointment.appointmentChairs.length > 0) {
+                            chairsList = data.appointment.appointmentChairs
+                                .filter(ac => ac.chair)
+                                .map(ac => ac.chair.chairName || ac.chair.ChairName || 'Không có tên')
+                                .join(', ');
+                        } else if (data.chairs && data.chairs.length > 0) {
+                            chairsList = data.chairs.map(c => c.chairName || c.ChairName || 'Không có tên').join(', ');
+                        }
+
                         // Định dạng số tiền
                         const totalAmount = data.appointment.totalAmount || 0;
 
@@ -387,7 +426,7 @@
                                         <div>
                                             <p class="mb-1"><strong>Ngày:</strong> ${formattedStartDate}</p>
                                             <p class="mb-1"><strong>Giờ:</strong> ${formattedStartTime} - ${formattedEndTime}</p>
-                                            <p class="mb-1"><strong>Trạng thái:</strong> <span class="badge bg-${statusClass}">${status}</span></p>
+                                            <!-- Removed status display -->
                                             <p class="mb-1"><strong>Phòng:</strong> ${roomsList}</p>
                                             <p class="mb-1"><strong>Ghế:</strong> ${chairsList}</p>
                                             <p class="mb-1"><strong>Ghi chú:</strong> ${notes}</p>
@@ -426,16 +465,90 @@
                 $('#updateBookingId').val(id);
                 $('#bookingStatus').val(status);
                 $('#updateStatusMessage').addClass('d-none');
+                
+                // Hiển thị trạng thái tiếp theo phù hợp
+                updateAvailableStatuses(status);
+                
+                // Cập nhật tiêu đề modal
+                $('.modal-title').text(`Cập nhật trạng thái đặt lịch #${id}`);
+                
                 $('#updateStatusModal').modal('show');
             });
+            
+            // Hàm cập nhật các trạng thái có thể chuyển đổi
+            function updateAvailableStatuses(currentStatus) {
+                const statusSelect = $('#bookingStatus');
+                statusSelect.empty();
+                
+                // Remove 'Chờ xác nhận' from available statuses
+                let availableStatuses = [];
+                if (currentStatus === 'Chờ xác nhận') {
+                    currentStatus = 'Đã xác nhận';
+                }
+                
+                switch(currentStatus) {
+                    case 'Đã xác nhận':
+                        availableStatuses = ['Đã xác nhận', 'Đang thực hiện', 'Đã hủy'];
+                        break;
+                    case 'Đang thực hiện':
+                        availableStatuses = ['Đang thực hiện', 'Hoàn thành', 'Đã hủy'];
+                        break;
+                    case 'Hoàn thành':
+                        availableStatuses = ['Hoàn thành', 'Đã hủy'];
+                        break;
+                    case 'Đã hủy':
+                        availableStatuses = ['Đã hủy', 'Đã xác nhận'];
+                        break;
+                    default:
+                        availableStatuses = ['Đã xác nhận', 'Đang thực hiện', 'Hoàn thành', 'Đã hủy'];
+                }
+                
+                // Thêm các tùy chọn vào select
+                availableStatuses.forEach(status => {
+                    let statusClass = getStatusClass(status);
+                    statusSelect.append(`<option value="${status}" class="text-${statusClass}">${status}</option>`);
+                });
+                
+                // Hiển thị trạng thái hiện tại
+                statusSelect.val(currentStatus);
+                
+                // Thêm CSS để hiển thị các option theo màu sắc
+                setTimeout(() => {
+                    const selectElement = document.getElementById('bookingStatus');
+                    if (selectElement && selectElement.options) {
+                        Array.from(selectElement.options).forEach(option => {
+                            const statusClass = getStatusClass(option.value);
+                            option.classList.add(`text-${statusClass}`);
+                        });
+                    }
+                }, 0);
+            }
+            
+            // Lấy class cho trạng thái
+            function getStatusClass(status) {
+                switch(status) {
+                    case 'Chờ xác nhận': return 'warning';
+                    case 'Đã xác nhận': return 'success';
+                    case 'Đang thực hiện': return 'info';
+                    case 'Hoàn thành': return 'primary';
+                    case 'Đã hủy': return 'danger';
+                    default: return 'secondary';
+                }
+            }
 
             // Cập nhật trạng thái
             $('#btnUpdateStatus').click(function () {
                 const id = $('#updateBookingId').val();
                 const status = $('#bookingStatus').val();
+                
+                if (!id || !status) {
+                    $('#updateStatusMessage').removeClass('d-none alert-success').addClass('alert-danger')
+                        .text('Thiếu thông tin cần thiết để cập nhật.');
+                    return;
+                }
 
                 $.ajax({
-                    url: `/api/BookingApi/${id}/UpdateStatus`,
+                    url: `/api/Booking/${id}/UpdateStatus`, // Sửa endpoint URL
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ status: status }),
@@ -443,11 +556,12 @@
                         $('#btnUpdateStatus').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...');
                     },
                     success: function (response) {
-                        $('#updateStatusMessage').removeClass('d-none alert-danger').addClass('alert-success').text('Cập nhật trạng thái thành công');
+                        $('#updateStatusMessage').removeClass('d-none alert-danger').addClass('alert-success')
+                            .text('Cập nhật trạng thái thành công');
 
                         setTimeout(function () {
                             $('#updateStatusModal').modal('hide');
-                            loadBookings();
+                            loadBookings(); // Tải lại dữ liệu
                         }, 1000);
                     },
                     error: function (xhr, status, error) {

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using QL_Spa.Data;
 using QL_Spa.Services; // Add this namespace for RoleInitializer
 using System.Text.Json.Serialization;
@@ -37,7 +38,11 @@ builder.Services.AddCors(options =>
 
 // Configure DbContext
 builder.Services.AddDbContext<SpaDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .ConfigureWarnings(warnings =>
+                warnings.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning)
+           )
+);
 
 // Configure Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -46,6 +51,21 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 // Add RoleInitializer service
 builder.Services.AddScoped<RoleInitializer>();
+
+// Add this line to register AvailabilityService
+builder.Services.AddScoped<QL_Spa.Services.AvailabilityService>();
+
+// Thêm Swagger services
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "QL_Spa API", 
+        Version = "v1",
+        Description = "API for QL_Spa application"
+    });
+});
 
 var app = builder.Build();
 
@@ -61,7 +81,15 @@ else
     app.UseDeveloperExceptionPage();
 }
 
-
+// Thêm Swagger middleware
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "QL_Spa API V1");
+    });
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

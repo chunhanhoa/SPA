@@ -47,3 +47,7 @@ button.accept-policy[b-cozdob0ghb] {
   white-space: nowrap;
   line-height: 60px;
 }
+
+#content-warp[b-cozdob0ghb]{
+  padding-bottom: 0;
+}

@@ -25,6 +25,9 @@ namespace QL_Spa.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Apply decimal property configurations
+            SpaDbContextConfiguration.ConfigureDecimalProperties(modelBuilder);
+
             // Composite keys
             modelBuilder.Entity<AppointmentChair>()
                 .HasKey(ac => new { ac.AppointmentId, ac.ChairId });

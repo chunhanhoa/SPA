@@ -95,20 +95,19 @@ function displayRooms(rooms) {
         const roomName = room.roomName || room.RoomName;
         const isAvailable = room.isAvailable !== undefined ? room.isAvailable : (room.IsAvailable !== undefined ? room.IsAvailable : true);
         
+        const statusClass = isAvailable ? 'success' : 'danger';
+        const statusText = isAvailable ? 'Có sẵn' : 'Không có sẵn';
+        
         html += `
             <tr>
                 <td>${roomId}</td>
                 <td>${roomName}</td>
+                <td><span class="badge bg-${statusClass}">${statusText}</span></td>
                 <td>
-                    <span class="badge ${isAvailable ? 'bg-success' : 'bg-danger'}">
-                        ${isAvailable ? 'Có sẵn' : 'Đã đặt'}
-                    </span>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-primary me-1" onclick="setupEditRoom(${roomId})">
+                    <button class="btn btn-sm btn-primary edit-room-btn" data-id="${roomId}" data-name="${roomName}" data-available="${isAvailable}">
                         <i class="bi bi-pencil"></i> Sửa
                     </button>
-                    <button class="btn btn-sm btn-danger" onclick="setupDeleteRoom(${roomId}, '${roomName}')">
+                    <button class="btn btn-sm btn-danger delete-room-btn" data-id="${roomId}" data-name="${roomName}">
                         <i class="bi bi-trash"></i> Xóa
                     </button>
                 </td>
@@ -123,6 +122,24 @@ function displayRooms(rooms) {
     `;
     
     roomsContainer.innerHTML = html;
+    
+    // Add event listeners for the edit and delete buttons
+    document.querySelectorAll('.edit-room-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const roomId = this.getAttribute('data-id');
+            const roomName = this.getAttribute('data-name');
+            const isAvailable = this.getAttribute('data-available') === 'true';
+            openEditRoomModal(roomId, roomName, isAvailable);
+        });
+    });
+    
+    document.querySelectorAll('.delete-room-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const roomId = this.getAttribute('data-id');
+            const roomName = this.getAttribute('data-name');
+            openDeleteRoomModal(roomId, roomName);
+        });
+    });
 }
 
 // Setup the modal for creating a new room

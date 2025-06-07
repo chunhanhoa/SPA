@@ -100,6 +100,10 @@ namespace QL_Spa.Controllers.Api
                 }
 
                 appointment.Status = request.Status;
+                
+                // Cập nhật trạng thái ghế khi trạng thái lịch hẹn thay đổi
+                await UpdateChairAvailabilityAsync(id, request.Status);
+                
                 await _context.SaveChangesAsync();
 
                 _logger.LogInformation("Đã cập nhật trạng thái lịch hẹn ID: {ID} thành {Status}", id, request.Status);
@@ -160,7 +164,7 @@ namespace QL_Spa.Controllers.Api
                         CreatedDate = appointment.CreatedDate,
                         StartTime = appointment.StartTime,
                         EndTime = appointment.EndTime,
-                        Status = appointment.Status ?? "Chờ xác nhận",
+                        Status = appointment.Status ?? "Đã xác nhận",
                         TotalAmount = appointment.TotalAmount,
                         Notes = appointment.Notes,
                         Customer = appointment.Customer != null ? new
@@ -312,15 +316,17 @@ namespace QL_Spa.Controllers.Api
                 {
                     CustomerId = customer.CustomerId,
                     CreatedDate = DateTime.Now,
-                    StartTime = model.StartTime,
-                    EndTime = model.StartTime.AddMinutes(model.Duration),
+                    // Đảm bảo StartTime được xử lý như một giờ địa phương
+                    StartTime = DateTime.Parse(model.StartTime),
+                    // Tính EndTime từ StartTime
+                    EndTime = DateTime.Parse(model.StartTime).AddMinutes(model.Duration),
                     TotalAmount = totalAmount,
-                    Status = "Chờ xác nhận",
+                    Status = "Đã xác nhận",
                     Notes = model.Notes ?? "",
                     AppointmentServices = new List<AppointmentService>(),
                     AppointmentChairs = new List<AppointmentChair>()
                 };
-
+                
                 // Thêm dịch vụ
                 foreach (var reqService in model.Services)
                 {
@@ -352,6 +358,10 @@ namespace QL_Spa.Controllers.Api
                     {
                         ChairId = chair.ChairId
                     });
+                    
+                    // Cập nhật trạng thái ghế thành đã đặt
+                    chair.IsAvailable = false;
+                    _logger.LogInformation($"Đã cập nhật ghế {chair.ChairId} - {chair.ChairName} thành không còn trống");
                 }
 
                 _context.Appointments.Add(appointment);
@@ -454,13 +464,136 @@ namespace QL_Spa.Controllers.Api
             }).Cast<object>().ToList() ?? new List<object>();
         }
 
+        // Fix the GetRoomsList function to properly handle chairs from multiple rooms
         private List<object> GetRoomsList(ICollection<AppointmentChair> appointmentChairs)
         {
-            return appointmentChairs?.Select(c => new
+            // Use a Dictionary to track unique rooms
+            var uniqueRooms = new Dictionary<int, object>();
+            
+            if (appointmentChairs != null)
             {
-                RoomId = c.Chair?.Room?.RoomId,
-                RoomName = c.Chair?.Room?.RoomName
-            }).Cast<object>().Distinct().ToList() ?? new List<object>();
+                foreach (var chair in appointmentChairs)
+                {
+                    if (chair.Chair?.Room != null)
+                    {
+                        var roomId = chair.Chair.Room.RoomId;
+                        
+                        // Add room to dictionary if it's not already there
+                        if (!uniqueRooms.ContainsKey(roomId))
+                        {
+                            uniqueRooms[roomId] = new
+                            {
+                                RoomId = roomId,
+                                RoomName = chair.Chair.Room.RoomName,
+                                Chairs = new List<string>() // Initialize empty chairs list
+                            };
+                        }
+                        
+                        // Add chair to the list of chairs for this room
+                        ((dynamic)uniqueRooms[roomId]).Chairs.Add(chair.Chair.ChairName);
+                    }
+                }
+            }
+            
+            _logger.LogInformation($"Found {uniqueRooms.Count} unique rooms in the booking");
+            foreach (var room in uniqueRooms.Values)
+            {
+                _logger.LogInformation($"Room: {((dynamic)room).RoomName}, Chairs: {string.Join(", ", ((dynamic)room).Chairs)}");
+            }
+            
+            return uniqueRooms.Values.Cast<object>().ToList();
+        }
+
+        // Lấy lịch hẹn của người dùng
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUserBookings()
+        {
+            try
+            {
+                _logger.LogInformation("Đang lấy danh sách lịch đặt từ endpoint /user");
+                // Lấy ID người dùng hiện tại
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    _logger.LogWarning("Không tìm thấy UserId trong claims");
+                    return Unauthorized(new { success = false, message = "Chưa đăng nhập" });
+                }
+
+                _logger.LogInformation($"Tìm lịch hẹn cho userId: {userId}");
+                
+                // Lấy thông tin khách hàng
+                var customer = await _context.Customers
+                    .FirstOrDefaultAsync(c => c.UserId == userId);
+                    
+                if (customer == null)
+                {
+                    _logger.LogWarning($"Không tìm thấy thông tin khách hàng cho userId: {userId}");
+                    return NotFound(new { success = false, message = "Không tìm thấy thông tin khách hàng" });
+                }
+                
+                _logger.LogInformation($"Tìm thấy khách hàng với CustomerId: {customer.CustomerId}");
+
+                // Lấy tất cả lịch hẹn của khách hàng
+                var bookings = await _context.Appointments
+                    .Include(a => a.AppointmentServices)
+                        .ThenInclude(aps => aps.Service)
+                    .Include(a => a.AppointmentChairs)
+                        .ThenInclude(apc => apc.Chair)
+                            .ThenInclude(c => c.Room)
+                    .Where(a => a.CustomerId == customer.CustomerId)
+                    .OrderByDescending(a => a.CreatedDate)
+                    .ToListAsync();
+
+                _logger.LogInformation($"Tìm thấy {bookings.Count} lịch hẹn cho khách hàng {customer.CustomerId}");
+
+                // Format dữ liệu kết quả tương tự như GetMyBookings()
+                var result = bookings.Select(appointment => new
+                {
+                    appointmentId = appointment.AppointmentId,
+                    createdDate = appointment.CreatedDate,
+                    startTime = appointment.StartTime,
+                    endTime = appointment.EndTime,
+                    status = appointment.Status ?? "Chờ xác nhận",
+                    totalAmount = appointment.TotalAmount,
+                    notes = appointment.Notes,
+                    services = GetServicesList(appointment.AppointmentServices),
+                    chairs = GetChairsList(appointment.AppointmentChairs),
+                    rooms = GetRoomsList(appointment.AppointmentChairs)
+                }).ToList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy danh sách lịch đặt của người dùng");
+                return StatusCode(500, new { success = false, message = "Lỗi hệ thống khi lấy lịch hẹn" });
+            }
+        }
+
+        // Method to update chair availability based on appointment status
+        private async Task UpdateChairAvailabilityAsync(int appointmentId, string status)
+        {
+            var appointment = await _context.Appointments
+                .Include(a => a.AppointmentChairs)
+                .ThenInclude(ac => ac.Chair)
+                .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
+            
+            if (appointment != null)
+            {
+                // If appointment is cancelled or completed, release the chairs
+                if (status == "Đã hủy" || status == "Hoàn thành")
+                {
+                    foreach (var appointmentChair in appointment.AppointmentChairs)
+                    {
+                        if (appointmentChair.Chair != null)
+                        {
+                            appointmentChair.Chair.IsAvailable = true;
+                            _logger.LogInformation($"Đã giải phóng ghế {appointmentChair.Chair.ChairId} - {appointmentChair.Chair.ChairName}");
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
         }
     }
 
@@ -508,7 +641,8 @@ namespace QL_Spa.Controllers.Api
     // Cập nhật model mới cho đặt lịch
     public class BookingCreateModel
     {
-        public DateTime StartTime { get; set; }
+        // Thay đổi kiểu dữ liệu để nhận chuỗi datetime từ client
+        public string StartTime { get; set; }
         public int Duration { get; set; } // Thời gian dịch vụ tính bằng phút
         public string Notes { get; set; }
         public List<ServiceRequest> Services { get; set; }

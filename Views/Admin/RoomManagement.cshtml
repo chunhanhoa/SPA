@@ -14,12 +14,38 @@
         </button>
     </div>
 
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Lọc phòng</h5>
+        </div>
+        <div class="card-body">
+            <div class="row align-items-end">
+                <div class="col-md-6">
+                    <label for="roomFilter" class="form-label">Trạng thái phòng</label>
+                    <select id="roomFilter" class="form-select">
+                        <option value="all">Tất cả các phòng</option>
+                        <option value="available">Đang hoạt động</option>
+                        <option value="unavailable">Không hoạt động</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <button id="filterRoomsBtn" class="btn btn-primary w-100">
+                        <i class="bi bi-funnel"></i> Lọc phòng
+                    </button>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <button id="refreshRoomsBtn" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-arrow-clockwise"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Danh sách phòng</h5>
-            <button id="refreshRoomsBtn" class="btn btn-sm btn-light">
-                <i class="bi bi-arrow-clockwise"></i> Làm mới
-            </button>
+            <span id="currentRoomDisplay" class="badge bg-light text-dark">Tất cả các phòng</span>
         </div>
         <div class="card-body">
             <div id="roomsContainer">
@@ -51,6 +77,36 @@
             </div>
         </div>
     </div>
+
+    <!-- Testing Tools Panel -->
+    <div class="card mt-4">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Công cụ kiểm tra và gỡ lỗi</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <button id="simpleTestBtn" class="btn btn-info w-100">
+                        <i class="bi bi-bug"></i> Kiểm tra API đơn giản
+                    </button>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button id="createTestRoomBtn" class="btn btn-warning w-100">
+                        <i class="bi bi-plus-square"></i> Tạo phòng thử nghiệm
+                    </button>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button id="showDbInfoBtn" class="btn btn-primary w-100">
+                        <i class="bi bi-info-circle"></i> Thông tin Database
+                    </button>
+                </div>
+            </div>
+            <div id="testResultsContainer" class="border p-3 mt-2 bg-light" style="display:none;">
+                <h6 class="mb-2">Kết quả kiểm tra:</h6>
+                <pre id="testResults" class="mb-0"></pre>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Room Modal - Used for both Create and Edit -->
@@ -71,7 +127,7 @@
                     </div>
                     
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable">
+                        <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable" checked>
                         <label class="form-check-label" for="isAvailable">Có sẵn</label>
                     </div>
                 </form>
@@ -79,6 +135,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                 <button type="button" class="btn btn-primary" id="saveRoomBtn">Lưu</button>
+                <button type="button" class="btn btn-warning" id="sqlTestBtn" style="display:none;">SQL Test</button>
             </div>
         </div>
     </div>
@@ -104,6 +161,24 @@
     </div>
 </div>
 
+<!-- Room Details Modal -->
+<div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roomDetailsModalLabel">Chi tiết phòng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="roomDetailsModalBody">
+                <!-- Room details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="~/js/admin-room.js"></script>
     <script>
@@ -119,11 +194,15 @@
                 if (debugConsole) {
                     const args = Array.from(arguments).map(arg => {
                         if (typeof arg === 'object') {
-                            return JSON.stringify(arg, null, 2);
+                            try {
+                                return JSON.stringify(arg, null, 2);
+                            } catch (e) {
+                                return String(arg);
+                            }
                         }
-                        return arg;
+                        return String(arg);
                     }).join(' ');
-                    debugConsole.innerHTML += `<div class="text-dark">${args}</div>`;
+                    debugConsole.innerHTML += `<div class="text-dark">${escapeHtml(args)}</div>`;
                     debugConsole.scrollTop = debugConsole.scrollHeight;
                 }
             };
@@ -133,14 +212,28 @@
                 if (debugConsole) {
                     const args = Array.from(arguments).map(arg => {
                         if (typeof arg === 'object') {
-                            return JSON.stringify(arg, null, 2);
+                            try {
+                                return JSON.stringify(arg, null, 2);
+                            } catch (e) {
+                                return String(arg);
+                            }
                         }
-                        return arg;
+                        return String(arg);
                     }).join(' ');
-                    debugConsole.innerHTML += `<div class="text-danger">${args}</div>`;
+                    debugConsole.innerHTML += `<div class="text-danger">${escapeHtml(args)}</div>`;
                     debugConsole.scrollTop = debugConsole.scrollHeight;
                 }
             };
+            
+            // Hàm escapeHtml để tránh XSS trong console log
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
             
             // Test API connection button
             document.getElementById('testApiBtn').addEventListener('click', function() {
@@ -163,6 +256,341 @@
                     console.error('Test API error:', error);
                 });
             });
+            
+            // Simple API test
+            document.getElementById('simpleTestBtn').addEventListener('click', function() {
+                fetch('/api/RoomApi/simple-test')
+                    .then(response => response.text())
+                    .then(text => {
+                        showTestResults('Simple API Test', text);
+                    })
+                    .catch(error => {
+                        showTestResults('Simple API Test Error', error.message);
+                    });
+            });
+            
+            // Create test room
+            document.getElementById('createTestRoomBtn').addEventListener('click', function() {
+                fetch('/api/RoomApi/create-test-room')
+                    .then(response => response.text())
+                    .then(text => {
+                        showTestResults('Create Test Room', text);
+                        loadRooms(); // Refresh the room list
+                    })
+                    .catch(error => {
+                        showTestResults('Create Test Room Error', error.message);
+                    });
+            });
+            
+            // Show database info
+            document.getElementById('showDbInfoBtn').addEventListener('click', function() {
+                fetch('/api/RoomApi/test')
+                    .then(response => response.text())
+                    .then(text => {
+                        showTestResults('Database Info', text);
+                    })
+                    .catch(error => {
+                        showTestResults('Database Info Error', error.message);
+                    });
+            });
+            
+            // Helper function to show test results
+            function showTestResults(title, content) {
+                const container = document.getElementById('testResultsContainer');
+                const results = document.getElementById('testResults');
+                
+                container.style.display = 'block';
+                results.innerHTML = `<strong>${title}:</strong>\n${content}`;
+            }
+            
+            // Add a direct SQL test button
+            const sqlTestBtn = document.getElementById('sqlTestBtn');
+            if (sqlTestBtn) {
+                sqlTestBtn.style.display = 'inline-block'; // Make the button visible
+                sqlTestBtn.addEventListener('click', function() {
+                    const roomName = document.getElementById('roomName').value || 'Test Room';
+                    
+                    console.log('Testing direct SQL room creation...');
+                    
+                    fetch('/api/RoomApi/directsql', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            roomName: roomName,
+                            roomId: parseInt(document.getElementById('roomId').value) || 0,
+                            isAvailable: true
+                        })
+                    })
+                    .then(response => response.text())
+                    .then(text => {
+                        console.log('SQL Test result:', text);
+                        alert('SQL Test completed - check console for results');
+                    })
+                    .catch(error => {
+                        console.error('SQL Test error:', error);
+                        alert('SQL Test failed: ' + error.message);
+                    });
+                });
+            }
         })();
+
+        $(document).ready(function() {
+            // Load rooms when the page loads
+            loadRooms();
+            
+            // Filter rooms
+            $('#filterRoomsBtn').click(function() {
+                const filterValue = $('#roomFilter').val();
+                loadRooms(filterValue);
+                $('#currentRoomDisplay').text(filterValue === 'all' ? 'Tất cả các phòng' : 
+                                            filterValue === 'available' ? 'Phòng đang hoạt động' : 'Phòng không hoạt động');
+            });
+
+            // Refresh rooms
+            $('#refreshRoomsBtn').click(function() {
+                $('#roomFilter').val('all');
+                $('#currentRoomDisplay').text('Tất cả các phòng');
+                loadRooms();
+            });
+        });
+
+        function loadRooms(filter = 'all') {
+            let url = '/api/RoomApi';
+            if (filter !== 'all') {
+                url += `?isAvailable=${filter === 'available'}`;
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                beforeSend: function() {
+                    $('#roomsContainer').html('<div class="text-center"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Đang tải danh sách phòng...</p></div>');
+                },
+                success: function(data) {
+                    console.log("Room data received:", data); // Add debugging
+                    let html = '';
+                    
+                    if (!data || data.length === 0) {
+                        $('#roomsContainer').html('<div class="alert alert-info">Không có phòng nào.</div>');
+                        return;
+                    }
+                    
+                    html = '<div class="row">';
+                    data.forEach(room => {
+                        // Xác định trạng thái phòng và class
+                        let statusClass = room.availableChairsCount > 0 ? 'success' : 'danger';
+                        let statusText = room.availableChairsCount > 0 ? 'Còn ghế trống' : 'Đã đầy';
+                        
+                        html += `
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">${room.roomName}</h5>
+                                    <span class="badge bg-${statusClass}">${statusText}</span>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Số ghế:</strong> ${room.chairsCount} (Còn trống: ${room.availableChairsCount})</p>
+                                    <p><strong>Trạng thái:</strong> ${room.isAvailable ? 'Đang hoạt động' : 'Không hoạt động'}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="btn-group w-100">
+                                        <button class="btn btn-sm btn-primary" onclick="viewRoomDetails(${room.roomId})">
+                                            <i class="bi bi-info-circle"></i> Chi tiết
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" onclick="editRoom(${room.roomId})">
+                                            <i class="bi bi-pencil"></i> Sửa
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteRoom(${room.roomId})">
+                                            <i class="bi bi-trash"></i> Xóa
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    });
+                    html += '</div>';
+                    
+                    $('#roomsContainer').html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error loading rooms:", error);
+                    console.error("Status:", status);
+                    console.error("Response:", xhr.responseText);
+                    
+                    $('#roomsContainer').html(`
+                        <div class="alert alert-danger">
+                            <h5>Lỗi khi tải danh sách phòng</h5>
+                            <p>${error || 'Không thể kết nối đến máy chủ'}</p>
+                            <button class="btn btn-primary mt-2" onclick="loadRooms()">Thử lại</button>
+                        </div>
+                    `);
+                }
+            });
+        }
+
+        // Room details view function
+        function viewRoomDetails(roomId) {
+            $.ajax({
+                url: `/api/RoomApi/${roomId}`,
+                type: 'GET',
+                success: function(room) {
+                    // Load chair data for this room
+                    $.ajax({
+                        url: '/api/ChairApi',
+                        type: 'GET',
+                        success: function(chairs) {
+                            const roomChairs = chairs.filter(c => c.RoomId === roomId || c.roomId === roomId);
+                            
+                            let chairsHtml = '';
+                            if (roomChairs.length === 0) {
+                                chairsHtml = '<div class="alert alert-info">Không có ghế nào trong phòng này.</div>';
+                            } else {
+                                chairsHtml = '<div class="row">';
+                                roomChairs.forEach(chair => {
+                                    const chairName = chair.ChairName || chair.chairName;
+                                    const isAvailable = chair.IsAvailable || chair.isAvailable;
+                                    const statusClass = isAvailable ? 'success' : 'danger';
+                                    const statusText = isAvailable ? 'Còn trống' : 'Đã đặt';
+                                    
+                                    chairsHtml += `
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${chairName}</h5>
+                                                <p class="card-text">
+                                                    <span class="badge bg-${statusClass}">${statusText}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `;
+                                });
+                                chairsHtml += '</div>';
+                            }
+                            
+                            $('#roomDetailsModalBody').html(`
+                                <h4>${room.roomName}</h4>
+                                <p><strong>Trạng thái:</strong> ${room.isAvailable ? 'Đang hoạt động' : 'Không hoạt động'}</p>
+                                <h5 class="mt-4">Danh sách ghế</h5>
+                                ${chairsHtml}
+                            `);
+                            
+                            $('#roomDetailsModal').modal('show');
+                        },
+                        error: function(xhr, status, error) {
+                            $('#roomDetailsModalBody').html(`<div class="alert alert-danger">Lỗi khi tải danh sách ghế: ${error}</div>`);
+                            $('#roomDetailsModal').modal('show');
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    $('#roomDetailsModalBody').html(`<div class="alert alert-danger">Lỗi khi tải thông tin phòng: ${error}</div>`);
+                    $('#roomDetailsModal').modal('show');
+                }
+            });
+        }
+
+        // Edit room function
+        function editRoom(roomId) {
+            $.ajax({
+                url: `/api/RoomApi/${roomId}`,
+                type: 'GET',
+                success: function(room) {
+                    $('#roomModalLabel').text('Chỉnh sửa phòng');
+                    $('#roomId').val(roomId);
+                    $('#roomName').val(room.roomName);
+                    $('#isAvailable').prop('checked', room.isAvailable);
+                    $('#roomModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    alert(`Lỗi khi tải thông tin phòng: ${error}`);
+                }
+            });
+        }
+        
+        // Delete room function
+        function deleteRoom(roomId) {
+            $.ajax({
+                url: `/api/RoomApi/${roomId}`,
+                type: 'GET',
+                success: function(room) {
+                    $('#deleteRoomName').text(room.roomName);
+                    $('#confirmDeleteBtn').data('id', roomId);
+                    $('#deleteRoomModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    alert(`Lỗi khi tải thông tin phòng: ${error}`);
+                }
+            });
+        }
+        
+        // Save room function (create or update)
+        $(document).on('click', '#saveRoomBtn', function() {
+            const roomId = $('#roomId').val();
+            const roomName = $('#roomName').val();
+            const isAvailable = $('#isAvailable').prop('checked');
+            
+            if (!roomName) {
+                alert('Vui lòng nhập tên phòng');
+                return;
+            }
+            
+            const room = {
+                roomId: parseInt(roomId),
+                roomName: roomName,
+                isAvailable: isAvailable
+            };
+            
+            const isEdit = roomId !== '0';
+            const url = isEdit ? `/api/RoomApi/${roomId}` : '/api/RoomApi';
+            const method = isEdit ? 'PUT' : 'POST';
+            
+            $.ajax({
+                url: url,
+                type: method,
+                contentType: 'application/json',
+                data: JSON.stringify(room),
+                success: function() {
+                    $('#roomModal').modal('hide');
+                    loadRooms();
+                    alert(isEdit ? 'Cập nhật phòng thành công' : 'Thêm phòng mới thành công');
+                },
+                error: function(xhr, status, error) {
+                    alert(`Lỗi: ${xhr.responseText || error}`);
+                }
+            });
+        });
+        
+        // Confirm delete room
+        $(document).on('click', '#confirmDeleteBtn', function() {
+            const roomId = $(this).data('id');
+            
+            $.ajax({
+                url: `/api/RoomApi/${roomId}`,
+                type: 'DELETE',
+                success: function() {
+                    $('#deleteRoomModal').modal('hide');
+                    loadRooms();
+                    alert('Xóa phòng thành công');
+                },
+                error: function(xhr, status, error) {
+                    alert(`Lỗi khi xóa phòng: ${xhr.responseText || error}`);
+                }
+            });
+        });
+        
+        // Reset form when creating a new room
+        $(document).on('click', '#createRoomBtn', function() {
+            $('#roomModalLabel').text('Thêm phòng mới');
+            $('#roomId').val('0');
+            $('#roomName').val('');
+            $('#isAvailable').prop('checked', true);
+        });
     </script>
 }

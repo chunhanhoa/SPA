@@ -84,6 +84,12 @@
                                     </div>
                                 </div>
                                 
+                                <!-- Add Customer Count input -->
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="customerCount" name="customerCount" value="1" min="1" max="10">
+                                    <label for="customerCount">Số lượng khách hàng</label>
+                                </div>
+                                
                                 <div class="mb-0 mt-2">
                                     <div class="d-flex justify-content-between">
                                         <span>Tổng thời gian dự kiến:</span>
@@ -123,6 +129,9 @@
                                 <span>Thời gian kết thúc dự kiến:</span>
                                 <strong id="estimatedEndTime">--:--</strong>
                             </div>
+                            <div class="d-flex justify-content-between mt-1 small" id="durationInfoText">
+                                <em>Tổng thời gian dịch vụ: <span id="durationInfoValue">0 phút</span></em>
+                            </div>
                         </div>
                         
                         <div class="form-floating mb-4">
@@ -150,6 +159,7 @@
                         <h3 class="card-title mb-0"><i class="bi bi-calendar-week me-2"></i>Lịch Của Tôi</h3>
                     </div>
                     <div class="card-body p-4" id="myBookingsContainer">
+                        <!-- Fixed typo: was "myBoodkingsContainer" -->
                         <div class="text-center">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Đang tải...</span>
@@ -159,6 +169,17 @@
                     </div>
                 </div>
             }
+        </div>
+    </div>
+</div>
+
+<!-- Check for the "Lịch Của Tôi" section -->
+<div class="tab-pane fade" id="my-bookings" role="tabpanel">
+    <div class="container py-4">
+        <h3 class="text-center mb-4">Lịch Của Tôi</h3>
+        <div id="userBookingsContainer">
+            <!-- Content will be loaded here -->
+            <p class="text-center">Đang tải...</p>
         </div>
     </div>
 </div>
@@ -175,13 +196,53 @@
             let allServices = [];
             const preselectedServiceId = '@serviceId';
 
-            // Lấy danh sách dịch vụ từ API
+            // Add function to disable past time slots
+            function updateAvailableTimeSlots() {
+                const selectedDate = $('#bookingDate').val();
+                const today = new Date().toISOString().split('T')[0];
+                
+                // Reset all options to enabled state
+                $('#bookingTime option').prop('disabled', false);
+                
+                // If selected date is today, disable past time slots
+                if (selectedDate === today) {
+                    const now = new Date();
+                    const currentHour = now.getHours();
+                    const currentMinute = now.getMinutes();
+                    
+                    $('#bookingTime option').each(function() {
+                        if ($(this).val()) { // Skip the placeholder option
+                            const timeValue = $(this).val();
+                            const [hours, minutes] = timeValue.split(':').map(Number);
+                            
+                            // Disable time slot if it's in the past (with 30 minute buffer)
+                            if (hours < currentHour || (hours === currentHour && minutes <= currentMinute + 30)) {
+                                $(this).prop('disabled', true);
+                            }
+                        }
+                    });
+                    
+                    // If selected option is now disabled, reset selection
+                    if ($('#bookingTime option:selected').prop('disabled')) {
+                        $('#bookingTime').val('');
+                    }
+                }
+            }
+            
+            // Call the function when the date changes or on page load
+            $('#bookingDate').change(updateAvailableTimeSlots);
+            
+            // Initialize when document is ready
+            updateAvailableTimeSlots();
+            
+            // Lấy danh sách dịch vụ từ API - Fix service loading
             $.ajax({
                 url: '/api/ServiceApi',
                 type: 'GET',
                 success: function(services) {
                     console.log("Danh sách dịch vụ từ API:", services);
                     allServices = services;
+                    
                     if (services && Array.isArray(services)) {
                         let options = '<option value="" selected disabled>Chọn dịch vụ</option>';
                         services.forEach(function(service) {
@@ -193,6 +254,7 @@
                                 options += `<option value="${serviceId}" data-price="${price}" data-name="${serviceName}" data-duration="${service.Duration || service.duration || 60}">${serviceName} - ${new Intl.NumberFormat('vi-VN').format(price)} VNĐ</option>`;
                             }
                         });
+                        
                         $('#serviceSelect').html(options);
                         
                         // Kiểm tra nếu có dịch vụ được chọn trước
@@ -209,33 +271,6 @@
                                     1,
                                     preselectedService.Duration || preselectedService.duration || 60
                                 );
-                            }
-                        }
-                        
-                        // Kiểm tra có dịch vụ đã lưu trong localStorage không
-                        const savedServices = localStorage.getItem('selectedServices');
-                        if (savedServices) {
-                            try {
-                                const parsedServices = JSON.parse(savedServices);
-                                parsedServices.forEach(s => {
-                                    // Tìm thông tin dịch vụ đầy đủ từ danh sách dịch vụ
-                                    const fullService = services.find(fs => 
-                                        (fs.ServiceId || fs.serviceId) === s.serviceId);
-                                    
-                                    if (fullService) {
-                                        addServiceToSelected(
-                                            s.serviceId,
-                                            s.serviceName,
-                                            s.price,
-                                            s.quantity,
-                                            fullService.Duration || fullService.duration || 60
-                                        );
-                                    }
-                                });
-                                // Xóa localStorage sau khi đã sử dụng
-                                localStorage.removeItem('selectedServices');
-                            } catch (e) {
-                                console.error('Error parsing saved services:', e);
                             }
                         }
                     } else {
@@ -330,17 +365,17 @@
                 `;
                 
                 let totalAmount = 0;
-                let maxDuration = 0;
+                let totalDuration = 0;
                 
                 selectedServices.forEach((service, index) => {
                     const price = service.price || 0;
                     const quantity = service.quantity || 1;
                     const subtotal = price * quantity;
+                    const duration = parseInt(service.duration) || 60;
                     totalAmount += subtotal;
                     
-                    if (service.duration > maxDuration) {
-                        maxDuration = service.duration;
-                    }
+                    // Tính tổng thời gian = thời gian của dịch vụ * số lượng
+                    totalDuration += duration * quantity;
                     
                     html += `
                         <tr>
@@ -370,43 +405,106 @@
                 `;
                 
                 container.html(html);
-                $('#totalDuration').text(`${maxDuration} phút`);
+                // Hiển thị tổng thời gian theo phút
+                $('#totalDuration').text(`${totalDuration} phút`);
             }
             
             // Ước tính thời gian kết thúc
             function updateEndTimeEstimate() {
                 const bookingDate = $('#bookingDate').val();
                 const bookingTime = $('#bookingTime').val();
+                const customerCount = parseInt($('#customerCount').val()) || 1;
                 
                 if (!bookingDate || !bookingTime || selectedServices.length === 0) {
                     $('#estimatedEndTime').text('--:--');
                     return;
                 }
                 
-                // Tìm thời gian dịch vụ dài nhất
-                let maxDuration = 0;
+                // Calculate raw total duration first
+                let rawTotalDuration = 0;
+                console.log("Calculating total duration for services:", selectedServices);
+                
                 selectedServices.forEach(service => {
-                    if (service.duration > maxDuration) {
-                        maxDuration = service.duration;
-                    }
+                    const duration = parseInt(service.duration) || 60;
+                    const quantity = parseInt(service.quantity) || 1;
+                    const serviceDuration = duration * quantity;
+                    rawTotalDuration += serviceDuration;
+                    console.log(`Service: ${service.serviceName}, Duration: ${duration}, Quantity: ${quantity}, Total: ${serviceDuration} minutes`);
                 });
+                
+                console.log(`Raw total duration: ${rawTotalDuration} minutes`);
+                
+                // Divide by number of customers to get adjusted duration
+                let totalDuration = Math.ceil(rawTotalDuration / customerCount);
+                console.log(`Adjusted total duration (${rawTotalDuration} ÷ ${customerCount} customers): ${totalDuration} minutes`);
                 
                 // Tính thời gian kết thúc
                 const startDateTime = new Date(`${bookingDate}T${bookingTime}`);
-                const endDateTime = new Date(startDateTime.getTime() + maxDuration * 60000);
+                console.log("Start time:", startDateTime);
+                
+                // Chuyển đổi phút thành milliseconds: phút * 60 * 1000
+                const endDateTime = new Date(startDateTime.getTime() + (totalDuration * 60 * 1000));
+                console.log("End time:", endDateTime);
+                
                 const formattedEndTime = endDateTime.toLocaleTimeString('vi-VN', {
                     hour: '2-digit',
                     minute: '2-digit'
                 });
                 
                 $('#estimatedEndTime').text(formattedEndTime);
+                
+                // Hiển thị thông tin thời gian tổng cộng (hiển thị cả tổng thô và đã điều chỉnh)
+                $('#totalDuration').html(`${totalDuration} phút <small class="text-muted">(${rawTotalDuration} phút ÷ ${customerCount} khách)</small>`);
+                
+                // Lưu tổng thời gian vào data attribute để sử dụng khi submit form
+                $('#bookingForm').data('totalDuration', totalDuration);
+                $('#bookingForm').data('rawTotalDuration', rawTotalDuration);
+                $('#bookingForm').data('customerCount', customerCount);
             }
+            
+            // Update when customer count changes
+            $('#customerCount').change(updateEndTimeEstimate);
             
             // Cập nhật thời gian kết thúc khi thay đổi ngày hoặc giờ
             $('#bookingDate, #bookingTime').change(function() {
                 updateEndTimeEstimate();
             });
-
+            
+            // Function to update duration info text
+            function updateDurationInfo() {
+                if (selectedServices.length === 0) {
+                    $('#durationInfoText').hide();
+                    return;
+                }
+                
+                let totalDuration = 0;
+                selectedServices.forEach(service => {
+                    const duration = parseInt(service.duration) || 60;
+                    const quantity = parseInt(service.quantity) || 1;
+                    totalDuration += duration * quantity;
+                });
+                
+                const customerCount = parseInt($('#customerCount').val()) || 1;
+                const adjustedDuration = Math.ceil(totalDuration / customerCount);
+                
+                // Show both raw and adjusted duration
+                $('#durationInfoValue').html(`${adjustedDuration} phút <small>(${totalDuration} phút ÷ ${customerCount} khách)</small>`);
+                $('#durationInfoText').show();
+            }
+            
+            // Add updateDurationInfo call to service modification functions
+            const originalAddService = addServiceToSelected;
+            addServiceToSelected = function() {
+                originalAddService.apply(this, arguments);
+                updateDurationInfo();
+            };
+            
+            const originalRemoveService = window.removeService;
+            window.removeService = function() {
+                originalRemoveService.apply(this, arguments);
+                updateDurationInfo();
+            };
+            
             // Xử lý đặt lịch
             $('#bookingForm').submit(function(e) {
                 e.preventDefault();
@@ -425,20 +523,27 @@
                     return;
                 }
                 
-                // Tính toán thời gian dịch vụ dài nhất để xác định thời gian kết thúc
-                let maxDuration = 0;
+                // Get customer count
+                const customerCount = parseInt($('#customerCount').val()) || 1;
+                
+                // Calculate total duration divided by customer count
+                let rawTotalDuration = 0;
                 selectedServices.forEach(service => {
-                    if (service.duration > maxDuration) {
-                        maxDuration = service.duration;
-                    }
+                    const duration = parseInt(service.duration) || 60;
+                    const quantity = parseInt(service.quantity) || 1;
+                    rawTotalDuration += duration * quantity;
                 });
                 
-                // Tạo datetime từ date và time
-                const startDateTime = new Date(`${bookingDate}T${bookingTime}`);
+                const totalDuration = Math.ceil(rawTotalDuration / customerCount);
+                
+                // Tạo chuỗi datetime không bị ảnh hưởng bởi múi giờ
+                const localDateTimeStr = `${bookingDate}T${bookingTime}:00`;
                 
                 var formData = {
-                    StartTime: startDateTime.toISOString(),
-                    Duration: maxDuration,
+                    StartTime: localDateTimeStr,
+                    Duration: totalDuration, // Adjusted duration
+                    RawDuration: rawTotalDuration, // Original total duration
+                    CustomerCount: customerCount, // Number of customers
                     Notes: $('#notes').val().trim() || "",
                     Services: selectedServices.map(s => ({
                         ServiceId: parseInt(s.serviceId),
@@ -517,7 +622,7 @@
                                     <div class="spinner-border text-primary" role="status">
                                         <span class="visually-hidden">Đang tải...</span>
                                     </div>
-                                    <p class="mt-2">Đang tải lịch đã đặt...</p>
+                                    <p class="mt-2">Đang tải dữ liệu lịch đã đặt...</p>
                                 </div>
                             `);
                         },
@@ -530,82 +635,65 @@
                                 return;
                             }
                             
-                            let html = '';
-                            // Sắp xếp bookings theo thời gian tạo (nếu cần)
-                            bookings.sort((a, b) => new Date(a.createdDate) - new Date(b.createdDate));
+                            // Sắp xếp bookings theo thời gian tạo (mới nhất lên đầu)
+                            bookings.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
                             
-                            // Hiển thị với số thứ tự riêng cho mỗi khách hàng
+                            // Tạo HTML cho danh sách đặt lịch
+                            let html = '<div class="row">';
+                            
                             bookings.forEach((booking, index) => {
-                                let bookingNumber = index + 1; // Đánh số từ 1 và tăng dần
+                                // Định dạng ngày giờ
+                                const startTime = new Date(booking.startTime);
+                                const formattedDate = startTime.toLocaleDateString('vi-VN');
+                                const formattedTime = startTime.toLocaleTimeString('vi-VN', {hour: '2-digit', minute: '2-digit'});
                                 
-                                let statusClass = 'secondary';
-                                switch(booking.status) {
-                                    case 'Chờ xác nhận': statusClass = 'warning'; break;
-                                    case 'Đã xác nhận': statusClass = 'success'; break;
-                                    case 'Đang thực hiện': statusClass = 'info'; break;
-                                    case 'Hoàn thành': statusClass = 'primary'; break;
-                                    case 'Đã hủy': statusClass = 'danger'; break;
-                                }
-                                
-                                const startDate = new Date(booking.startTime);
-                                const formattedDate = startDate.toLocaleDateString('vi-VN');
-                                const formattedTime = startDate.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-                                
-                                let servicesList = '';
+                                // Lấy danh sách dịch vụ
+                                let servicesList = 'Không có dịch vụ';
                                 if (booking.services && booking.services.length > 0) {
-                                    servicesList = '<ul class="mb-0 ps-3">';
-                                    booking.services.forEach(service => {
-                                        const serviceName = service.ServiceName || service.serviceName || 'Dịch vụ không xác định';
-                                        const quantity = service.Quantity || service.quantity || 1;
-                                        servicesList += `<li>${serviceName} x${quantity}</li>`;
-                                    });
-                                    servicesList += '</ul>';
-                                } else {
-                                    servicesList = '<p class="mb-0">Không có thông tin dịch vụ</p>';
+                                    servicesList = booking.services.map(s => s.ServiceName).join(', ');
                                 }
                                 
+                                // Tạo card hiển thị thông tin lịch hẹn
                                 html += `
-                                    <div class="card booking-item mb-3 position-relative">
-                                        <div class="card-body">
-                                            <span class="badge bg-${statusClass} booking-status-badge">${booking.status}</span>
-                                            <h5 class="card-title">Lịch hẹn #${bookingNumber}</h5>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <p class="mb-1"><strong>Ngày:</strong> ${formattedDate}</p>
-                                                    <p class="mb-1"><strong>Giờ:</strong> ${formattedTime}</p>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card booking-item h-100">
+                                            <div class="card-header bg-light position-relative">
+                                                <h5 class="mb-0">Lịch hẹn #${booking.appointmentId}</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-2">
+                                                    <strong><i class="bi bi-calendar-event me-2"></i>Ngày giờ:</strong> 
+                                                    ${formattedDate} lúc ${formattedTime}
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <p class="mb-1"><strong>Phòng:</strong> ${booking.rooms && booking.rooms.length > 0 ? booking.rooms.map(r => r.RoomName || r.roomName).join(', ') : 'N/A'}</p>
-                                                    <p class="mb-1"><strong>Tổng tiền:</strong> ${new Intl.NumberFormat('vi-VN').format(booking.totalAmount)} VNĐ</p>
+                                                <div class="mb-2">
+                                                    <strong><i class="bi bi-list-check me-2"></i>Dịch vụ:</strong> 
+                                                    ${servicesList}
+                                                </div>
+                                                <div class="mb-2">
+                                                    <strong><i class="bi bi-cash me-2"></i>Tổng tiền:</strong> 
+                                                    ${new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(booking.totalAmount)}
                                                 </div>
                                             </div>
-                                            <div class="mt-2">
-                                                <strong>Dịch vụ:</strong>
-                                                ${servicesList}
+                                            <div class="card-footer bg-white border-top-0">
+                                                <a href="/Home/BookingConfirmation/${booking.appointmentId}" class="btn btn-primary">
+                                                    <i class="bi bi-eye me-1"></i> Xem chi tiết
+                                                </a>
                                             </div>
-                                            <a href="/Home/BookingConfirmation/${booking.appointmentId}" class="btn btn-sm btn-outline-primary mt-2">
-                                                <i class="bi bi-eye me-1"></i> Xem chi tiết
-                                            </a>
                                         </div>
                                     </div>
                                 `;
                             });
                             
+                            html += '</div>';
                             container.html(html);
                         },
                         error: function(xhr, status, error) {
-                            console.error('Lỗi khi tải lịch đã đặt:', {
-                                status: status,
-                                error: error,
-                                responseText: xhr?.responseText,
-                                statusCode: xhr?.status
-                            });
-                            
+                            console.error('Lỗi khi tải dữ liệu đặt lịch:', error);
                             $('#myBookingsContainer').html(`
                                 <div class="alert alert-danger">
-                                    <p><strong>Không thể tải lịch đã đặt.</strong></p>
-                                    <p>Lỗi: ${xhr?.status} ${xhr?.statusText || error}</p>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="loadMyBookings()">Thử lại</button>
+                                    <h5>Lỗi khi tải dữ liệu đặt lịch</h5>
+                                    <p>${xhr.responseJSON?.message || xhr.statusText || 'Không thể kết nối tới máy chủ'}</p>
+                                    <button class="btn btn-primary mt-2" onclick="loadMyBookings()">Thử lại</button>
                                 </div>
                             `);
                         }
@@ -691,6 +779,11 @@
             position: absolute;
             top: 10px;
             right: 10px;
+        }
+        
+        #bookingTime option:disabled {
+            color: #999;
+            font-style: italic;
         }
     </style>
 }

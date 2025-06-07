@@ -3,40 +3,40 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card border-0 shadow">
+            <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
                         <h2 class="fw-bold text-primary"><i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</h2>
-                        <p class="text-muted">Đăng nhập để trải nghiệm dịch vụ của LoanSpa</p>
+                        <p class="text-muted mb-0">Đăng nhập để trải nghiệm dịch vụ của LoanSpa</p>
                     </div>
-                    
+
                     <form asp-action="Login" method="post" class="needs-validation" novalidate>
                         <div class="form-floating mb-3">
                             <input asp-for="Username" class="form-control" placeholder="Nhập tên người dùng" required />
                             <label asp-for="Username"><i class="bi bi-person me-1"></i>Tên người dùng</label>
                             <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
-                        
+
                         <div class="form-floating mb-3 password-field">
-                            <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                            <input asp-for="Password" class="form-control" placeholder="Nhập mật khẩu" required />
                             <label asp-for="Password"><i class="bi bi-lock me-1"></i>Mật khẩu</label>
-                            <span class="password-toggle" onclick="togglePassword()">
+                            <span class="password-toggle" onclick="togglePassword(this)">
                                 <i class="bi bi-eye"></i>
                             </span>
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
-                        
+
                         <div class="form-check mb-3">
-                            <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                            <input asp-for="RememberMe" class="form-check-input" />
                             <label class="form-check-label" asp-for="RememberMe">Ghi nhớ đăng nhập</label>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary w-100 py-2 mb-3 login-btn">
+
+                        <button type="submit" class="btn btn-primary w-100 py-2 login-btn">
                             <i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập
                         </button>
                     </form>
-                    
-                    <div class="row mt-4">
+
+                    <div class="row mt-4 text-sm">
                         <div class="col-6">
                             <a href="#" class="text-decoration-none text-primary">Quên mật khẩu?</a>
                         </div>
@@ -52,61 +52,44 @@
 
 @section Styles {
     <style>
-        .card {
-            border-radius: 15px;
-        }
-        
         .form-control {
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 1rem 0.75rem;
+            transition: box-shadow 0.2s ease-in-out;
         }
-        
+
         .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* fallback cho primary-rgb */
         }
-        
+
         .password-field {
             position: relative;
         }
-        
+
         .password-toggle {
             position: absolute;
-            right: 15px;
+            right: 16px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
             color: #6c757d;
-            z-index: 10;
+            z-index: 2;
         }
-        
+
         .password-toggle:hover {
-            color: var(--primary-color);
+            color: #0d6efd;
         }
-        
+
         .login-btn {
             border-radius: 10px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        
+
         .login-btn:hover {
-            background-color: var(--primary-dark);
+            background-color: #0b5ed7;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
-        }
-        
-        .social-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .social-btn:hover {
-            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
         }
     </style>
 }
@@ -114,40 +97,27 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        function togglePassword() {
-            const field = document.getElementById('Password');
-            const icon = event.currentTarget.querySelector('i');
-            
-            if (field.type === 'password') {
-                field.type = 'text';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
+        function togglePassword(toggleIcon) {
+            const input = toggleIcon.closest('.password-field').querySelector('input');
+            const icon = toggleIcon.querySelector('i');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('bi-eye', 'bi-eye-slash');
             } else {
-                field.type = 'password';
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
+                input.type = 'password';
+                icon.classList.replace('bi-eye-slash', 'bi-eye');
             }
         }
-        
-        // Hiệu ứng cho form
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('.form-control');
-            
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.classList.add('focused');
+
+        // Hiệu ứng floating focus
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener('focus', () => input.parentElement.classList.add('focused'));
+                input.addEventListener('blur', () => {
+                    if (!input.value) input.parentElement.classList.remove('focused');
                 });
-                
-                input.addEventListener('blur', function() {
-                    if (this.value === '') {
-                        this.parentElement.classList.remove('focused');
-                    }
-                });
-                
-                // Kiểm tra nếu đã có giá trị
-                if (input.value !== '') {
-                    input.parentElement.classList.add('focused');
-                }
+                if (input.value) input.parentElement.classList.add('focused');
             });
         });
     </script>

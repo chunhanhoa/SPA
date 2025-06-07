@@ -58,7 +58,6 @@ function formatDate(dateString) {
 // Get status class based on status text
 function getStatusClass(status) {
     switch(status) {
-        case 'Chờ xác nhận': return 'warning';
         case 'Đã xác nhận': return 'success';
         case 'Đang thực hiện': return 'info';
         case 'Hoàn thành': return 'primary';

@@ -374,9 +374,6 @@ section.hero-section {
   min-height: 100vh;
 }
 
-#content-wrap {
-  padding-bottom: 300px; /* Must be at least the height of the footer */
-}
 
 #footer {
   position: relative;
