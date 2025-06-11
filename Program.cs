@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using QL_Spa.Data;
-using QL_Spa.Services; // Add this namespace for RoleInitializer
+using QL_Spa.Services;
 using System.Text.Json.Serialization;
+using QL_Spa.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,17 +63,8 @@ builder.Services.AddScoped<QL_Spa.Services.AvailabilityService>();
 // Add this line to register the script
 builder.Services.AddScoped<QL_Spa.Data.Scripts.EnsureInvoicesTableScript>();
 
-// Thêm Swagger services
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo 
-    { 
-        Title = "QL_Spa API", 
-        Version = "v1",
-        Description = "API for QL_Spa application"
-    });
-});
+// Thêm Swagger với cấu hình tùy chỉnh
+builder.Services.AddSwaggerDocumentation();
 
 // AddScoped JwtService
 builder.Services.AddScoped<JwtService>();
@@ -90,16 +82,19 @@ else
 {
     // Use developer exception page in development
     app.UseDeveloperExceptionPage();
+    
+    // Sử dụng Swagger trong môi trường phát triển
+    app.UseSwaggerDocumentation();
 }
 
-// Thêm Swagger middleware
-if (app.Environment.IsDevelopment())
+// Luôn kích hoạt Swagger với tham số cụ thể để kiểm soát trong production
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
+    var showSwagger = builder.Configuration.GetValue<bool>("SwaggerSettings:ShowInProduction");
+    if (showSwagger)
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "QL_Spa API V1");
-    });
+        app.UseSwaggerDocumentation();
+    }
 }
 
 app.UseHttpsRedirection();

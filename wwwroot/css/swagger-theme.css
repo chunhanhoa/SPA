@@ -1,0 +1,104 @@
+/* Custom Swagger Theme for LoanSpa */
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #6c757d;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+}
+
+.swagger-ui .topbar {
+    background-color: var(--primary-color);
+    padding: 10px 0;
+}
+
+.swagger-ui .topbar .download-url-wrapper .select-label {
+    color: white;
+}
+
+.swagger-ui .topbar .download-url-wrapper input[type=text] {
+    border: 2px solid white;
+}
+
+.swagger-ui .info .title {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.swagger-ui .opblock.opblock-post {
+    border-color: var(--success-color);
+    background: rgba(28, 200, 138, 0.1);
+}
+
+.swagger-ui .opblock.opblock-post .opblock-summary-method {
+    background: var(--success-color);
+}
+
+.swagger-ui .opblock.opblock-get {
+    border-color: var(--info-color);
+    background: rgba(54, 185, 204, 0.1);
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary-method {
+    background: var(--info-color);
+}
+
+.swagger-ui .opblock.opblock-delete {
+    border-color: var(--danger-color);
+    background: rgba(231, 74, 59, 0.1);
+}
+
+.swagger-ui .opblock.opblock-delete .opblock-summary-method {
+    background: var(--danger-color);
+}
+
+.swagger-ui .opblock.opblock-put {
+    border-color: var(--warning-color);
+    background: rgba(246, 194, 62, 0.1);
+}
+
+.swagger-ui .opblock.opblock-put .opblock-summary-method {
+    background: var(--warning-color);
+}
+
+.swagger-ui .btn.execute {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.swagger-ui .btn.execute:hover {
+    background-color: #2e59d9;
+}
+
+/* Improve readability */
+.swagger-ui .opblock-summary-description {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Add a nice logo or branding */
+.swagger-ui .topbar:before {
+    content: "LoanSpa API";
+    color: white;
+    font-size: 1.5em;
+    font-weight: 700;
+    float: left;
+    margin: 10px 0 0 20px;
+}
+
+/* Improve response display */
+.swagger-ui .responses-table .response {
+    font-weight: 500;
+}
+
+/* Make auth button more prominent */
+.swagger-ui .auth-wrapper .authorize {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.swagger-ui .auth-wrapper .authorize svg {
+    fill: var(--primary-color);
+}

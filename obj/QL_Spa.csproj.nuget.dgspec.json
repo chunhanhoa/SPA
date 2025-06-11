@@ -79,6 +79,10 @@
               "target": "Package",
               "version": "[6.5.0, )"
             },
+            "Swashbuckle.AspNetCore.Annotations": {
+              "target": "Package",
+              "version": "[8.1.4, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[8.12.0, )"

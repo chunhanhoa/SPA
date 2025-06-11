@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WlM6s4EMv4QhITJdYnZn38hRV4khR8BpALpyAv26cl0=",
+  "Hash": "DYGGFRkMo1vRYhfQZ6KDjIO5S3TnaRo0HBK5w081XdI=",
   "Source": "QL_Spa",
   "BasePath": "_content/QL_Spa",
   "Mode": "Default",
@@ -1424,6 +1424,27 @@
       "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\booking.js"
     },
     {
+      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\vzrm8gcryk-n80ze23n8j.gz",
+      "SourceId": "QL_Spa",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/QL_Spa",
+      "RelativePath": "css/swagger-theme#[.{fingerprint=n80ze23n8j}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\css\\swagger-theme.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "rx3x5fwvyr",
+      "Integrity": "0ew+5p3WOEXKu0qwiY6b6+BUr5AGQHLX1gIP/8VJS0s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\css\\swagger-theme.css"
+    },
+    {
       "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\w5cdsn6q1p-dxx9fxp4il.gz",
       "SourceId": "QL_Spa",
       "SourceType": "Discovered",
@@ -1737,6 +1758,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\css\\swagger-theme.css",
+      "SourceId": "QL_Spa",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\",
+      "BasePath": "_content/QL_Spa",
+      "RelativePath": "css/swagger-theme#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "n80ze23n8j",
+      "Integrity": "9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\swagger-theme.css"
     },
     {
       "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\favicon.ico",
@@ -4139,6 +4181,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-9zpgzIEAPa6CNB/bYnGrXOCuw81EqU0ju0Y8RLJoVTQ="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-theme.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\vzrm8gcryk-n80ze23n8j.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001434720230"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "696"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0ew+5p3WOEXKu0qwiY6b6+BUr5AGQHLX1gIP/8VJS0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Jun 2025 11:00:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-theme.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\css\\swagger-theme.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2378"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Jun 2025 11:00:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-theme.css.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\vzrm8gcryk-n80ze23n8j.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "696"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0ew+5p3WOEXKu0qwiY6b6+BUr5AGQHLX1gIP/8VJS0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Jun 2025 11:00:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0ew+5p3WOEXKu0qwiY6b6+BUr5AGQHLX1gIP/8VJS0s="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-theme.n80ze23n8j.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\vzrm8gcryk-n80ze23n8j.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001434720230"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "696"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0ew+5p3WOEXKu0qwiY6b6+BUr5AGQHLX1gIP/8VJS0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Jun 2025 11:00:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n80ze23n8j"
+        },
+        {
+          "Name": "label",
+          "Value": "css/swagger-theme.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-theme.n80ze23n8j.css",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\css\\swagger-theme.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2378"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Jun 2025 11:00:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n80ze23n8j"
+        },
+        {
+          "Name": "label",
+          "Value": "css/swagger-theme.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9/Et/OWeQ+poUl8daAWmgURRW0uqNXusDmJwJYyTVow="
+        }
+      ]
+    },
+    {
+      "Route": "css/swagger-theme.n80ze23n8j.css.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\vzrm8gcryk-n80ze23n8j.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "696"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0ew+5p3WOEXKu0qwiY6b6+BUr5AGQHLX1gIP/8VJS0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 11 Jun 2025 11:00:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n80ze23n8j"
+        },
+        {
+          "Name": "label",
+          "Value": "css/swagger-theme.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0ew+5p3WOEXKu0qwiY6b6+BUr5AGQHLX1gIP/8VJS0s="
         }
       ]
     },

@@ -2263,3 +2263,7 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\QL_Spa.pdb
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\QL_Spa.genruntimeconfig.cache
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\ref\QL_Spa.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.xml
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Swashbuckle.AspNetCore.Annotations.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\vzrm8gcryk-n80ze23n8j.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\QL_Spa.xml
