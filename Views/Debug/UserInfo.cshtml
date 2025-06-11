@@ -1,0 +1,98 @@
+@model QL_Spa.Controllers.UserInfoViewModel
+
+@{
+    ViewData["Title"] = "User Role Debug Info";
+}
+
+<div class="container py-4">
+    <h1>User and Role Debug Information</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Authentication Status</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Is Authenticated:</strong> @Model.IsAuthenticated</p>
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger">@Model.ErrorMessage</div>
+            }
+        </div>
+    </div>
+    
+    @if (Model.IsAuthenticated)
+    {
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">User Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Username:</strong> @Model.UserName</p>
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>User ID:</strong> @Model.UserId</p>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">User Roles</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Roles.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var role in Model.Roles)
+                        {
+                            <li class="list-group-item">@role</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="alert alert-warning">User has no roles assigned</div>
+                }
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">User Claims</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Claims.Any())
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var claim in Model.Claims)
+                            {
+                                <tr>
+                                    <td>@claim.Type</td>
+                                    <td>@claim.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-warning">User has no claims</div>
+                }
+            </div>
+        </div>
+    }
+    
+    <div class="mt-4">
+        <h3>Debugging Information</h3>
+        <div class="alert alert-info">
+            <p><strong>Debugging Roles in _Layout.cshtml:</strong></p>
+            <p>Add this code to your _Layout.cshtml to see active roles:</p>
+            <pre>@Html.Raw("@if (User.Identity?.IsAuthenticated == true)\n{\n    <div>Roles: @string.Join(\", \", User.Claims\n        .Where(c => c.Type == \"http://schemas.microsoft.com/ws/2008/06/identity/claims/role\")\n        .Select(c => c.Value))\n    </div>\n}")</pre>
+        </div>
+    </div>
+</div>

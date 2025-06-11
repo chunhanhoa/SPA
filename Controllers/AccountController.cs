@@ -34,12 +34,30 @@ namespace QL_Spa.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+                // Check if the username exists
+                var user = await _userManager.FindByNameAsync(model.Username);
+                if (user == null)
+                {
+                    ModelState.AddModelError("Username", "Tên người dùng không tồn tại trong hệ thống.");
+                    return View(model);
+                }
+
+                // Try to sign in with the provided credentials
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                
+                // Password is incorrect
+                if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "Tài khoản bị khóa. Vui lòng thử lại sau.");
+                }
+                else
+                {
+                    ModelState.AddModelError("Password", "Mật khẩu không chính xác.");
+                }
             }
             return View(model);
         }

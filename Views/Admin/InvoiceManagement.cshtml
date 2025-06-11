@@ -1,0 +1,263 @@
+@{
+    ViewData["Title"] = "Quản lý hóa đơn";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Quản lý hóa đơn</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Admin">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Quản lý hóa đơn</li>
+    </ol>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h5 class="mb-0">Tổng số hóa đơn</h5>
+                        <div class="small" id="stats-total">Đang tải...</div>
+                    </div>
+                    <div class="display-5"><i class="fas fa-file-invoice"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h5 class="mb-0">Chờ thanh toán</h5>
+                        <div class="small" id="stats-pending">Đang tải...</div>
+                    </div>
+                    <div class="display-5"><i class="fas fa-clock"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h5 class="mb-0">Đã thanh toán</h5>
+                        <div class="small" id="stats-paid">Đang tải...</div>
+                    </div>
+                    <div class="display-5"><i class="fas fa-check-circle"></i></div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+
+    <!-- Invoice Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Danh sách hóa đơn
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="invoicesTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Mã HĐ</th>
+                            <th>Khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Ngày tạo</th>
+                            <th>Thanh toán</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table data will be loaded via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Invoice Detail Modal -->
+<div class="modal fade" id="invoiceDetailModal" tabindex="-1" aria-labelledby="invoiceDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="invoiceDetailModalLabel">Chi tiết hóa đơn</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="invoiceDetailContent">
+                <!-- Invoice details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-warning update-status-modal" data-id="" data-status="">
+                    <i class="fas fa-edit"></i> Cập nhật trạng thái
+                </button>
+                <button type="button" class="btn btn-primary update-payment-modal" data-id="" data-discount="" data-paid="" data-total="">
+                    <i class="fas fa-money-bill-wave"></i> Cập nhật thanh toán
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generic Action Modal -->
+<div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <!-- Modal content will be loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="position-fixed bottom-0 end-0 p-3" id="toastContainer" style="z-index: 11"></div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/invoice-management.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Initialize event listeners for modal buttons
+            $(document).on('click', '.update-status-modal', function() {
+                const id = $(this).data('id');
+                const status = $(this).data('status');
+                showUpdateStatusModal(id, status);
+            });
+            
+            $(document).on('click', '.update-payment-modal', function() {
+                const id = $(this).data('id');
+                const discount = $(this).data('discount');
+                const paidAmount = $(this).data('paid');
+                const totalAmount = $(this).data('total');
+                showUpdatePaymentModal(id, discount, paidAmount, totalAmount);
+            });
+            
+            // Set a global flag to control page reload behavior
+            window.shouldReloadAfterAction = true;
+            
+            // Add debug controls (can be removed in production)
+            $('#toastContainer').append(`
+                <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 1050;">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="toggleReload" checked>
+                        <label class="form-check-label text-white bg-dark p-2 rounded" for="toggleReload">
+                            Auto-reload after actions
+                        </label>
+                    </div>
+                </div>
+            `);
+            
+            $('#toggleReload').change(function() {
+                window.shouldReloadAfterAction = $(this).is(':checked');
+                showToast('Thông báo', 
+                    window.shouldReloadAfterAction ? 'Đã bật tự động tải lại trang sau khi thực hiện thao tác' : 'Đã tắt tự động tải lại trang',
+                    'info');
+            });
+            
+            // Thêm xử lý cho các nút thao tác khác trên trang
+            $(document).on('click', '.quick-action-btn', function() {
+                const action = $(this).data('action');
+                const invoiceId = $(this).data('id');
+                
+                // Hiển thị spinner trong nút
+                const btn = $(this);
+                const originalHtml = btn.html();
+                btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+                btn.prop('disabled', true);
+                
+                // Thực hiện hành động dựa trên loại
+                if (action === 'mark-paid') {
+                    $.ajax({
+                        url: `/api/Invoice/${invoiceId}/UpdateStatus`,
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ status: 'Đã thanh toán' }),
+                        success: function(response) {
+                            if (response.success) {
+                                showToast('Thành công', 'Đã đánh dấu hóa đơn là đã thanh toán', 'success');
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            } else {
+                                btn.html(originalHtml);
+                                btn.prop('disabled', false);
+                                showToast('Lỗi', response.message || 'Cập nhật không thành công', 'danger');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            btn.html(originalHtml);
+                            btn.prop('disabled', false);
+                            showToast('Lỗi', 'Không thể cập nhật. Lỗi: ' + error, 'danger');
+                        }
+                    });
+                } else if (action === 'cancel') {
+                    // Xử lý hủy hóa đơn
+                    $.ajax({
+                        url: `/api/Invoice/${invoiceId}/UpdateStatus`,
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ status: 'Đã hủy' }),
+                        success: function(response) {
+                            if (response.success) {
+                                showToast('Thành công', 'Đã hủy hóa đơn', 'success');
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
+                            } else {
+                                btn.html(originalHtml);
+                                btn.prop('disabled', false);
+                                showToast('Lỗi', response.message || 'Hủy không thành công', 'danger');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            btn.html(originalHtml);
+                            btn.prop('disabled', false);
+                            showToast('Lỗi', 'Không thể hủy. Lỗi: ' + error, 'danger');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <style>
+        /* Progress bar styling */
+        .progress {
+            height: 10px;
+        }
+        
+        /* Status badges */
+        .badge {
+            font-size: 0.85em;
+            padding: 0.35em 0.65em;
+        }
+        
+        /* Table styling */
+        #invoicesTable th, #invoicesTable td {
+            vertical-align: middle;
+        }
+        
+        /* Action buttons */
+        .btn-group-sm>.btn, .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+        
+        /* Filter buttons */
+        .filter-btn {
+            transition: all 0.2s;
+        }
+        
+        .filter-btn.active {
+            font-weight: bold;
+        }
+    </style>
+}

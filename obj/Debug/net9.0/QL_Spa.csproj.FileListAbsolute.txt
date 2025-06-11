@@ -77,8 +77,6 @@ D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\tmmo1oeut3-muycvpuwrr.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\nhnc9hcffu-87fc7y1x7t.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\7p7h0aipj0-mlv21k5csn.gz
-D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\70z9itlbue-alofo50opn.gz
-D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\1o9ure0b9c-alofo50opn.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\staticwebassets.build.json
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\staticwebassets.development.json
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -232,15 +230,10 @@ D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\QL_Spa.csproj.AssemblyReference.cache
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\QL_Spa.csproj.Up2Date
-D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\8ji717yfm0-8saedriwaz.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\j98ftmkp1e-61xx7bm37k.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\70iqvo8ug7-mauod9596g.gz
-D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\s79m6p67tp-l094c03ezm.gz
-D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\9gbwvl8fbs-eshnz72y10.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\sr7lqlvdlx-e1apbahjux.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\j7c77sxv0j-30c37fzkws.gz
-D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\carnxhd2rc-t1z5l4pyyh.gz
-D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\0l9bhoevyz-h0aun1ppo6.gz
 D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\afszay24bs-ay4p9f55a6.gz
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\ASUS\Downloads\36_QL_Spa_Tich_Hop_Giao_Dien\QL_Spa\bin\Debug\net9.0\appsettings.json
@@ -1648,6 +1641,7 @@ C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\scopedcss\Views\Shared\_L
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\scopedcss\bundle\QL_Spa.styles.css
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\scopedcss\projectbundle\QL_Spa.bundle.scp.css
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\d6fpie7tse-61l7sdicd4.gz
+C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\0l9bhoevyz-56x52v415z.gz
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\cs3iaygimh-61n19gt1b8.gz
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\imtks01wqn-8z13weybex.gz
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\sr7lqlvdlx-e1apbahjux.gz
@@ -1720,6 +1714,8 @@ C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\1ndpblnr9d-2z0
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\tmmo1oeut3-muycvpuwrr.gz
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\nhnc9hcffu-87fc7y1x7t.gz
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\7p7h0aipj0-mlv21k5csn.gz
+C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\70z9itlbue-alofo50opn.gz
+C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\1o9ure0b9c-alofo50opn.gz
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -1735,9 +1731,281 @@ C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\refint\QL_Spa.dll
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\QL_Spa.pdb
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\QL_Spa.genruntimeconfig.cache
 C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\ref\QL_Spa.dll
-C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\0l9bhoevyz-t0xttr8je8.gz
-C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\70z9itlbue-lpk99cjea9.gz
-C:\Users\ASUS\Downloads\QL_Spa\QL_Spa\obj\Debug\net9.0\compressed\1o9ure0b9c-lpk99cjea9.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\bin\Debug\net9.0\Microsoft.OpenApi.dll
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\QL_Spa.MvcApplicationPartsAssemblyInfo.cs
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\d6fpie7tse-61l7sdicd4.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\0l9bhoevyz-t0xttr8je8.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\imtks01wqn-8z13weybex.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\9gbwvl8fbs-2tkzk4u20k.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\uqhe1oegeo-h10kxg5zmw.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\vwg8oes8s9-ckqgnvlqld.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\carnxhd2rc-m9s3oxlpr7.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\8ji717yfm0-zb92q75600.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\s79m6p67tp-tgjkv8d5oc.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\70z9itlbue-lpk99cjea9.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\1o9ure0b9c-lpk99cjea9.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\kamzcs3laq-luj6x1032w.gz
+D:\3_Study_Everything_43GB\1_Devoloper_Newbie_3GB\1_My_GitHub\2_ALL_Repository\7_HK8B_CNPM_ST3\LoanSpa2\QL_Spa\obj\Debug\net9.0\compressed\ssxrcn4fkq-qork40xwsk.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.csproj.AssemblyReference.cache
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.AssemblyInfoInputs.cache
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.AssemblyInfo.cs
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.RazorAssemblyInfo.cache
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.RazorAssemblyInfo.cs
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.sourcelink.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\refint\QL_Spa.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.pdb
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\QL_Spa.staticwebassets.endpoints.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\appsettings.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\QL_Spa.staticwebassets.runtime.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\QL_Spa.exe
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\QL_Spa.deps.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\QL_Spa.runtimeconfig.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\QL_Spa.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\QL_Spa.pdb
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Azure.Core.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Azure.Identity.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Humanizer.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Mono.TextTemplating.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.ClientModel.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.CodeDom.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Composition.Convention.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Composition.Hosting.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Composition.Runtime.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Composition.TypedParts.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Drawing.Common.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Formats.Asn1.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Memory.Data.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Runtime.Caching.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Security.Permissions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Text.Json.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\System.Windows.Extensions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\scopedcss\bundle\QL_Spa.styles.css
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\scopedcss\projectbundle\QL_Spa.bundle.scp.css
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\d6fpie7tse-61l7sdicd4.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\0l9bhoevyz-t0xttr8je8.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\cs3iaygimh-61n19gt1b8.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\kamzcs3laq-luj6x1032w.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\imtks01wqn-8z13weybex.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\sr7lqlvdlx-e1apbahjux.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\9gbwvl8fbs-2tkzk4u20k.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\uqhe1oegeo-h10kxg5zmw.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\vwg8oes8s9-ckqgnvlqld.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\afszay24bs-ay4p9f55a6.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\carnxhd2rc-m9s3oxlpr7.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\ssxrcn4fkq-qork40xwsk.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\70iqvo8ug7-mauod9596g.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\j98ftmkp1e-61xx7bm37k.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\8ji717yfm0-zb92q75600.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\j7c77sxv0j-30c37fzkws.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\s79m6p67tp-tgjkv8d5oc.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\cj2sntel6a-bqjiyaj88i.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\xggi9jchl8-c2jlpeoesf.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\sbz9a2ni1i-erw9l3u2r3.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\10ijkxpwps-aexeepp0ev.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\50h25r5mgw-d7shbmvgxk.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\3q1ao7wstl-ausgxo2sd3.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\wdy7mr5g55-k8d9w2qqmf.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\c71biu3fld-cosvhxvwiu.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\6oee37o06k-ub07r2b239.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\8wx8pr3tuq-fvhpjtyr6v.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\2lm6a50mrk-b7pk76d08c.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\u7kf7yhmi1-fsbi9cje9m.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\tmkl95301c-rzd6atqjts.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\wmduscld0a-ee0r1s7dh0.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\w5cdsn6q1p-dxx9fxp4il.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\312pifmbbm-jd9uben2k1.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\ka1z2btvll-khv3u5hwcm.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\xylp6ajafh-r4e9w2rdcm.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\8ccl1hroa0-lcd1t2u6c8.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\fhc667wwr4-c2oey78nd0.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\3x4vkuzbpc-tdbxkamptv.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\cf77pbnyjb-j5mq2jizvt.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\yums25ezos-06098lyss8.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\ka9940cfsi-nvvlpmu67g.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\i8msheun1y-s35ty4nyc5.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\mx5capwakn-pj5nd1wqec.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\u7pwvbl811-46ein0sx1k.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\0d99l5jgkw-v0zj4ognzu.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\mugg7mtsq8-37tfw0ft22.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\obmphud0ex-hrwsygsryq.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\zc6t3whk6h-pk9g2wxc8p.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\ut0wfyk2qt-ft3s53vfgj.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\ttvk60hldj-6cfz1n2cew.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\d1zz6foshp-6pdc2jztkx.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\xz6oidvbxo-493y06b0oq.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\8k6wy88ko1-iovd86k7lj.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\rfvplo5auf-vr1egmr9el.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\y45sa9c3k1-kbrnm935zg.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\djm0aslpdi-jj8uyg4cgr.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\aauw4marnf-y7v9cxd14o.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\wy5g7wh7oq-notf2xhcfb.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\4tv121opj7-h1s4sie4z3.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\1x53uvez64-63fj8s7r0e.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\2lj7ihkse0-0j3bgjxly4.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\sthv4z5ijd-47otxtyo56.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\1532uw31wx-4v8eqarkd7.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\dk3lxfcxi4-356vix0kms.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\191ilov5e2-83jwlth58m.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\29dndkaa06-mrlpezrjn3.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\0b7r8yb77q-lzl9nlhx6b.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\gp5qvuww3r-ag7o75518u.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\z9bkbztscc-x0q3zqp4vz.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\n36lih1hqc-0i3buxo5is.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\rfsekcjbuc-o1o13a6vjx.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\g6po16on6k-ttgo8qnofa.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\1ndpblnr9d-2z0ns9nrw6.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\tmmo1oeut3-muycvpuwrr.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\nhnc9hcffu-87fc7y1x7t.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\7p7h0aipj0-mlv21k5csn.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\70z9itlbue-lpk99cjea9.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\compressed\1o9ure0b9c-lpk99cjea9.gz
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets\msbuild.QL_Spa.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets\msbuild.QL_Spa.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets\msbuild.build.QL_Spa.props
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.QL_Spa.props
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.QL_Spa.props
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.csproj.Up2Date
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\QL_Spa.genruntimeconfig.cache
+C:\Users\ASUS\Downloads\56_QL_Spa_Add_Invoice_8 (1)\QL_Spa\obj\Debug\net9.0\ref\QL_Spa.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\appsettings.json
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\QL_Spa.staticwebassets.endpoints.json
@@ -1750,6 +2018,7 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Azure.Core.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Azure.Identity.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Humanizer.dll
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
@@ -1904,6 +2173,7 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\d6fpie7tse-61l7sdicd4.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\0l9bhoevyz-t0xttr8je8.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\cs3iaygimh-61n19gt1b8.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\kamzcs3laq-luj6x1032w.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\imtks01wqn-8z13weybex.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\sr7lqlvdlx-e1apbahjux.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\9gbwvl8fbs-2tkzk4u20k.gz
@@ -1911,6 +2181,7 @@ C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\vwg8oes8s9-ckqgnvlqld.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\afszay24bs-ay4p9f55a6.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\carnxhd2rc-m9s3oxlpr7.gz
+C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\ssxrcn4fkq-qork40xwsk.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\70iqvo8ug7-mauod9596g.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\j98ftmkp1e-61xx7bm37k.gz
 C:\Users\ASUS\OneDrive\Máy tính\Code\All_File\Cong nghe phan mem\SPA\obj\Debug\net9.0\compressed\8ji717yfm0-zb92q75600.gz

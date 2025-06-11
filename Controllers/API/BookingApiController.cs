@@ -269,9 +269,56 @@ namespace QL_Spa.Controllers.Api
                 if (!string.IsNullOrEmpty(userId))
                 {
                     customer = await _context.Customers.FirstOrDefaultAsync(c => c.UserId == userId);
+                    
+                    // Nếu có thông tin khách hàng mới, cập nhật
+                    if (customer != null && 
+                        (!string.IsNullOrEmpty(model.CustomerName) || !string.IsNullOrEmpty(model.CustomerPhone)))
+                    {
+                        if (!string.IsNullOrEmpty(model.CustomerName))
+                            customer.FullName = model.CustomerName;
+                        
+                        if (!string.IsNullOrEmpty(model.CustomerPhone))
+                            customer.Phone = model.CustomerPhone;
+                        
+                        _context.Customers.Update(customer);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation("Đã cập nhật thông tin khách hàng ID: {ID}", customer.CustomerId);
+                    }
                 }
 
-                // Nếu không tìm thấy khách hàng, sử dụng khách hàng mặc định (ID = 1)
+                // Nếu không tìm thấy khách hàng, kiểm tra nếu có thông tin khách hàng trong request
+                if (customer == null && !string.IsNullOrEmpty(model.CustomerPhone))
+                {
+                    // Tìm khách hàng theo số điện thoại
+                    customer = await _context.Customers.FirstOrDefaultAsync(c => c.Phone == model.CustomerPhone);
+                    
+                    // Nếu tìm thấy khách hàng theo số điện thoại, cập nhật tên
+                    if (customer != null && !string.IsNullOrEmpty(model.CustomerName))
+                    {
+                        customer.FullName = model.CustomerName;
+                        _context.Customers.Update(customer);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation("Đã cập nhật tên khách hàng ID: {ID}", customer.CustomerId);
+                    }
+                }
+
+                // Nếu vẫn không tìm thấy khách hàng và có thông tin, tạo mới
+                if (customer == null && !string.IsNullOrEmpty(model.CustomerName) && !string.IsNullOrEmpty(model.CustomerPhone))
+                {
+                    customer = new Customer
+                    {
+                        FullName = model.CustomerName,
+                        Phone = model.CustomerPhone,
+                        UserId = userId, // Liên kết với tài khoản nếu đã đăng nhập
+                        CreatedDate = DateTime.Now,
+                        TotalAmount = 0
+                    };
+                    _context.Customers.Add(customer);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation("Đã tạo khách hàng mới ID: {ID}", customer.CustomerId);
+                }
+
+                // Nếu không có thông tin khách hàng, sử dụng khách hàng mặc định
                 if (customer == null)
                 {
                     customer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == 1);
@@ -302,7 +349,6 @@ namespace QL_Spa.Controllers.Api
                     return BadRequest(new { success = false, message = "Một hoặc nhiều dịch vụ không tồn tại" });
                 }
 
-                var totalQuantity = model.Services.Sum(s => s.Quantity);
                 var totalAmount = 0m;
 
                 foreach (var reqService in model.Services)
@@ -321,7 +367,7 @@ namespace QL_Spa.Controllers.Api
                     // Tính EndTime từ StartTime
                     EndTime = DateTime.Parse(model.StartTime).AddMinutes(model.Duration),
                     TotalAmount = totalAmount,
-                    Status = "Đã xác nhận",
+                    Status = "Chờ xác nhận", // Changed from "Đã xác nhận" to "Chờ xác nhận"
                     Notes = model.Notes ?? "",
                     AppointmentServices = new List<AppointmentService>(),
                     AppointmentChairs = new List<AppointmentChair>()
@@ -339,16 +385,20 @@ namespace QL_Spa.Controllers.Api
                     });
                 }
 
-                // Tìm ghế trống và gán cho lịch hẹn
+                // Tìm ghế trống và gán cho lịch hẹn - Sử dụng CustomerCount thay vì totalQuantity
+                int chairsNeeded = Math.Max(1, model.CustomerCount); // Đảm bảo ít nhất 1 ghế
+                _logger.LogInformation($"Đang tìm {chairsNeeded} ghế cho {model.CustomerCount} khách hàng");
+                
                 var availableChairs = await _context.Chairs
                     .Where(c => c.IsAvailable)
-                    .Take(Math.Max(1, totalQuantity)) // Đảm bảo ít nhất 1 ghế
+                    .Take(chairsNeeded)
                     .ToListAsync();
 
-                if (availableChairs.Count < totalQuantity)
+                if (availableChairs.Count < chairsNeeded)
                 {
                     // Nếu không đủ ghế, vẫn cho đặt lịch nhưng ghi chú lại
-                    appointment.Notes += " (Thiếu ghế, cần liên hệ khách hàng)";
+                    appointment.Notes += $" (Thiếu ghế, cần {chairsNeeded} ghế nhưng chỉ có {availableChairs.Count})";
+                    _logger.LogWarning($"Không đủ ghế trống. Cần: {chairsNeeded}, Có sẵn: {availableChairs.Count}");
                 }
 
                 // Gán ghế và cập nhật trạng thái
@@ -368,6 +418,101 @@ namespace QL_Spa.Controllers.Api
                 await _context.SaveChangesAsync();
 
                 _logger.LogInformation("Đã tạo lịch hẹn mới với ID: {ID}", appointment.AppointmentId);
+                
+                // Tự động tạo hóa đơn cho lịch hẹn
+                try
+                {
+                    _logger.LogInformation("Bắt đầu tạo hóa đơn tự động cho lịch hẹn ID: {ID}", appointment.AppointmentId);
+                    
+                    // Create new invoice with all required fields set
+                    var invoice = new Invoice
+                    {
+                        CreatedDate = DateTime.Now,
+                        TotalAmount = appointment.TotalAmount,
+                        Discount = 0, // Mặc định giảm giá 0
+                        PaidAmount = 0, // Set default to 0, can be updated later
+                        CustomerId = appointment.CustomerId,
+                        Status = "Chờ thanh toán", // Set status as requested
+                        InvoiceServices = new List<InvoiceService>()
+                    };
+
+                    _logger.LogInformation("Tạo hóa đơn với: TotalAmount={TotalAmount}, Discount={Discount}, CustomerId={CustomerId}, Status={Status}", 
+                        invoice.TotalAmount, invoice.Discount, invoice.CustomerId, invoice.Status);
+
+                    // Add services from appointment to invoice
+                    foreach (var appService in appointment.AppointmentServices)
+                    {
+                        var invoiceService = new InvoiceService
+                        {
+                            ServiceId = appService.ServiceId,
+                            Quantity = appService.Quantity,
+                            Price = appService.Price
+                        };
+                        
+                        _logger.LogInformation("Thêm dịch vụ vào hóa đơn: ServiceId={ServiceId}, Quantity={Quantity}, Price={Price}", 
+                            invoiceService.ServiceId, invoiceService.Quantity, invoiceService.Price);
+                            
+                        invoice.InvoiceServices.Add(invoiceService);
+                    }
+
+                    // Use direct SQL to insert the invoice if EF Core approach is failing
+                    // This will help bypass any EF Core configuration issues
+                    string insertInvoiceSql = @"
+                        INSERT INTO Invoices (CreatedDate, TotalAmount, Discount, PaidAmount, CustomerId, Status)
+                        VALUES (@createdDate, @totalAmount, @discount, @paidAmount, @customerId, @status);
+                        SELECT CAST(SCOPE_IDENTITY() as int);";
+                        
+                    var parameters = new[] {
+                        new Microsoft.Data.SqlClient.SqlParameter("@createdDate", invoice.CreatedDate),
+                        new Microsoft.Data.SqlClient.SqlParameter("@totalAmount", invoice.TotalAmount),
+                        new Microsoft.Data.SqlClient.SqlParameter("@discount", invoice.Discount),
+                        new Microsoft.Data.SqlClient.SqlParameter("@paidAmount", invoice.PaidAmount),
+                        new Microsoft.Data.SqlClient.SqlParameter("@customerId", invoice.CustomerId),
+                        new Microsoft.Data.SqlClient.SqlParameter("@status", invoice.Status)
+                    };
+                    
+                    // Execute the SQL and get the generated invoice ID
+                    var invoiceId = await _context.Database.ExecuteSqlRawAsync(insertInvoiceSql, parameters);
+                    
+                    if (invoiceId > 0)
+                    {
+                        _logger.LogInformation("Hóa đơn đã được tạo với ID: {ID}", invoiceId);
+                        
+                        // Now insert the invoice services
+                        foreach (var service in invoice.InvoiceServices)
+                        {
+                            string insertServiceSql = @"
+                                INSERT INTO InvoiceServices (InvoiceId, ServiceId, Quantity, Price)
+                                VALUES (@invoiceId, @serviceId, @quantity, @price);";
+                                
+                            var serviceParams = new[] {
+                                new Microsoft.Data.SqlClient.SqlParameter("@invoiceId", invoiceId),
+                                new Microsoft.Data.SqlClient.SqlParameter("@serviceId", service.ServiceId),
+                                new Microsoft.Data.SqlClient.SqlParameter("@quantity", service.Quantity),
+                                new Microsoft.Data.SqlClient.SqlParameter("@price", service.Price)
+                            };
+                            
+                            await _context.Database.ExecuteSqlRawAsync(insertServiceSql, serviceParams);
+                        }
+                        
+                        _logger.LogInformation("Các dịch vụ đã được thêm vào hóa đơn ID: {ID}", invoiceId);
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Không thể tạo hóa đơn bằng SQL trực tiếp, thử dùng EF Core");
+                        
+                        // Fall back to EF Core if direct SQL fails
+                        _context.Invoices.Add(invoice);
+                        await _context.SaveChangesAsync();
+                        _logger.LogInformation("Đã tạo hóa đơn thành công với EF Core, ID: {ID}", invoice.InvoiceId);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log error but don't fail the appointment creation
+                    _logger.LogError(ex, "Lỗi khi tạo hóa đơn tự động cho lịch hẹn ID: {ID}: {Message}", 
+                        appointment.AppointmentId, ex.Message);
+                }
                 
                 return Ok(new { 
                     message = "Đặt lịch thành công", 
@@ -397,7 +542,8 @@ namespace QL_Spa.Controllers.Api
                     .Where(s => serviceIds.Contains(s.ServiceId))
                     .ToListAsync();
 
-                var totalQuantity = request.Services.Sum(s => s.Quantity);
+                // Sử dụng CustomerCount thay vì tổng số dịch vụ
+                var chairsNeeded = Math.Max(1, request.CustomerCount);
                 var maxDuration = 0;
 
                 foreach (var reqService in request.Services)
@@ -422,8 +568,8 @@ namespace QL_Spa.Controllers.Api
                 return Ok(new
                 {
                     success = true,
-                    available = availableChairsCount >= totalQuantity,
-                    requiredChairs = totalQuantity,
+                    available = availableChairsCount >= chairsNeeded,
+                    requiredChairs = chairsNeeded,
                     availableChairs = availableChairsCount
                 });
             }
@@ -595,6 +741,55 @@ namespace QL_Spa.Controllers.Api
                 }
             }
         }
+
+        // GET: api/Booking/ManagementData
+        [Authorize(Roles = "Admin")]
+        [HttpGet("ManagementData")]
+        public async Task<IActionResult> GetBookingManagementData()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching booking management data");
+                
+                var appointments = await _context.Appointments
+                    .Include(a => a.Customer)
+                    .Include(a => a.AppointmentServices)
+                        .ThenInclude(aps => aps.Service)
+                    .Include(a => a.AppointmentChairs)
+                        .ThenInclude(ac => ac.Chair)
+                            .ThenInclude(c => c.Room)
+                    .OrderByDescending(a => a.CreatedDate)
+                    .ToListAsync();
+
+                var result = appointments.Select(a => new
+                {
+                    appointmentId = a.AppointmentId,
+                    totalAmount = a.TotalAmount,
+                    startTime = a.StartTime,
+                    endTime = a.EndTime,
+                    createdDate = a.CreatedDate,
+                    customerName = a.Customer?.FullName ?? "N/A",
+                    customerPhone = a.Customer?.Phone ?? "N/A", // Add customer phone number
+                    notes = a.Notes ?? "",
+                    status = a.Status ?? "Chờ xác nhận",
+                    serviceCount = a.AppointmentServices?.Count ?? 0,
+                    services = a.AppointmentServices?.Select(s => s.Service?.ServiceName).ToList() ?? new List<string>(),
+                    chairs = a.AppointmentChairs?.Select(c => new {
+                        chairId = c.ChairId,
+                        chairName = c.Chair?.ChairName ?? "N/A",
+                        roomName = c.Chair?.Room?.RoomName ?? "N/A"
+                    }).Cast<object>().ToList() ?? new List<object>()
+                }).ToList();
+                
+                _logger.LogInformation("Successfully fetched {Count} appointments for management view", result.Count);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching booking management data");
+                return StatusCode(500, new { success = false, message = "Đã xảy ra lỗi khi lấy dữ liệu đặt lịch" });
+            }
+        }
     }
 
     public class BookingRequest
@@ -631,6 +826,7 @@ namespace QL_Spa.Controllers.Api
         public string Date { get; set; }
         [Required]
         public string Time { get; set; }
+        public int CustomerCount { get; set; } = 1; // Thêm số lượng khách hàng, mặc định là 1
     }
 
     public class UpdateStatusRequest
@@ -644,7 +840,12 @@ namespace QL_Spa.Controllers.Api
         // Thay đổi kiểu dữ liệu để nhận chuỗi datetime từ client
         public string StartTime { get; set; }
         public int Duration { get; set; } // Thời gian dịch vụ tính bằng phút
+        public int CustomerCount { get; set; } = 1; // Số lượng khách hàng, mặc định là 1
         public string Notes { get; set; }
         public List<ServiceRequest> Services { get; set; }
+        
+        // Thêm thông tin khách hàng
+        public string CustomerName { get; set; }
+        public string CustomerPhone { get; set; }
     }
 }

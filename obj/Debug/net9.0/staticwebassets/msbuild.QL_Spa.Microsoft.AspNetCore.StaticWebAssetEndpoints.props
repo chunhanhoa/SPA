@@ -168,6 +168,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"paghvylmg5"},{"Name":"integrity","Value":"sha256-wYM6zwLp6ENmeq2o0neHMGaQDtvLMEA0a5uyCjGA3gU="},{"Name":"label","Value":"_content/QL_Spa/images/services/massage.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"56665"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022wYM6zwLp6ENmeq2o0neHMGaQDtvLMEA0a5uyCjGA3gU=\u0022"},{"Name":"Last-Modified","Value":"Tue, 27 May 2025 14:35:44 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/QL_Spa/js/admin-booking-management.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin-booking-management.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-AzF218O9hYjBNp/sl2WQA0nwwT\u002BFFWaYKie\u002BAcTOYSU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"16890"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022AzF218O9hYjBNp/sl2WQA0nwwT\u002BFFWaYKie\u002BAcTOYSU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 09 Jun 2025 08:13:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/QL_Spa/js/admin-booking-management.luj6x1032w.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin-booking-management.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"luj6x1032w"},{"Name":"integrity","Value":"sha256-AzF218O9hYjBNp/sl2WQA0nwwT\u002BFFWaYKie\u002BAcTOYSU="},{"Name":"label","Value":"_content/QL_Spa/js/admin-booking-management.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"16890"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022AzF218O9hYjBNp/sl2WQA0nwwT\u002BFFWaYKie\u002BAcTOYSU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 09 Jun 2025 08:13:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/QL_Spa/js/admin-booking.8z13weybex.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\admin-booking.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -251,6 +263,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"m9s3oxlpr7"},{"Name":"integrity","Value":"sha256-JoJ/3anj9xa7CdVciIFx30ha7VfruB5Y2dzq1ndFQ\u002Bk="},{"Name":"label","Value":"_content/QL_Spa/js/home.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3407"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022JoJ/3anj9xa7CdVciIFx30ha7VfruB5Y2dzq1ndFQ\u002Bk=\u0022"},{"Name":"Last-Modified","Value":"Sat, 07 Jun 2025 03:38:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/QL_Spa/js/invoice-management.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\invoice-management.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"35376"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00221qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 10 Jun 2025 10:12:02 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/QL_Spa/js/invoice-management.qork40xwsk.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\invoice-management.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"qork40xwsk"},{"Name":"integrity","Value":"sha256-1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk="},{"Name":"label","Value":"_content/QL_Spa/js/invoice-management.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"35376"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00221qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk=\u0022"},{"Name":"Last-Modified","Value":"Tue, 10 Jun 2025 10:12:02 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/QL_Spa/js/management.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\management.js'))</AssetFile>

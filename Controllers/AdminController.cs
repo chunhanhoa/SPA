@@ -166,5 +166,11 @@ namespace QL_Spa.Controllers
             
             return View();
         }
+        
+        [Authorize(Roles = "Admin")]
+        public IActionResult InvoiceManagement()
+        {
+            return View();
+        }
     }
 }

@@ -1,153 +1,115 @@
 @model QL_Spa.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Đăng ký";
+}
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body p-5">
-                    <div class="text-center mb-4">
-                        <h2 class="fw-bold text-primary"><i class="bi bi-person-plus me-2"></i>Đăng ký tài khoản</h2>
-                        <p class="text-muted">Tạo tài khoản mới để sử dụng dịch vụ của LoanSpa</p>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body">
+                <div id="registerResult" class="alert alert-danger" style="display:none;"></div>
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label">Tên người dùng</label>
+                        <input asp-for="Username" class="form-control" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
                     </div>
-
-                    <form asp-action="Register" method="post" class="needs-validation" novalidate>
-                        <div class="form-floating mb-4">
-                            <input asp-for="Username" class="form-control shadow-sm" placeholder="Nhập tên người dùng" required />
-                            <label asp-for="Username"><i class="bi bi-person me-1"></i>Tên người dùng</label>
-                            <span asp-validation-for="Username" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-floating mb-4">
-                            <input asp-for="Email" class="form-control shadow-sm" placeholder="Nhập email" required />
-                            <label asp-for="Email"><i class="bi bi-envelope me-1"></i>Email</label>
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-floating mb-4 password-field">
-                            <input asp-for="Password" id="Password" type="password" class="form-control shadow-sm" placeholder="Nhập mật khẩu" required />
-                            <label asp-for="Password"><i class="bi bi-lock me-1"></i>Mật khẩu</label>
-                            <span class="password-toggle" onclick="togglePassword('Password')">
-                                <i class="bi bi-eye fs-5"></i>
-                            </span>
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-floating mb-4 password-field">
-                            <input asp-for="ConfirmPassword" id="ConfirmPassword" type="password" class="form-control shadow-sm" placeholder="Xác nhận mật khẩu" required />
-                            <label asp-for="ConfirmPassword"><i class="bi bi-lock-fill me-1"></i>Xác nhận mật khẩu</label>
-                            <span class="password-toggle" onclick="togglePassword('ConfirmPassword')">
-                                <i class="bi bi-eye fs-5"></i>
-                            </span>
-                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
-                            <label class="form-check-label" for="termsCheck">
-                                Tôi đồng ý với <a href="#" class="text-primary">điều khoản sử dụng</a>
-                            </label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 py-2 register-btn">
-                            <i class="bi bi-person-plus-fill me-2"></i>Đăng ký
-                        </button>
-                    </form>
-
-                    <div class="text-center mt-4">
-                        <p class="mb-0">Đã có tài khoản? <a asp-action="Login" class="text-primary fw-bold">Đăng nhập ngay</a></p>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                     </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Mật khẩu</label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                        <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    </div>
+                </form>
+                <hr />
+                <div class="text-center">
+                    <p>Đã có tài khoản? <a asp-controller="Account" asp-action="Login">Đăng nhập</a></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@section Styles {
-    <style>
-        .card {
-            border-radius: 2rem;
-        }
-
-        .form-control {
-            border-radius: 1rem;
-            padding: 1rem 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-            border-color: #0d6efd;
-        }
-
-        .password-field {
-            position: relative;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6c757d;
-            z-index: 10;
-            transition: color 0.3s;
-        }
-
-        .password-toggle:hover {
-            color: #0d6efd;
-        }
-
-        .register-btn {
-            border-radius: 1rem;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .register-btn:hover {
-            background-color: #0b5ed7;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
-        }
-
-        .form-floating > label {
-            padding-left: 1rem;
-        }
-    </style>
-}
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        function togglePassword(fieldId) {
-            const field = document.getElementById(fieldId);
-            const icon = event.currentTarget.querySelector('i');
-            if (field.type === 'password') {
-                field.type = 'text';
-                icon.classList.replace('bi-eye', 'bi-eye-slash');
-            } else {
-                field.type = 'password';
-                icon.classList.replace('bi-eye-slash', 'bi-eye');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach(input => {
-                input.addEventListener('focus', () => {
-                    input.parentElement.classList.add('focused');
-                });
-
-                input.addEventListener('blur', () => {
-                    if (input.value === '') {
-                        input.parentElement.classList.remove('focused');
+        $(document).ready(function() {
+            $("#registerForm").submit(function(e) {
+                e.preventDefault();
+                
+                // Ẩn thông báo lỗi
+                $("#registerResult").hide();
+                
+                // Kiểm tra mật khẩu khớp nhau
+                var password = $("#Password").val();
+                var confirmPassword = $("#ConfirmPassword").val();
+                
+                if (password !== confirmPassword) {
+                    $("#registerResult").text("Mật khẩu và mật khẩu xác nhận không khớp").show();
+                    return;
+                }
+                
+                // Thu thập dữ liệu form
+                var registerData = {
+                    username: $("#Username").val(),
+                    email: $("#Email").val(),
+                    password: password,
+                    confirmPassword: confirmPassword
+                };
+                
+                // Gửi yêu cầu đăng ký
+                $.ajax({
+                    url: "/api/Account/Register",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(registerData),
+                    success: function(response) {
+                        if (response.success) {
+                            // Lưu token vào localStorage
+                            localStorage.setItem("jwtToken", response.token);
+                            localStorage.setItem("currentUser", JSON.stringify({
+                                username: response.username,
+                                userId: response.userId,
+                                roles: ["User"] // Người dùng mới luôn có vai trò User
+                            }));
+                            
+                            // Chuyển hướng về trang chủ
+                            window.location.href = "/Home/Index";
+                        } else {
+                            // Hiển thị lỗi
+                            $("#registerResult").text(response.message).show();
+                        }
+                    },
+                    error: function(xhr) {
+                        var errorMessage = "Đã xảy ra lỗi khi đăng ký";
+                        
+                        if (xhr.responseJSON) {
+                            if (xhr.responseJSON.errors) {
+                                errorMessage = Object.values(xhr.responseJSON.errors)
+                                    .flat()
+                                    .join("<br>");
+                            } else if (xhr.responseJSON.message) {
+                                errorMessage = xhr.responseJSON.message;
+                            }
+                        }
+                        
+                        $("#registerResult").html(errorMessage).show();
                     }
                 });
-
-                if (input.value !== '') {
-                    input.parentElement.classList.add('focused');
-                }
             });
         });
     </script>

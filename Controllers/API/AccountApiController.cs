@@ -5,11 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using QL_Spa.Data;
 using QL_Spa.Models;
+using QL_Spa.Services;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Security.Claims;
 
 namespace QL_Spa.Controllers.Api
 {
-    [Route("api/[controller]")]
+    [Route("api/Account")]  // Thay đổi route từ "api/[controller]" thành "api/Account"
     [ApiController]
     public class AccountApiController : ControllerBase
     {
@@ -17,17 +20,20 @@ namespace QL_Spa.Controllers.Api
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<AccountApiController> _logger;
         private readonly SpaDbContext _context;
+        private readonly JwtService _jwtService;
 
         public AccountApiController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<AccountApiController> logger,
-            SpaDbContext context)
+            SpaDbContext context,
+            JwtService jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _context = context;
+            _jwtService = jwtService;
         }
 
         // POST: api/AccountApi/Register
@@ -44,12 +50,12 @@ namespace QL_Spa.Controllers.Api
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User created a new account with password.");
+                _logger.LogInformation("Đã tạo tài khoản mới với mật khẩu.");
 
-                // Assign the User role to the new user
+                // Gán vai trò User cho người dùng mới
                 await _userManager.AddToRoleAsync(user, "User");
 
-                // Create a new Customer record for this user
+                // Tạo bản ghi Customer cho người dùng này
                 var customer = new Customer
                 {
                     UserId = user.Id,
@@ -62,8 +68,23 @@ namespace QL_Spa.Controllers.Api
                 _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
 
+                // Đăng nhập người dùng
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return Ok(new { message = "User registered successfully", userId = user.Id });
+                
+                // Tạo JWT token
+                var token = await _jwtService.CreateTokenAsync(user);
+                
+                // Lưu token vào cookie
+                SetJwtCookie(token);
+                
+                // Trả về token và thông tin người dùng
+                return Ok(new { 
+                    success = true,
+                    message = "Đăng ký thành công", 
+                    userId = user.Id,
+                    username = user.UserName,
+                    token = token 
+                });
             }
 
             foreach (var error in result.Errors)
@@ -80,34 +101,133 @@ namespace QL_Spa.Controllers.Api
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(new { 
+                    success = false, 
+                    message = "Thông tin đăng nhập không hợp lệ",
+                    errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)
+                });
             }
 
+            // Kiểm tra xem người dùng tồn tại không
+            var user = await _userManager.FindByNameAsync(model.Username);
+            if (user == null)
+            {
+                return Unauthorized(new { 
+                    success = false, 
+                    message = "Đăng nhập không thành công",
+                    error = "Tên người dùng không tồn tại trong hệ thống."
+                });
+            }
+
+            // Thử đăng nhập
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User logged in.");
-                return Ok(new { message = "Login successful" });
+                _logger.LogInformation("Người dùng đã đăng nhập: {Username}", model.Username);
+                
+                // Tạo JWT token
+                var token = await _jwtService.CreateTokenAsync(user);
+                
+                // Lưu token vào cookie
+                SetJwtCookie(token);
+                
+                // Lấy vai trò của người dùng
+                var roles = await _userManager.GetRolesAsync(user);
+                
+                return Ok(new { 
+                    success = true, 
+                    message = "Đăng nhập thành công",
+                    userId = user.Id,
+                    username = user.UserName,
+                    token = token,
+                    roles = roles
+                });
             }
 
             if (result.IsLockedOut)
             {
-                _logger.LogWarning("User account locked out.");
-                return StatusCode(423, new { message = "Account locked out" });
+                _logger.LogWarning("Tài khoản bị khóa: {Username}", model.Username);
+                return StatusCode(423, new { 
+                    success = false, 
+                    message = "Tài khoản đã bị khóa",
+                    error = "Vui lòng thử lại sau hoặc liên hệ quản trị viên."
+                });
             }
 
-            return Unauthorized(new { message = "Invalid login attempt" });
+            _logger.LogWarning("Đăng nhập thất bại cho người dùng: {Username}", model.Username);
+            return Unauthorized(new { 
+                success = false, 
+                message = "Đăng nhập không thành công",
+                error = "Mật khẩu không chính xác." 
+            });
         }
 
         // POST: api/AccountApi/Logout
         [HttpPost("Logout")]
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    // Xóa token khỏi database
+                    await _jwtService.RemoveTokenAsync(user);
+                }
+            }
+            
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            return Ok(new { message = "Logout successful" });
+            
+            // Xóa JWT token khỏi cookie
+            Response.Cookies.Delete("jwtToken", new CookieOptions { 
+                SameSite = SameSiteMode.Lax,
+                Secure = true
+            });
+            
+            _logger.LogInformation("Người dùng đã đăng xuất.");
+            return Ok(new { success = true, message = "Đăng xuất thành công" });
+        }
+        
+        // Helper method to set JWT cookie
+        private void SetJwtCookie(string token)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true, // Đảm bảo gửi qua HTTPS
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.Now.AddDays(7) // Đồng bộ với thời gian hết hạn token
+            };
+            
+            Response.Cookies.Append("jwtToken", token, cookieOptions);
+        }
+        
+        // Kiểm tra token
+        [HttpGet("ValidateToken")]
+        public IActionResult ValidateToken()
+        {
+            // Nếu request đến đây và đã được xác thực, trả về success
+            if (User.Identity.IsAuthenticated)
+            {
+                var roles = User.Claims
+                    .Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => c.Value)
+                    .ToList();
+                    
+                return Ok(new {
+                    success = true,
+                    username = User.Identity.Name,
+                    userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+                    roles = roles
+                });
+            }
+            
+            return Unauthorized(new { 
+                success = false, 
+                message = "Token không hợp lệ hoặc đã hết hạn" 
+            });
         }
     }
 }

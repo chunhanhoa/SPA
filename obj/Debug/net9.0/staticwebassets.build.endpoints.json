@@ -2097,6 +2097,304 @@
       ]
     },
     {
+      "Route": "js/admin-booking-management.js",
+      "AssetFile": "js/admin-booking-management.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000264480296"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EazJqsMSsBIBwb72E2Ytq6GXYpdRINmkCraZuvuBKfE=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 08:13:51 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-booking-management.js",
+      "AssetFile": "js/admin-booking-management.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16890"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 08:13:51 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-booking-management.js.gz",
+      "AssetFile": "js/admin-booking-management.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EazJqsMSsBIBwb72E2Ytq6GXYpdRINmkCraZuvuBKfE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 08:13:51 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-EazJqsMSsBIBwb72E2Ytq6GXYpdRINmkCraZuvuBKfE="
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-booking-management.luj6x1032w.js",
+      "AssetFile": "js/admin-booking-management.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000264480296"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EazJqsMSsBIBwb72E2Ytq6GXYpdRINmkCraZuvuBKfE=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 08:13:51 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "luj6x1032w"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU="
+        },
+        {
+          "Name": "label",
+          "Value": "js/admin-booking-management.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-booking-management.luj6x1032w.js",
+      "AssetFile": "js/admin-booking-management.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16890"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 08:13:51 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "luj6x1032w"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AzF218O9hYjBNp/sl2WQA0nwwT+FFWaYKie+AcTOYSU="
+        },
+        {
+          "Name": "label",
+          "Value": "js/admin-booking-management.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/admin-booking-management.luj6x1032w.js.gz",
+      "AssetFile": "js/admin-booking-management.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EazJqsMSsBIBwb72E2Ytq6GXYpdRINmkCraZuvuBKfE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 09 Jun 2025 08:13:51 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "luj6x1032w"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-EazJqsMSsBIBwb72E2Ytq6GXYpdRINmkCraZuvuBKfE="
+        },
+        {
+          "Name": "label",
+          "Value": "js/admin-booking-management.js.gz"
+        }
+      ]
+    },
+    {
       "Route": "js/admin-booking.8z13weybex.js",
       "AssetFile": "js/admin-booking.js.gz",
       "Selectors": [
@@ -4179,6 +4477,304 @@
         {
           "Name": "label",
           "Value": "js/home.js.gz"
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.js",
+      "AssetFile": "js/invoice-management.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000162972621"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6135"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"clltxVtaXgrIvb8CQ39cFmTU5/pE5gMl+KVSJxHyHtY=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Jun 2025 10:12:02 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk="
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.js",
+      "AssetFile": "js/invoice-management.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "35376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Jun 2025 10:12:02 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk="
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.js.gz",
+      "AssetFile": "js/invoice-management.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6135"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"clltxVtaXgrIvb8CQ39cFmTU5/pE5gMl+KVSJxHyHtY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Jun 2025 10:12:02 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-clltxVtaXgrIvb8CQ39cFmTU5/pE5gMl+KVSJxHyHtY="
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.qork40xwsk.js",
+      "AssetFile": "js/invoice-management.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000162972621"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6135"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"clltxVtaXgrIvb8CQ39cFmTU5/pE5gMl+KVSJxHyHtY=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Jun 2025 10:12:02 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qork40xwsk"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk="
+        },
+        {
+          "Name": "label",
+          "Value": "js/invoice-management.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.qork40xwsk.js",
+      "AssetFile": "js/invoice-management.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "35376"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Jun 2025 10:12:02 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qork40xwsk"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1qJFJ2Cwp5bD6Wg/jybtJI5QUTcMsySddmmWhhdCzrk="
+        },
+        {
+          "Name": "label",
+          "Value": "js/invoice-management.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.qork40xwsk.js.gz",
+      "AssetFile": "js/invoice-management.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6135"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"clltxVtaXgrIvb8CQ39cFmTU5/pE5gMl+KVSJxHyHtY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 10 Jun 2025 10:12:02 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qork40xwsk"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-clltxVtaXgrIvb8CQ39cFmTU5/pE5gMl+KVSJxHyHtY="
+        },
+        {
+          "Name": "label",
+          "Value": "js/invoice-management.js.gz"
         }
       ]
     },

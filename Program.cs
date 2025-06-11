@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using QL_Spa.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -55,6 +59,9 @@ builder.Services.AddScoped<RoleInitializer>();
 // Add this line to register AvailabilityService
 builder.Services.AddScoped<QL_Spa.Services.AvailabilityService>();
 
+// Add this line to register the script
+builder.Services.AddScoped<QL_Spa.Data.Scripts.EnsureInvoicesTableScript>();
+
 // Thêm Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -66,6 +73,10 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API for QL_Spa application"
     });
 });
+
+// AddScoped JwtService
+builder.Services.AddScoped<JwtService>();
+builder.Services.ConfigureJwt(builder.Configuration);
 
 var app = builder.Build();
 
@@ -115,6 +126,10 @@ using (var scope = app.Services.CreateScope())
         // Apply database migrations
         var context = services.GetRequiredService<SpaDbContext>();
         context.Database.Migrate();
+        
+        // Run the script to ensure Invoices table exists
+        var invoicesTableScript = services.GetRequiredService<QL_Spa.Data.Scripts.EnsureInvoicesTableScript>();
+        invoicesTableScript.ExecuteAsync().GetAwaiter().GetResult();
         
         // Execute script to add missing columns
         var logger = services.GetRequiredService<ILogger<AddMissingColumnsScript>>();

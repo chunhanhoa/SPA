@@ -526,6 +526,15 @@
                 // Get customer count
                 const customerCount = parseInt($('#customerCount').val()) || 1;
                 
+                // Get customer information
+                const customerName = $('#fullName').val().trim();
+                const customerPhone = $('#phoneNumber').val().trim();
+                
+                if (!customerName || !customerPhone) {
+                    showBookingMessage("Vui lòng nhập đầy đủ họ tên và số điện thoại.", "warning");
+                    return;
+                }
+                
                 // Calculate total duration divided by customer count
                 let rawTotalDuration = 0;
                 selectedServices.forEach(service => {
@@ -544,6 +553,8 @@
                     Duration: totalDuration, // Adjusted duration
                     RawDuration: rawTotalDuration, // Original total duration
                     CustomerCount: customerCount, // Number of customers
+                    CustomerName: customerName, // Add customer name
+                    CustomerPhone: customerPhone, // Add customer phone
                     Notes: $('#notes').val().trim() || "",
                     Services: selectedServices.map(s => ({
                         ServiceId: parseInt(s.serviceId),
@@ -565,7 +576,7 @@
                         console.log("Kết quả đặt lịch:", response);
                         
                         if (response.appointmentId) {
-                            showBookingMessage("Đặt lịch thành công! Đang chuyển hướng...", "success");
+                            showBookingMessage("Đặt lịch thành công! Đang chờ xác nhận và chuyển hướng...", "success");
                             setTimeout(() => {
                                 window.location.href = response.redirectUrl || '/Home/BookingConfirmation/' + response.appointmentId;
                             }, 1500);

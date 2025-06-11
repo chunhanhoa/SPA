@@ -49,6 +49,19 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <!-- Current User Role Debugging -->
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                <div class="role-debug d-none">
+                                    <small class="text-muted">
+                                        Roles: @string.Join(", ", User.Claims
+                                            .Where(c => c.Type == System.Security.Claims.ClaimTypes.Role)
+                                            .Select(c => c.Value))
+                                    </small>
+                                    <a href="/Debug/UserInfo" class="text-info ms-2 small">Debug Info</a>
+                                </div>
+                            }
+                            
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -66,29 +79,62 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Services">Dịch Vụ</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Booking">Đặt Hẹn</a>
-                                </li>
-                                
-                                <!-- Management Dropdown - Only visible to Admin role -->
-
-                                
-                                @if (User.IsInRole("Admin"))
+                                @if (User.Identity?.IsAuthenticated == true)
                                 {
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarAdminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Quản trị
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarAdminDropdown">
-                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Dashboard</a></li>
-                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="UserManagement">Quản lý người dùng</a></li>
-                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="RoomManagement">Quản lý phòng</a></li>
-                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="ChairManagement">Quản lý ghế</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#">Cài đặt hệ thống</a></li>
-                                        </ul>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Booking">Đặt Hẹn</a>
+                                    </li>
+                                    
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarAdminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Quản trị
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarAdminDropdown">
+                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="UserManagement">Quản lý người dùng</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="RoomManagement">Quản lý phòng</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="ChairManagement">Quản lý ghế</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="#">Cài đặt hệ thống</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("Staff"))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarStaffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Nhân viên
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarStaffDropdown">
+                                                <li><a class="dropdown-item" asp-controller="Staff" asp-action="Dashboard">Bảng điều khiển</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Staff" asp-action="Appointments">Quản lý lịch hẹn</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Staff" asp-action="Schedule">Lịch làm việc</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("Manager"))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarManagerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Quản lý
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarManagerDropdown">
+                                                <li><a class="dropdown-item" asp-controller="Manager" asp-action="Dashboard">Bảng điều khiển</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Manager" asp-action="StaffManagement">Quản lý nhân viên</a></li>
+                                                <li><a class="dropdown-item" asp-controller="Manager" asp-action="Reports">Báo cáo</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Booking">Đặt Hẹn</a>
                                     </li>
                                 }
+                                
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                                 </li>
@@ -98,8 +144,28 @@
                                 {
                                     <div class="d-flex align-items-center me-3">
                                         <partial name="_ProfilePartial" />
+                                        
+                                        <!-- Add visible role badge -->
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <span class="badge bg-danger ms-2">Admin</span>
+                                        }
+                                        else if (User.IsInRole("Staff"))
+                                        {
+                                            <span class="badge bg-primary ms-2">Staff</span>
+                                        }
+                                        else if (User.IsInRole("Manager"))
+                                        {
+                                            <span class="badge bg-success ms-2">Manager</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary ms-2">User</span>
+                                        }
+                                        
                                     </div>
-                                    <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
+                                    <!-- Thay đổi form đăng xuất để xử lý JWT -->
+                                    <form id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
                                         <button type="submit" class="btn btn-outline-danger">Đăng xuất</button>
                                     </form>
                                 }
@@ -195,6 +261,69 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <!-- Add role detection debugging at the bottom of the page -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Log role information for debugging
+            const isAuthenticated = @(User.Identity?.IsAuthenticated == true ? "true" : "false");
+            if (isAuthenticated) {
+                console.log('User is authenticated as: @User.Identity?.Name');
+                
+                const roles = [
+                    @foreach (var claim in User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Role))
+                    {
+                        @:{ role: "@claim.Value", source: "@claim.Type" },
+                    }
+                ];
+                
+                console.log('User roles:', roles);
+                
+                const isAdmin = @(User.IsInRole("Admin") ? "true" : "false");
+                const isStaff = @(User.IsInRole("Staff") ? "true" : "false");
+                const isManager = @(User.IsInRole("Manager") ? "true" : "false");
+                
+                console.log('Role checks - Admin:', isAdmin, 'Staff:', isStaff, 'Manager:', isManager);
+            } else {
+                console.log('User is not authenticated');
+            }
+        });
+    </script>
+
+    <!-- Thêm xử lý đăng xuất JWT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý form đăng xuất để xóa JWT token
+            const logoutForm = document.getElementById('logoutForm');
+            if (logoutForm) {
+                logoutForm.addEventListener('submit', function(e) {
+                    // Ngăn form tự submit - quan trọng!
+                    e.preventDefault();
+                    
+                    // Xóa JWT token từ localStorage
+                    localStorage.removeItem('jwtToken');
+                    localStorage.removeItem('currentUser');
+                    
+                    // Gọi API đăng xuất bằng JavaScript
+                    fetch('/api/Account/Logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include' // Để gửi cookie
+                    }).then(function(response) {
+                        console.log('Đã gọi API đăng xuất:', response.status);
+                        // Sau khi đăng xuất thành công, chuyển hướng về trang chủ
+                        window.location.href = "/Home/Index";
+                    }).catch(function(error) {
+                        console.error('Lỗi khi đăng xuất:', error);
+                        // Nếu có lỗi, vẫn chuyển hướng về trang chủ
+                        window.location.href = "/Home/Index";
+                    });
+                });
+            }
         });
     </script>
 </body>

@@ -13,7 +13,15 @@
                 <div class="card-body p-4">
                     <div class="alert alert-success mb-4">
                         <h5 class="alert-heading"><i class="bi bi-check2-circle me-2"></i>Cảm ơn bạn đã đặt lịch!</h5>
-                        <p class="mb-0">Lịch hẹn của bạn đã được xác nhận. Mã đặt lịch: <strong>LS-@Model.AppointmentId.ToString("D4")</strong></p>
+                        @if (Model.Status == "Chờ xác nhận")
+                        {
+                            <p class="mb-0">Lịch hẹn của bạn đã được ghi nhận và đang chờ xác nhận. Mã đặt lịch: <strong>LS-@Model.AppointmentId.ToString("D4")</strong></p>
+                            <p class="mt-2 mb-0">Nhân viên sẽ liên hệ với bạn sớm nhất để xác nhận lịch hẹn.</p>
+                        }
+                        else
+                        {
+                            <p class="mb-0">Lịch hẹn của bạn đã được xác nhận. Mã đặt lịch: <strong>LS-@Model.AppointmentId.ToString("D4")</strong></p>
+                        }
                     </div>
                     
                     <h5 class="mb-3">Thông tin lịch hẹn</h5>
@@ -26,6 +34,23 @@
                             <div class="row mb-3">
                                 <div class="col-md-4 fw-bold">Thời gian kết thúc dự kiến:</div>
                                 <div class="col-md-8">@Model.EndTime.ToString("dd/MM/yyyy") lúc @Model.EndTime.ToString("HH:mm")</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4 fw-bold">Trạng thái:</div>
+                                <div class="col-md-8">
+                                    @if (Model.Status == "Chờ xác nhận")
+                                    {
+                                        <span class="badge bg-warning">@Model.Status</span>
+                                    }
+                                    else if (Model.Status == "Đã xác nhận")
+                                    {
+                                        <span class="badge bg-success">@Model.Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">@Model.Status</span>
+                                    }
+                                </div>
                             </div>
                             @if (!string.IsNullOrEmpty(Model.Notes))
                             {
@@ -134,7 +159,8 @@
                             <p class="mb-0">Không có thông tin về ghế và phòng</p>
                         </div>
                     }
-
+                    
+                    <!-- Navigation buttons - placed outside all conditionals -->
                     <div class="d-flex justify-content-between mt-4">
                         <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary">
                             <i class="bi bi-house me-2"></i>Trang chủ

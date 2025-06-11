@@ -1,123 +1,91 @@
 @model QL_Spa.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body p-5">
-                    <div class="text-center mb-4">
-                        <h2 class="fw-bold text-primary"><i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập</h2>
-                        <p class="text-muted mb-0">Đăng nhập để trải nghiệm dịch vụ của LoanSpa</p>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body">
+                <div id="loginResult" class="alert alert-danger" style="display:none;"></div>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Username">Tên đăng nhập</label>
+                        <input asp-for="Username" class="form-control" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
                     </div>
-
-                    <form asp-action="Login" method="post" class="needs-validation" novalidate>
-                        <div class="form-floating mb-3">
-                            <input asp-for="Username" class="form-control" placeholder="Nhập tên người dùng" required />
-                            <label asp-for="Username"><i class="bi bi-person me-1"></i>Tên người dùng</label>
-                            <span asp-validation-for="Username" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-floating mb-3 password-field">
-                            <input asp-for="Password" class="form-control" placeholder="Nhập mật khẩu" required />
-                            <label asp-for="Password"><i class="bi bi-lock me-1"></i>Mật khẩu</label>
-                            <span class="password-toggle" onclick="togglePassword(this)">
-                                <i class="bi bi-eye"></i>
-                            </span>
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-check mb-3">
-                            <input asp-for="RememberMe" class="form-check-input" />
-                            <label class="form-check-label" asp-for="RememberMe">Ghi nhớ đăng nhập</label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 py-2 login-btn">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Đăng nhập
-                        </button>
-                    </form>
-
-                    <div class="row mt-4 text-sm">
-                        <div class="col-6">
-                            <a href="#" class="text-decoration-none text-primary">Quên mật khẩu?</a>
-                        </div>
-                        <div class="col-6 text-end">
-                            <a asp-action="Register" class="text-decoration-none text-primary">Tạo tài khoản mới</a>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Password">Mật khẩu</label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                     </div>
+                    <div class="mb-3 form-check">
+                        <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" asp-for="RememberMe">Ghi nhớ đăng nhập</label>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    </div>
+                </form>
+                <hr />
+                <div class="text-center">
+                    <p>Chưa có tài khoản? <a asp-controller="Account" asp-action="Register">Đăng ký ngay</a></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@section Styles {
-    <style>
-        .form-control {
-            border-radius: 12px;
-            padding: 1rem 0.75rem;
-            transition: box-shadow 0.2s ease-in-out;
-        }
-
-        .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* fallback cho primary-rgb */
-        }
-
-        .password-field {
-            position: relative;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6c757d;
-            z-index: 2;
-        }
-
-        .password-toggle:hover {
-            color: #0d6efd;
-        }
-
-        .login-btn {
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn:hover {
-            background-color: #0b5ed7;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
-        }
-    </style>
-}
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        function togglePassword(toggleIcon) {
-            const input = toggleIcon.closest('.password-field').querySelector('input');
-            const icon = toggleIcon.querySelector('i');
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.replace('bi-eye', 'bi-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.replace('bi-eye-slash', 'bi-eye');
-            }
-        }
-
-        // Hiệu ứng floating focus
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.form-control').forEach(input => {
-                input.addEventListener('focus', () => input.parentElement.classList.add('focused'));
-                input.addEventListener('blur', () => {
-                    if (!input.value) input.parentElement.classList.remove('focused');
+        $(document).ready(function() {
+            $("#loginForm").submit(function(e) {
+                e.preventDefault();
+                
+                // Ẩn thông báo lỗi
+                $("#loginResult").hide();
+                
+                // Thu thập dữ liệu form
+                var loginData = {
+                    username: $("#Username").val(),
+                    password: $("#Password").val(),
+                    rememberMe: $("#RememberMe").is(":checked")
+                };
+                
+                // Gửi yêu cầu đăng nhập
+                $.ajax({
+                    url: "/api/Account/Login",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(loginData),
+                    success: function(response) {
+                        if (response.success) {
+                            // Lưu token vào localStorage để sử dụng sau này
+                            localStorage.setItem("jwtToken", response.token);
+                            localStorage.setItem("currentUser", JSON.stringify({
+                                username: response.username,
+                                userId: response.userId,
+                                roles: response.roles
+                            }));
+                            
+                            // Chuyển hướng về trang chủ
+                            window.location.href = "/Home/Index";
+                        } else {
+                            // Hiển thị lỗi
+                            $("#loginResult").text(response.message).show();
+                        }
+                    },
+                    error: function(xhr) {
+                        var errorMessage = "Đã xảy ra lỗi khi đăng nhập";
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMessage = xhr.responseJSON.error;
+                        }
+                        $("#loginResult").text(errorMessage).show();
+                    }
                 });
-                if (input.value) input.parentElement.classList.add('focused');
             });
         });
     </script>

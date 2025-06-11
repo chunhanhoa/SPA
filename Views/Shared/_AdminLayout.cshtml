@@ -84,6 +84,11 @@
                             Quản lý ghế
                         </a>
                         
+                        <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/InvoiceManagement") ? "active" : "")" href="/Admin/InvoiceManagement">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            Quản lý hóa đơn
+                        </a>
+                        
                         <div class="sb-sidenav-menu-heading">Thống kê</div>
                         <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>

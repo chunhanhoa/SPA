@@ -19,7 +19,7 @@ namespace QL_Spa.Data
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<AppointmentChair> AppointmentChairs { get; set; }
         public virtual DbSet<AppointmentService> AppointmentServices { get; set; }
-        public virtual DbSet<InvoiceService> InvoicesServices { get; set; }
+        public virtual DbSet<InvoiceService> InvoiceServices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,11 +37,43 @@ namespace QL_Spa.Data
 
             modelBuilder.Entity<InvoiceService>()
                 .HasKey(ins => new { ins.InvoiceId, ins.ServiceId });
+            
+            // Set table name explicitly for InvoiceService to resolve any naming issues
+            modelBuilder.Entity<InvoiceService>().ToTable("InvoiceServices");
 
             // Computed column for FinalAmount
             modelBuilder.Entity<Invoice>()
                 .Property(i => i.FinalAmount)
                 .HasComputedColumnSql("[TotalAmount] - ([TotalAmount] * [Discount] / 100)");
+                
+            // Configure Invoice entity explicitly
+            modelBuilder.Entity<Invoice>(entity =>
+            {
+                entity.ToTable("Invoices"); // Explicitly set table name
+                entity.HasKey(e => e.InvoiceId);
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 2)").IsRequired();
+                entity.Property(e => e.Discount).HasColumnType("decimal(18, 2)").IsRequired();
+                entity.Property(e => e.PaidAmount).HasColumnType("decimal(18, 2)").IsRequired();
+                
+                // Configure the relationship with Customer
+                entity.HasOne(d => d.Customer)
+                      .WithMany()
+                      .HasForeignKey(d => d.CustomerId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+            
+            // Configure InvoiceService entity explicitly
+            modelBuilder.Entity<InvoiceService>(entity =>
+            {
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)").IsRequired();
+                entity.HasOne(d => d.Invoice)
+                      .WithMany(p => p.InvoiceServices)
+                      .HasForeignKey(d => d.InvoiceId);
+                entity.HasOne(d => d.Service)
+                      .WithMany()
+                      .HasForeignKey(d => d.ServiceId);
+            });
 
             // Configure entity relationships and constraints
             modelBuilder.Entity<Room>(entity =>

@@ -61,6 +61,10 @@
       "PackagePath": "staticwebassets\\images\\services\\massage.jpg"
     },
     {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\admin-booking-management.js",
+      "PackagePath": "staticwebassets\\js\\admin-booking-management.js"
+    },
+    {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\admin-booking.js",
       "PackagePath": "staticwebassets\\js\\admin-booking.js"
     },
@@ -87,6 +91,10 @@
     {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\home.js",
       "PackagePath": "staticwebassets\\js\\home.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\invoice-management.js",
+      "PackagePath": "staticwebassets\\js\\invoice-management.js"
     },
     {
       "Id": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\management.js",
