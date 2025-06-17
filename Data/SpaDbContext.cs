@@ -20,6 +20,7 @@ namespace QL_Spa.Data
         public virtual DbSet<AppointmentChair> AppointmentChairs { get; set; }
         public virtual DbSet<AppointmentService> AppointmentServices { get; set; }
         public virtual DbSet<InvoiceService> InvoiceServices { get; set; }
+        public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; } // Thêm vào đây
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

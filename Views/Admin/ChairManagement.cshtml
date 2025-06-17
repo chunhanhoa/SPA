@@ -1,5 +1,6 @@
 @{
     ViewData["Title"] = "Quản lý ghế";
+    Layout = "_AdminLayout";
 }
 
 <div class="container py-4">
@@ -61,54 +62,6 @@
         </div>
     </div>
     
-    <!-- Debug Panel (can be removed in production) -->
-    <div class="card mt-4">
-        <div class="card-header">
-            <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#debugPanel">
-                Debug Panel
-            </button>
-        </div>
-        <div class="collapse" id="debugPanel">
-            <div class="card-body">
-                <h6>API URL: <code>@Url.Action("GetChairs", "ChairApi", new { area = "" }, Context.Request.Scheme)</code></h6>
-                <h6>Current User: <code>@User.Identity.Name</code></h6>
-                <h6>Is Admin: <code>@User.IsInRole("Admin")</code></h6>
-                <h6>Console Log:</h6>
-                <pre id="debugConsole" class="border p-2 bg-light" style="max-height: 200px; overflow-y: auto;"></pre>
-                <button class="btn btn-sm btn-outline-secondary" id="testApiBtn">Test API Connection</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card mt-4">
-        <div class="card-header bg-secondary text-white">
-            <h5 class="mb-0">Công cụ kiểm tra và gỡ lỗi</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <button id="simpleTestBtn" class="btn btn-info w-100">
-                        <i class="bi bi-bug"></i> Kiểm tra API đơn giản
-                    </button>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <button id="createTestChairBtn" class="btn btn-warning w-100">
-                        <i class="bi bi-plus-square"></i> Tạo ghế thử nghiệm
-                    </button>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <button id="showDbInfoBtn" class="btn btn-primary w-100">
-                        <i class="bi bi-info-circle"></i> Thông tin Database
-                    </button>
-                </div>
-            </div>
-            <div id="testResultsContainer" class="border p-3 mt-2 bg-light" style="display:none;">
-                <h6 class="mb-2">Kết quả kiểm tra:</h6>
-                <pre id="testResults" class="mb-0"></pre>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Chair Modal - Used for both Create and Edit -->
 <div class="modal fade" id="chairModal" tabindex="-1" aria-labelledby="chairModalLabel" aria-hidden="true">

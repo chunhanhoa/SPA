@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QL_Spa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c8b47b1f7e448be668b131f354ef14a77e7a6fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+010b4a8a87f82a9cb04cd3206013bb0f0a451d6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("QL_Spa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QL_Spa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

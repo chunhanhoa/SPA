@@ -1,5 +1,6 @@
 @{
     ViewData["Title"] = "Admin Dashboard";
+    
 }
 
 <div class="container py-4">
@@ -53,6 +54,16 @@
                     <h5 class="card-title">Quản lý hóa đơn</h5>
                     <p class="card-text">Xem, xuất và quản lý hóa đơn thanh toán.</p>
                     <a asp-controller="Admin" asp-action="InvoiceManagement" class="btn btn-primary">Truy cập</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Quản lý dịch vụ</h5>
+                    <p class="card-text">Thêm, sửa, xóa và quản lý các dịch vụ của spa.</p>
+                    <a asp-controller="Admin" asp-action="ServiceManagement" class="btn btn-primary">Truy cập</a>
                 </div>
             </div>
         </div>

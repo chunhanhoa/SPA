@@ -57,14 +57,7 @@
                 <i class="bi bi-table me-1"></i>
                 Danh sách đặt lịch
             </div>
-            <div>
-                <button class="btn btn-sm btn-primary" id="refresh-data">
-                    <i class="bi bi-arrow-repeat"></i> Tải lại dữ liệu
-                </button>
-                <button class="btn btn-sm btn-success" id="export-excel">
-                    <i class="bi bi-file-earmark-excel"></i> Xuất Excel
-                </button>
-            </div>
+
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -149,6 +142,26 @@
     </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteBookingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Xác nhận xóa đặt lịch</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa đặt lịch #<span id="delete-booking-id"></span>?</p>
+                <p class="text-danger">Hành động này không thể hoàn tác!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-btn">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
@@ -186,6 +199,19 @@
                 const newStatus = $('#new-status').val();
                 
                 updateBookingStatus(id, newStatus);
+            });
+            
+            // Delete booking button click
+            $(document).on('click', '.delete-booking', function() {
+                const id = $(this).data('id');
+                $('#delete-booking-id').text(id);
+                $('#deleteBookingModal').modal('show');
+            });
+            
+            // Confirm delete button click
+            $('#confirm-delete-btn').click(function() {
+                const id = $('#delete-booking-id').text();
+                deleteBooking(id);
             });
             
             // Load booking data function
@@ -281,6 +307,9 @@
                                     </button>
                                     <button type="button" class="btn btn-primary edit-status" data-id="${booking.appointmentId}" data-status="${booking.status}">
                                         <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger delete-booking" data-id="${booking.appointmentId}">
+                                        <i class="bi bi-trash"></i>
                                     </button>
                                 </div>
                             </td>
@@ -494,6 +523,29 @@
                     },
                     complete: function() {
                         $('#save-status-btn').prop('disabled', false).text('Lưu thay đổi');
+                    }
+                });
+            }
+            
+            // Delete booking function
+            function deleteBooking(id) {
+                $.ajax({
+                    url: `/api/Booking/${id}`,
+                    type: 'DELETE',
+                    beforeSend: function() {
+                        $('#confirm-delete-btn').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...');
+                    },
+                    success: function(response) {
+                        $('#deleteBookingModal').modal('hide');
+                        showStatusUpdateNotification(true, 'Xóa đặt lịch thành công');
+                        setTimeout(loadBookingData, 1000);
+                    },
+                    error: function(xhr, status, error) {
+                        showStatusUpdateNotification(false, `Lỗi: ${xhr.responseJSON?.message || error}`);
+                        $('#confirm-delete-btn').prop('disabled', false).text('Xóa');
+                    },
+                    complete: function() {
+                        $('#confirm-delete-btn').prop('disabled', false).text('Xóa');
                     }
                 });
             }

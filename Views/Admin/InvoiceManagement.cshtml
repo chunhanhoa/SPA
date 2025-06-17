@@ -140,86 +140,14 @@
             // Set a global flag to control page reload behavior
             window.shouldReloadAfterAction = true;
             
-            // Add debug controls (can be removed in production)
-            $('#toastContainer').append(`
-                <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 1050;">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="toggleReload" checked>
-                        <label class="form-check-label text-white bg-dark p-2 rounded" for="toggleReload">
-                            Auto-reload after actions
-                        </label>
-                    </div>
-                </div>
-            `);
-            
-            $('#toggleReload').change(function() {
-                window.shouldReloadAfterAction = $(this).is(':checked');
-                showToast('Thông báo', 
-                    window.shouldReloadAfterAction ? 'Đã bật tự động tải lại trang sau khi thực hiện thao tác' : 'Đã tắt tự động tải lại trang',
-                    'info');
-            });
             
             // Thêm xử lý cho các nút thao tác khác trên trang
             $(document).on('click', '.quick-action-btn', function() {
                 const action = $(this).data('action');
                 const invoiceId = $(this).data('id');
                 
-                // Hiển thị spinner trong nút
-                const btn = $(this);
-                const originalHtml = btn.html();
-                btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
-                btn.prop('disabled', true);
-                
-                // Thực hiện hành động dựa trên loại
                 if (action === 'mark-paid') {
-                    $.ajax({
-                        url: `/api/Invoice/${invoiceId}/UpdateStatus`,
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({ status: 'Đã thanh toán' }),
-                        success: function(response) {
-                            if (response.success) {
-                                showToast('Thành công', 'Đã đánh dấu hóa đơn là đã thanh toán', 'success');
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 1000);
-                            } else {
-                                btn.html(originalHtml);
-                                btn.prop('disabled', false);
-                                showToast('Lỗi', response.message || 'Cập nhật không thành công', 'danger');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            btn.html(originalHtml);
-                            btn.prop('disabled', false);
-                            showToast('Lỗi', 'Không thể cập nhật. Lỗi: ' + error, 'danger');
-                        }
-                    });
-                } else if (action === 'cancel') {
-                    // Xử lý hủy hóa đơn
-                    $.ajax({
-                        url: `/api/Invoice/${invoiceId}/UpdateStatus`,
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({ status: 'Đã hủy' }),
-                        success: function(response) {
-                            if (response.success) {
-                                showToast('Thành công', 'Đã hủy hóa đơn', 'success');
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 1000);
-                            } else {
-                                btn.html(originalHtml);
-                                btn.prop('disabled', false);
-                                showToast('Lỗi', response.message || 'Hủy không thành công', 'danger');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            btn.html(originalHtml);
-                            btn.prop('disabled', false);
-                            showToast('Lỗi', 'Không thể hủy. Lỗi: ' + error, 'danger');
-                        }
-                    });
+                    markInvoiceAsPaid(invoiceId);
                 }
             });
         });
@@ -261,3 +189,43 @@
         }
     </style>
 }
+
+<!-- Thêm modal chỉnh sửa thông tin thanh toán -->
+<div class="modal fade" id="editPaymentModal" tabindex="-1" aria-labelledby="editPaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="editPaymentModalLabel">Chỉnh sửa thông tin thanh toán</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editPaymentForm">
+                    <input type="hidden" id="editInvoiceId">
+                    <div class="mb-3">
+                        <label for="editTotalAmount" class="form-label">Tổng tiền</label>
+                        <input type="number" class="form-control" id="editTotalAmount" min="0" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDiscount" class="form-label">Giảm giá (%)</label>
+                        <input type="number" class="form-control" id="editDiscount" min="0" max="100" step="0.1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editFinalAmount" class="form-label">Thành tiền</label>
+                        <input type="number" class="form-control" id="editFinalAmount" readonly>
+                        <small class="text-muted">Thành tiền được tính tự động dựa trên tổng tiền và giảm giá</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPaidAmount" class="form-label">Đã thanh toán</label>
+                        <input type="number" class="form-control" id="editPaidAmount" min="0" step="0.01" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="savePaymentChanges">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

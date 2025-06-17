@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using QL_Spa.Models; // Thêm namespace chứa InvoiceDetail (nếu cần)
 
 namespace QL_Spa.Models
 {
@@ -40,6 +41,9 @@ namespace QL_Spa.Models
         
         // Navigation property
         public ICollection<InvoiceService> InvoiceServices { get; set; }
+        
+        // Sửa thuộc tính InvoiceDetails để sử dụng đúng tên model
+        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; } = new List<InvoiceDetail>();
         
         public Invoice()
         {

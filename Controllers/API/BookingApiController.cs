@@ -790,62 +790,102 @@ namespace QL_Spa.Controllers.Api
                 return StatusCode(500, new { success = false, message = "Đã xảy ra lỗi khi lấy dữ liệu đặt lịch" });
             }
         }
+
+        // Delete a booking
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBooking(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Attempting to delete booking with ID: {ID}", id);
+                
+                var appointment = await _context.Appointments
+                    .Include(a => a.AppointmentChairs)
+                    .Include(a => a.AppointmentServices)
+                    .FirstOrDefaultAsync(a => a.AppointmentId == id);
+
+                if (appointment == null)
+                {
+                    _logger.LogWarning("Booking with ID {ID} not found for deletion", id);
+                    return NotFound(new { success = false, message = "Không tìm thấy lịch đặt" });
+                }
+
+                // Release all chairs associated with this booking
+                foreach (var chair in appointment.AppointmentChairs)
+                {
+                    var chairEntity = await _context.Chairs.FindAsync(chair.ChairId);
+                    if (chairEntity != null)
+                    {
+                        chairEntity.IsAvailable = true;
+                        _logger.LogInformation($"Đã giải phóng ghế {chairEntity.ChairId} - {chairEntity.ChairName}");
+                    }
+                }
+
+                _context.Appointments.Remove(appointment);
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation("Đã xóa lịch hẹn với ID: {ID}", id);
+                return Ok(new { success = true, message = "Đã xóa lịch hẹn thành công" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi xóa lịch hẹn ID: {ID}", id);
+                return StatusCode(500, new { success = false, message = "Đã xảy ra lỗi khi xóa lịch hẹn" });
+            }
+        }
     }
 
-    public class BookingRequest
+    // Các lớp model cho API
+    public class UpdateStatusRequest
     {
         [Required]
-        public string FullName { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
-        [Required]
-        public string Email { get; set; }
-        [Required]
-        public List<ServiceRequest> Services { get; set; }
-        [Required]
-        public string BookingDate { get; set; }
-        [Required]
-        public string BookingTime { get; set; }
-        public string Notes { get; set; }
+        public string Status { get; set; }
     }
 
-    public class ServiceRequest
+    public class BookingCreateModel
+    {
+        [Required]
+        public string StartTime { get; set; }
+
+        [Required]
+        public int Duration { get; set; } // Duration in minutes
+
+        public string Notes { get; set; }
+
+        [Required]
+        public List<SelectedService> Services { get; set; }
+
+        // Thêm thông tin khách hàng
+        public string CustomerName { get; set; }
+        public string CustomerPhone { get; set; }
+
+        // Thêm thông tin số lượng khách hàng
+        [Required]
+        public int CustomerCount { get; set; }
+    }
+
+    public class SelectedService
     {
         [Required]
         public int ServiceId { get; set; }
+
         [Required]
-        [Range(1, 10)]
         public int Quantity { get; set; }
     }
 
     public class AvailabilityRequest
     {
         [Required]
-        public List<ServiceRequest> Services { get; set; }
-        [Required]
-        public string Date { get; set; }
-        [Required]
-        public string Time { get; set; }
-        public int CustomerCount { get; set; } = 1; // Thêm số lượng khách hàng, mặc định là 1
-    }
+        public string Date { get; set; } // Format: yyyy-MM-dd
 
-    public class UpdateStatusRequest
-    {
-        public string Status { get; set; }
-    }
+        [Required]
+        public string Time { get; set; } // Format: HH:mm
 
-    // Cập nhật model mới cho đặt lịch
-    public class BookingCreateModel
-    {
-        // Thay đổi kiểu dữ liệu để nhận chuỗi datetime từ client
-        public string StartTime { get; set; }
-        public int Duration { get; set; } // Thời gian dịch vụ tính bằng phút
-        public int CustomerCount { get; set; } = 1; // Số lượng khách hàng, mặc định là 1
-        public string Notes { get; set; }
-        public List<ServiceRequest> Services { get; set; }
-        
-        // Thêm thông tin khách hàng
-        public string CustomerName { get; set; }
-        public string CustomerPhone { get; set; }
+        [Required]
+        public int CustomerCount { get; set; }
+
+        [Required]
+        public List<SelectedService> Services { get; set; }
     }
 }

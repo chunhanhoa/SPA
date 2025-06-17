@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using QL_Spa.Data;
-using QL_Spa.Services;
+using QL_Spa.Services; // Add this namespace for RoleInitializer
 using System.Text.Json.Serialization;
-using QL_Spa.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,8 +62,17 @@ builder.Services.AddScoped<QL_Spa.Services.AvailabilityService>();
 // Add this line to register the script
 builder.Services.AddScoped<QL_Spa.Data.Scripts.EnsureInvoicesTableScript>();
 
-// Thêm Swagger với cấu hình tùy chỉnh
-builder.Services.AddSwaggerDocumentation();
+// Thêm Swagger services
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "QL_Spa API", 
+        Version = "v1",
+        Description = "API for QL_Spa application"
+    });
+});
 
 // AddScoped JwtService
 builder.Services.AddScoped<JwtService>();
@@ -82,19 +90,16 @@ else
 {
     // Use developer exception page in development
     app.UseDeveloperExceptionPage();
-    
-    // Sử dụng Swagger trong môi trường phát triển
-    app.UseSwaggerDocumentation();
 }
 
-// Luôn kích hoạt Swagger với tham số cụ thể để kiểm soát trong production
-if (!app.Environment.IsDevelopment())
+// Thêm Swagger middleware
+if (app.Environment.IsDevelopment())
 {
-    var showSwagger = builder.Configuration.GetValue<bool>("SwaggerSettings:ShowInProduction");
-    if (showSwagger)
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
     {
-        app.UseSwaggerDocumentation();
-    }
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "QL_Spa API V1");
+    });
 }
 
 app.UseHttpsRedirection();
@@ -142,6 +147,21 @@ using (var scope = app.Services.CreateScope())
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while initializing roles or applying migrations");
+    }
+}
+
+// Add this after the app is built but before app.Run()
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roles = new[] { "Admin", "Manager", "User" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
     }
 }
 

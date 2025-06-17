@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.IO; // Thêm namespace này
+using iTextSharp.text; // Thêm namespace cho thư viện iTextSharp
+using iTextSharp.text.pdf; // Thêm namespace cho thư viện iTextSharp
 
 namespace QL_Spa.Controllers.Api
 {
@@ -127,6 +130,7 @@ namespace QL_Spa.Controllers.Api
                     return BadRequest(new { success = false, message = "Trạng thái không hợp lệ" });
                 }
 
+                string oldStatus = invoice.Status;
                 invoice.Status = request.Status;
                 
                 // If status is "Đã thanh toán", update PaidAmount to FinalAmount
@@ -136,8 +140,88 @@ namespace QL_Spa.Controllers.Api
                 }
 
                 await _context.SaveChangesAsync();
-                
-                return Ok(new { success = true, message = "Cập nhật trạng thái thành công" });
+
+                // Nếu trạng thái được chuyển sang "Đã thanh toán", chỉ cập nhật trạng thái của các ghế liên quan đến hóa đơn này
+                if (request.Status == "Đã thanh toán" && oldStatus != "Đã thanh toán")
+                {
+                    _logger.LogInformation($"Cập nhật trạng thái ghế cho hóa đơn ID: {id}");
+
+                    try {
+                        // Lỗi khi cố gắng truy cập bảng InvoiceDetails và sử dụng .HasValue và .Value trên kiểu int
+                        try {
+                            // Kiểm tra xem DbSet InvoiceDetails có tồn tại không
+                            bool invoiceDetailsExist = false;
+                            try {
+                                invoiceDetailsExist = _context.Model.FindEntityType(typeof(InvoiceDetail)) != null;
+                            } catch {
+                                invoiceDetailsExist = false;
+                            }
+
+                            // Nếu bảng InvoiceDetail tồn tại, sử dụng nó để tìm ghế
+                            if (invoiceDetailsExist)
+                            {
+                                try {
+                                    // Sửa: Bỏ qua đoạn code này vì bảng InvoiceDetail không tồn tại
+                                    // Thay vì cố gắng truy vấn bảng không tồn tại, chúng ta sẽ sử dụng Appointment
+                                } catch (Exception ex) {
+                                    _logger.LogError($"Lỗi khi truy vấn InvoiceDetail: {ex.Message}");
+                                }
+                            }
+
+                            // Sửa phương thức tìm lịch hẹn trong khối try của UpdateInvoiceStatus
+                            // Tìm lịch hẹn cụ thể liên quan đến hóa đơn này (dựa trên CustomerId và CreatedDate)
+                            var relatedAppointment = await _context.Appointments
+                                .Include(a => a.AppointmentChairs)
+                                .Where(a => a.CustomerId == invoice.CustomerId)
+                                .Where(a => a.CreatedDate.Date == invoice.CreatedDate.Date)
+                                // Thêm điều kiện để liên kết chính xác với hóa đơn - dựa trên TotalAmount
+                                .Where(a => Math.Abs(a.TotalAmount - invoice.TotalAmount) < 0.01m)
+                                .OrderByDescending(a => a.CreatedDate) // Thêm sắp xếp theo thời gian tạo mới nhất
+                                .FirstOrDefaultAsync();
+
+                            if (relatedAppointment != null)
+                            {
+                                _logger.LogInformation($"Tìm thấy lịch hẹn ID: {relatedAppointment.AppointmentId} liên quan đến hóa đơn");
+
+                                // Cập nhật trực tiếp tất cả ghế liên quan
+                                foreach (var appointmentChair in relatedAppointment.AppointmentChairs)
+                                {
+                                    var chair = await _context.Chairs.FindAsync(appointmentChair.ChairId);
+                                    if (chair != null)
+                                    {
+                                        _logger.LogInformation($"Cập nhật ghế ID: {chair.ChairId}, Tên: {chair.ChairName} từ IsAvailable={chair.IsAvailable} thành IsAvailable=true");
+                                        chair.IsAvailable = true;
+                                        _context.Entry(chair).State = EntityState.Modified;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Nếu không tìm thấy lịch hẹn liên quan, thử tìm và cập nhật tất cả ghế có IsAvailable = false
+                                _logger.LogInformation("Không tìm thấy lịch hẹn liên quan, tiến hành quét tất cả ghế đang bị khóa");
+                                var lockedChairs = await _context.Chairs.Where(c => !c.IsAvailable).Take(5).ToListAsync();
+                                foreach (var chair in lockedChairs)
+                                {
+                                    _logger.LogInformation($"Cập nhật ghế bị khóa ID: {chair.ChairId}, Tên: {chair.ChairName} thành IsAvailable=true");
+                                    chair.IsAvailable = true;
+                                    _context.Entry(chair).State = EntityState.Modified;
+                                }
+                            }
+
+                            // Lưu những thay đổi của ghế vào cơ sở dữ liệu
+                            var changes = await _context.SaveChangesAsync();
+                            _logger.LogInformation($"Đã lưu {changes} thay đổi vào cơ sở dữ liệu");
+                        }
+                        catch (Exception ex) {
+                            _logger.LogError(ex, "Lỗi khi cập nhật trạng thái ghế: {Message}", ex.Message);
+                        }
+                    }
+                    catch (Exception ex) {
+                            _logger.LogError(ex, "Lỗi khi cập nhật trạng thái ghế: {Message}", ex.Message);
+                        }
+                }
+
+                return Ok(new { success = true, message = "Cập nhật trạng thái hóa đơn thành công" });
             }
             catch (Exception ex)
             {
@@ -146,114 +230,129 @@ namespace QL_Spa.Controllers.Api
             }
         }
 
-        // Tạo hóa đơn mới từ lịch hẹn
-        [HttpPost("CreateFromAppointment/{appointmentId}")]
+        // Xuất hóa đơn ra file PDF
+        [HttpGet("{id}/ExportToPdf")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateInvoiceFromAppointment(int appointmentId)
+        public async Task<IActionResult> ExportInvoiceToPdf(int id)
         {
             try
             {
-                _logger.LogInformation("Bắt đầu tạo hóa đơn từ lịch hẹn ID: {ID}", appointmentId);
-                
-                var appointment = await _context.Appointments
-                    .Include(a => a.Customer)
-                    .Include(a => a.AppointmentServices)
-                        .ThenInclude(aps => aps.Service)
-                    .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
+                var invoice = await _context.Invoices
+                    .Include(i => i.Customer)
+                    .Include(i => i.InvoiceServices)
+                        .ThenInclude(invService => invService.Service)
+                    .FirstOrDefaultAsync(i => i.InvoiceId == id);
 
-                if (appointment == null)
+                if (invoice == null)
                 {
-                    _logger.LogWarning("Không tìm thấy lịch hẹn ID: {ID}", appointmentId);
-                    return NotFound(new { success = false, message = "Không tìm thấy lịch hẹn" });
+                    return NotFound(new { success = false, message = "Không tìm thấy hóa đơn" });
                 }
 
-                // Check if invoice already exists for this appointment
-                var existingInvoice = await _context.Invoices
-                    .Where(i => i.CustomerId == appointment.CustomerId)
-                    .Where(i => i.CreatedDate.Date == appointment.CreatedDate.Date)
-                    .Where(i => Math.Abs(i.TotalAmount - appointment.TotalAmount) < 0.01m)
-                    .FirstOrDefaultAsync();
-
-                if (existingInvoice != null)
+                // Tạo file PDF từ hóa đơn (sử dụng thư viện iTextSharp hoặc tương tự)
+                using (var memoryStream = new MemoryStream())
                 {
-                    _logger.LogWarning("Hóa đơn tương tự đã tồn tại cho lịch hẹn ID: {ID}, InvoiceId: {InvoiceId}", 
-                        appointmentId, existingInvoice.InvoiceId);
-                    return BadRequest(new { success = false, message = "Hóa đơn đã tồn tại cho lịch hẹn này" });
-                }
+                    // Khởi tạo document với cú pháp đúng
+                    var document = new Document();
+                    PdfWriter.GetInstance(document, memoryStream);
+                    document.Open();
 
-                // Create new invoice with all required fields
-                var invoice = new Invoice
-                {
-                    CreatedDate = DateTime.Now,
-                    TotalAmount = appointment.TotalAmount,
-                    Discount = 0, // Default discount
-                    PaidAmount = 0, // Default paid amount
-                    CustomerId = appointment.CustomerId,
-                    Status = "Chờ thanh toán",
-                    InvoiceServices = new List<InvoiceService>()
-                };
+                    // Thêm nội dung vào PDF
+                    document.Add(new Paragraph($"Hóa đơn ID: {invoice.InvoiceId}"));
+                    document.Add(new Paragraph($"Khách hàng: {invoice.Customer?.FullName}"));
+                    document.Add(new Paragraph($"Số điện thoại: {invoice.Customer?.Phone}"));
+                    document.Add(new Paragraph($"Ngày tạo: {invoice.CreatedDate}"));
+                    document.Add(new Paragraph($"Tổng tiền: {invoice.TotalAmount}"));
+                    document.Add(new Paragraph($"Giảm giá: {invoice.Discount}"));
+                    document.Add(new Paragraph($"Thành tiền: {invoice.FinalAmount}"));
+                    document.Add(new Paragraph($"Đã thanh toán: {invoice.PaidAmount}"));
+                    document.Add(new Paragraph($"Trạng thái: {invoice.Status}"));
 
-                _logger.LogInformation("Tạo hóa đơn mới: CustomerId={CustomerId}, TotalAmount={TotalAmount}", 
-                    invoice.CustomerId, invoice.TotalAmount);
+                    // Thêm bảng dịch vụ
+                    var table = new PdfPTable(4);
+                    table.AddCell("Dịch vụ");
+                    table.AddCell("Giá");
+                    table.AddCell("Số lượng");
+                    table.AddCell("Thành tiền");
 
-                // Add services from appointment
-                foreach (var appService in appointment.AppointmentServices)
-                {
-                    var invoiceService = new InvoiceService
+                    foreach (var invService in invoice.InvoiceServices)
                     {
-                        ServiceId = appService.ServiceId,
-                        Quantity = appService.Quantity,
-                        Price = appService.Price
-                    };
+                        table.AddCell(invService.Service.ServiceName);
+                        table.AddCell(invService.Price.ToString());
+                        table.AddCell(invService.Quantity.ToString());
+                        table.AddCell((invService.Price * invService.Quantity).ToString()); // Tính TotalAmount = Price * Quantity
+                    }
+
+                    document.Add(table);
+
+                    document.Close();
                     
-                    _logger.LogInformation("Thêm dịch vụ: ServiceId={ServiceId}, Quantity={Quantity}, Price={Price}", 
-                        invoiceService.ServiceId, invoiceService.Quantity, invoiceService.Price);
-                
-                    invoice.InvoiceServices.Add(invoiceService);
-                }
+                    // Lưu file PDF vào đĩa hoặc trả về cho người dùng tải về
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/invoices", $"invoice_{invoice.InvoiceId}.pdf");
+                    System.IO.File.WriteAllBytes(filePath, memoryStream.ToArray());
 
-                // Use explicit transaction for consistency
-                using (var transaction = await _context.Database.BeginTransactionAsync())
-                {
-                    try
-                    {
-                        _context.Invoices.Add(invoice);
-                        await _context.SaveChangesAsync();
-                        
-                        // Update appointment status if needed
-                        if (appointment.Status != "Hoàn thành")
-                        {
-                            appointment.Status = "Hoàn thành";
-                            await _context.SaveChangesAsync();
-                            _logger.LogInformation("Đã cập nhật trạng thái lịch hẹn thành 'Hoàn thành'");
-                        }
-                        
-                        await transaction.CommitAsync();
-                        _logger.LogInformation("Giao dịch đã được commit thành công");
-                    }
-                    catch (Exception ex)
-                    {
-                        await transaction.RollbackAsync();
-                        _logger.LogError(ex, "Lỗi trong giao dịch, đã rollback: {Message}", ex.Message);
-                        throw; // Re-throw to be caught by outer catch
-                    }
+                    return Ok(new { success = true, message = "Xuất hóa đơn thành công", filePath });
                 }
-
-                _logger.LogInformation("Đã tạo hóa đơn thành công: InvoiceId={InvoiceId}", invoice.InvoiceId);
-                return Ok(new { 
-                    success = true, 
-                    message = "Tạo hóa đơn thành công", 
-                    invoiceId = invoice.InvoiceId 
-                });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Lỗi khi tạo hóa đơn từ lịch hẹn ID: {ID}: {Message}", appointmentId, ex.Message);
-                return StatusCode(500, new { success = false, message = $"Lỗi khi tạo hóa đơn: {ex.Message}" });
+                _logger.LogError(ex, "Lỗi khi xuất hóa đơn ra PDF ID: {ID}", id);
+                return StatusCode(500, new { success = false, message = "Lỗi khi xuất hóa đơn ra PDF" });
             }
         }
 
-        // Cập nhật thông tin thanh toán
+        // Cập nhật trạng thái hóa đơn - phiên bản đơn giản
+        [HttpPost("UpdateInvoiceStatus")]
+        public IActionResult UpdateInvoiceStatus(int invoiceId, string status)
+        {
+            try
+            {
+                // Lấy thông tin hóa đơn từ ID
+                var invoice = _context.Invoices.FirstOrDefault(i => i.InvoiceId == invoiceId);
+
+                if (invoice == null)
+                {
+                    return NotFound("Không tìm thấy hóa đơn");
+                }
+
+                // Cập nhật trạng thái hóa đơn
+                invoice.Status = status;
+                
+                // Nếu trạng thái là "Đã thanh toán", nhả ghế (đặt IsAvailable = true)
+                if (status == "Đã thanh toán")
+                {
+                    // Tìm lịch hẹn liên quan để giải phóng ghế
+                    var relatedAppointment = _context.Appointments
+                        .Include(a => a.AppointmentChairs)
+                        .Where(a => a.CustomerId == invoice.CustomerId)
+                        .Where(a => a.CreatedDate.Date == invoice.CreatedDate.Date)
+                        .OrderByDescending(a => a.CreatedDate) // Thêm sắp xếp theo thời gian tạo mới nhất
+                        .FirstOrDefault();
+                    
+                    if (relatedAppointment != null)
+                    {
+                        foreach (var appChair in relatedAppointment.AppointmentChairs)
+                        {
+                            var chair = _context.Chairs.FirstOrDefault(c => c.ChairId == appChair.ChairId);
+                            if (chair != null)
+                            {
+                                chair.IsAvailable = true;
+                            }
+                        }
+                    }
+                }
+
+                // Lưu các thay đổi vào database
+                _context.SaveChanges();
+
+                return Ok(new { success = true, message = "Cập nhật trạng thái hóa đơn thành công" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = ex.Message });
+            }
+        }
+
+        // New endpoint to update payment information
         [HttpPost("{id}/UpdatePayment")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePayment(int id, [FromBody] UpdatePaymentRequest request)
@@ -266,41 +365,80 @@ namespace QL_Spa.Controllers.Api
                     return NotFound(new { success = false, message = "Không tìm thấy hóa đơn" });
                 }
 
-                // Update payment information
-                if (request.Discount.HasValue)
+                // Validate input
+                if (request.TotalAmount <= 0)
                 {
-                    invoice.Discount = request.Discount.Value;
+                    return BadRequest(new { success = false, message = "Tổng tiền phải lớn hơn 0" });
                 }
 
-                if (request.PaidAmount.HasValue)
+                if (request.Discount < 0 || request.Discount > 100)
                 {
-                    invoice.PaidAmount = request.PaidAmount.Value;
-                    
-                    // Update status based on paid amount
-                    if (invoice.PaidAmount >= invoice.FinalAmount)
-                    {
-                        invoice.Status = "Đã thanh toán";
-                    }
-                    else if (invoice.PaidAmount > 0)
-                    {
-                        invoice.Status = "Chờ thanh toán";
-                    }
+                    return BadRequest(new { success = false, message = "Giảm giá phải từ 0% đến 100%" });
+                }
+
+                if (request.PaidAmount < 0)
+                {
+                    return BadRequest(new { success = false, message = "Số tiền đã thanh toán không thể âm" });
+                }
+
+                // Update invoice payment information
+                invoice.TotalAmount = request.TotalAmount;
+                invoice.Discount = request.Discount;
+                invoice.PaidAmount = request.PaidAmount;
+
+                // Calculate the FinalAmount (done automatically by computed column in database)
+                // If paid in full, update status to "Đã thanh toán"
+                decimal finalAmount = invoice.TotalAmount - (invoice.TotalAmount * invoice.Discount / 100);
+                if (invoice.PaidAmount >= finalAmount && invoice.Status == "Chờ thanh toán")
+                {
+                    invoice.Status = "Đã thanh toán";
                 }
 
                 await _context.SaveChangesAsync();
-                
+
                 return Ok(new { 
                     success = true, 
                     message = "Cập nhật thông tin thanh toán thành công",
-                    finalAmount = invoice.FinalAmount,
-                    paidAmount = invoice.PaidAmount,
-                    status = invoice.Status
+                    data = new {
+                        invoiceId = invoice.InvoiceId,
+                        totalAmount = invoice.TotalAmount,
+                        discount = invoice.Discount,
+                        finalAmount = finalAmount,
+                        paidAmount = invoice.PaidAmount,
+                        status = invoice.Status
+                    }
                 });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Lỗi khi cập nhật thông tin thanh toán cho hóa đơn ID: {ID}", id);
+                _logger.LogError(ex, "Lỗi khi cập nhật thông tin thanh toán ID: {ID}", id);
                 return StatusCode(500, new { success = false, message = "Lỗi khi cập nhật thông tin thanh toán" });
+            }
+        }
+
+        // GET: api/Invoice/Statistics
+        [HttpGet("Statistics")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetInvoiceStatistics()
+        {
+            try
+            {
+                var total = await _context.Invoices.CountAsync();
+                var pending = await _context.Invoices.CountAsync(i => i.Status == "Chờ thanh toán");
+                var paid = await _context.Invoices.CountAsync(i => i.Status == "Đã thanh toán");
+                var cancelled = await _context.Invoices.CountAsync(i => i.Status == "Đã hủy");
+                
+                return Ok(new {
+                    total,
+                    pending,
+                    paid,
+                    cancelled
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy thống kê hóa đơn");
+                return StatusCode(500, new { success = false, message = "Lỗi khi lấy thống kê hóa đơn" });
             }
         }
     }
@@ -313,7 +451,13 @@ namespace QL_Spa.Controllers.Api
 
     public class UpdatePaymentRequest
     {
-        public decimal? Discount { get; set; }
-        public decimal? PaidAmount { get; set; }
+        [Required]
+        public decimal TotalAmount { get; set; }
+        
+        [Required]
+        public decimal Discount { get; set; }
+        
+        [Required]
+        public decimal PaidAmount { get; set; }
     }
 }

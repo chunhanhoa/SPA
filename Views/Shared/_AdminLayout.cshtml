@@ -88,12 +88,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
                             Quản lý hóa đơn
                         </a>
-                        
-                        <div class="sb-sidenav-menu-heading">Thống kê</div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
-                            Báo cáo
+
+                        <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/ServiceManagement") ? "active" : "")" href="/Admin/ServiceManagement">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-spa"></i></div>
+                            Quản dịch vụ
                         </a>
+                        
+
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

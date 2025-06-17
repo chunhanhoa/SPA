@@ -122,6 +122,45 @@ namespace QL_Spa.Controllers
             return RedirectToAction("UserManagement");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Check if user is the current logged in admin
+            if (User.Identity.Name == user.UserName)
+            {
+                TempData["ErrorMessage"] = "Bạn không thể xóa tài khoản hiện tại đang đăng nhập.";
+                return RedirectToAction("UserManagement");
+            }
+
+            // Delete associated customer information if exists
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.UserId == user.Id);
+            if (customer != null)
+            {
+                _context.Customers.Remove(customer);
+                await _context.SaveChangesAsync();
+            }
+
+            // Delete the user
+            var result = await _userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Đã xóa người dùng thành công.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa người dùng.";
+            }
+
+            return RedirectToAction("UserManagement");
+        }
+
         [Authorize(Roles = "Admin")]
         public IActionResult RoomManagement()
         {
@@ -171,6 +210,83 @@ namespace QL_Spa.Controllers
         public IActionResult InvoiceManagement()
         {
             return View();
+        }
+        
+        [Authorize(Roles = "Admin")]
+        public IActionResult ServiceManagement()
+        {
+            _logger.LogInformation("Admin accessing ServiceManagement page");
+            
+            if (!User.IsInRole("Admin"))
+            {
+                _logger.LogWarning("Non-admin user attempted to access ServiceManagement: {Username}", User.Identity.Name);
+                return Forbid();
+            }
+            
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageUserRoles(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new UserRolesViewModel
+            {
+                UserId = userId,
+                UserName = user.UserName,
+                Email = user.Email,
+                Roles = new List<RoleViewModel>()
+            };
+
+            // Get all roles
+            var roles = await _roleManager.Roles.ToListAsync();
+            foreach (var role in roles)
+            {
+                var roleViewModel = new RoleViewModel
+                {
+                    RoleId = role.Id,
+                    RoleName = role.Name,
+                    IsSelected = await _userManager.IsInRoleAsync(user, role.Name)
+                };
+                model.Roles.Add(roleViewModel);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageUserRoles(UserRolesViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var result = await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Cannot remove user from existing roles");
+                return View(model);
+            }
+
+            result = await _userManager.AddToRolesAsync(user, 
+                model.Roles.Where(x => x.IsSelected).Select(y => y.RoleName));
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Cannot add user to selected roles");
+                return View(model);
+            }
+
+            return RedirectToAction("EditUser", new { id = model.UserId });
         }
     }
 }

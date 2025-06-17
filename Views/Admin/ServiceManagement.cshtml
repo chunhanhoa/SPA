@@ -1,0 +1,401 @@
+@{
+    ViewData["Title"] = "Quản lý dịch vụ";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Quản lý dịch vụ</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Admin">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Quản lý dịch vụ</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-spa me-1"></i>
+                Danh sách dịch vụ
+            </div>
+            <button class="btn btn-primary" id="btnAddService" data-bs-toggle="modal" data-bs-target="#serviceModal">
+                <i class="fas fa-plus me-1"></i> Thêm dịch vụ
+            </button>
+        </div>
+        <div class="card-body">
+            <div id="alertContainer"></div>
+            <div class="table-responsive">
+                <table id="servicesTable" class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 5%">ID</th>
+                            <th style="width: 15%">Hình ảnh</th>
+                            <th style="width: 20%">Tên dịch vụ</th>
+                            <th style="width: 15%">Giá</th>
+                            <th style="width: 10%">Thời gian</th>
+                            <th style="width: 25%">Mô tả</th>
+                            <th style="width: 10%">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="servicesTableBody">
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Đang tải...</span>
+                                </div>
+                                <p>Đang tải dữ liệu...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Service Modal for Add/Edit -->
+<div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="serviceModalLabel">Thêm dịch vụ mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="serviceForm" enctype="multipart/form-data">
+                    <input type="hidden" id="serviceId" name="serviceId" value="0">
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="serviceName" class="form-label">Tên dịch vụ <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="serviceName" name="serviceName" required>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="price" class="form-label">Giá (VNĐ) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="price" name="price" min="0" step="1000" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="duration" class="form-label">Thời gian (phút) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="duration" name="duration" min="15" step="5" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="pictureUpload" class="form-label">Hình ảnh</label>
+                                <input type="file" class="form-control" id="pictureUpload" name="pictureUpload" accept="image/*">
+                                <input type="hidden" id="picture" name="picture">
+                                <div class="mt-2 text-center">
+                                    <img id="picturePreview" src="/images/default-service.jpg" alt="Hình ảnh dịch vụ" class="img-thumbnail" style="max-height: 150px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Mô tả</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="features" class="form-label">Đặc điểm nổi bật</label>
+                        <textarea class="form-control" id="features" name="features" rows="3" placeholder="Nhập các đặc điểm, phân tách bằng dấu phẩy"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="process" class="form-label">Quy trình thực hiện</label>
+                        <textarea class="form-control" id="process" name="process" rows="3" placeholder="Nhập các bước thực hiện, phân tách bằng dấu phẩy"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Lưu ý</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnSaveService">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa dịch vụ "<span id="deleteServiceName"></span>"?</p>
+                <p class="text-danger">Lưu ý: Hành động này không thể hoàn tác!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let services = [];
+            let editingServiceId = 0;
+            
+            // Load services on page load
+            loadServices();
+            
+            // Set up event handlers
+            $('#btnAddService').click(function() {
+                resetServiceForm();
+                $('#serviceModalLabel').text('Thêm dịch vụ mới');
+                editingServiceId = 0;
+            });
+            
+            $('#btnSaveService').click(function() {
+                saveService();
+            });
+            
+            // Picture upload preview
+            $('#pictureUpload').change(function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#picturePreview').attr('src', e.target.result);
+                        $('#picture').val(e.target.result); // Store base64 image
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Function to load all services
+            function loadServices() {
+                $.ajax({
+                    url: '/api/ServiceApi',
+                    type: 'GET',
+                    success: function(data) {
+                        services = data;
+                        renderServicesTable();
+                    },
+                    error: function(xhr) {
+                        showAlert('danger', 'Lỗi khi tải dữ liệu: ' + (xhr.responseJSON?.message || xhr.statusText));
+                    }
+                });
+            }
+            
+            // Render services table
+            function renderServicesTable() {
+                if (!services || services.length === 0) {
+                    $('#servicesTableBody').html('<tr><td colspan="7" class="text-center">Không có dịch vụ nào</td></tr>');
+                    return;
+                }
+                
+                let html = '';
+                services.forEach(function(service) {
+                    const serviceId = service.ServiceId || service.serviceId;
+                    const serviceName = service.ServiceName || service.serviceName;
+                    const price = service.Price || service.price;
+                    const duration = service.Duration || service.duration;
+                    const description = service.Description || service.description;
+                    const picture = service.Picture || service.picture;
+                    
+                    html += `
+                    <tr>
+                        <td>${serviceId}</td>
+                        <td class="text-center">
+                            <img src="${picture || '/images/default-service.jpg'}" alt="${serviceName}" 
+                                class="img-thumbnail" style="max-height: 80px;" 
+                                onerror="this.src='/images/default-service.jpg'">
+                        </td>
+                        <td>${serviceName}</td>
+                        <td class="text-end">${new Intl.NumberFormat('vi-VN').format(price)} VNĐ</td>
+                        <td class="text-center">${duration} phút</td>
+                        <td>${description?.substring(0, 100)}${description?.length > 100 ? '...' : ''}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary me-1 btn-edit" data-id="${serviceId}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger btn-delete" data-id="${serviceId}" data-name="${serviceName}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    `;
+                });
+                
+                $('#servicesTableBody').html(html);
+                
+                // Set up edit buttons
+                $('.btn-edit').click(function() {
+                    const serviceId = $(this).data('id');
+                    editService(serviceId);
+                });
+                
+                // Set up delete buttons
+                $('.btn-delete').click(function() {
+                    const serviceId = $(this).data('id');
+                    const serviceName = $(this).data('name');
+                    $('#deleteServiceName').text(serviceName);
+                    $('#btnConfirmDelete').data('id', serviceId);
+                    $('#deleteModal').modal('show');
+                });
+            }
+            
+            // Edit service
+            function editService(serviceId) {
+                const service = services.find(s => (s.ServiceId || s.serviceId) == serviceId);
+                if (!service) {
+                    showAlert('danger', 'Không tìm thấy dịch vụ');
+                    return;
+                }
+                
+                editingServiceId = serviceId;
+                $('#serviceModalLabel').text('Chỉnh sửa dịch vụ');
+                
+                // Fill form with service data
+                $('#serviceId').val(serviceId);
+                $('#serviceName').val(service.ServiceName || service.serviceName);
+                $('#price').val(service.Price || service.price);
+                $('#duration').val(service.Duration || service.duration);
+                $('#description').val(service.Description || service.description);
+                $('#features').val(service.Features || service.features);
+                $('#process').val(service.Process || service.process);
+                $('#notes').val(service.Notes || service.notes);
+                $('#picture').val(service.Picture || service.picture);
+                
+                // Set image preview
+                const pictureSrc = service.Picture || service.picture || '/images/default-service.jpg';
+                $('#picturePreview').attr('src', pictureSrc);
+                
+                // Show modal
+                $('#serviceModal').modal('show');
+            }
+            
+            // Save service (create or update)
+            function saveService() {
+                // Basic form validation
+                const form = document.getElementById('serviceForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                
+                // Get form data
+                const serviceId = $('#serviceId').val();
+                const isNew = serviceId == 0;
+                
+                const service = {
+                    ServiceId: isNew ? 0 : parseInt(serviceId),
+                    ServiceName: $('#serviceName').val(),
+                    Price: parseFloat($('#price').val()),
+                    Duration: parseInt($('#duration').val()),
+                    Description: $('#description').val() || '',
+                    Features: $('#features').val() || '',
+                    Process: $('#process').val() || '',
+                    Notes: $('#notes').val() || '',
+                    Picture: $('#picture').val() || '/images/default-service.jpg'
+                };
+                
+                // Determine if it's a create or update operation
+                const method = isNew ? 'POST' : 'PUT';
+                const url = isNew ? '/api/ServiceApi' : `/api/ServiceApi/${serviceId}`;
+                
+                // Send API request
+                $.ajax({
+                    url: url,
+                    type: method,
+                    contentType: 'application/json',
+                    data: JSON.stringify(service),
+                    success: function() {
+                        $('#serviceModal').modal('hide');
+                        showAlert('success', `Dịch vụ đã được ${isNew ? 'tạo' : 'cập nhật'} thành công`);
+                        loadServices(); // Reload services
+                    },
+                    error: function(xhr) {
+                        showAlert('danger', 'Lỗi khi lưu dịch vụ: ' + (xhr.responseJSON?.message || xhr.statusText));
+                    }
+                });
+            }
+            
+            // Confirm delete
+            $('#btnConfirmDelete').click(function() {
+                const serviceId = $(this).data('id');
+                deleteService(serviceId);
+            });
+            
+            // Delete service
+            function deleteService(serviceId) {
+                $.ajax({
+                    url: `/api/ServiceApi/${serviceId}`,
+                    type: 'DELETE',
+                    success: function() {
+                        $('#deleteModal').modal('hide');
+                        showAlert('success', 'Dịch vụ đã được xóa thành công');
+                        loadServices(); // Reload services
+                    },
+                    error: function(xhr) {
+                        $('#deleteModal').modal('hide');
+                        showAlert('danger', 'Lỗi khi xóa dịch vụ: ' + (xhr.responseJSON?.message || xhr.statusText));
+                    }
+                });
+            }
+            
+            // Reset service form
+            function resetServiceForm() {
+                $('#serviceForm')[0].reset();
+                $('#serviceId').val(0);
+                $('#picture').val('');
+                $('#picturePreview').attr('src', '/images/default-service.jpg');
+            }
+            
+            // Show alert message
+            function showAlert(type, message) {
+                const alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                `;
+                
+                $('#alertContainer').html(alertHtml);
+                
+                // Auto-hide after 5 seconds
+                setTimeout(function() {
+                    $('.alert').alert('close');
+                }, 5000);
+            }
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        #servicesTable th, #servicesTable td {
+            vertical-align: middle;
+        }
+        
+        .service-image {
+            max-height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .form-label {
+            font-weight: 500;
+        }
+        
+        .required-field::after {
+            content: "*";
+            color: red;
+            margin-left: 4px;
+        }
+    </style>
+}
