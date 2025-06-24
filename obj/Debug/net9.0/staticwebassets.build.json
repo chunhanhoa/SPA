@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2axPVSZaVJTql+xg9MjJ/KDqJpFZR9l36uavIGBpnRc=",
+  "Hash": "dh063Cxr/eD+nx/WLfouL9K6CkFxiw/EVYDU4V/Ab0M=",
   "Source": "QL_Spa",
   "BasePath": "_content/QL_Spa",
   "Mode": "Default",
@@ -1214,12 +1214,12 @@
       "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\admin-chair.js"
     },
     {
-      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-0rb7fxuiid.gz",
+      "Identity": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-opyd2cr9h4.gz",
       "SourceId": "QL_Spa",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/QL_Spa",
-      "RelativePath": "js/invoice-management#[.{fingerprint=0rb7fxuiid}]?.js.gz",
+      "RelativePath": "js/invoice-management#[.{fingerprint=opyd2cr9h4}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1228,8 +1228,8 @@
       "RelatedAsset": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\invoice-management.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "v7smx28nib",
-      "Integrity": "pX6eEyBXVWDkfDiqXgOshu5vDRAESHVPwKcrNx+kTp8=",
+      "Fingerprint": "38r2io9rw8",
+      "Integrity": "U/gWvcsDfHVh/GKk3XsNUX+/ZkwhXGL9WVxgU9FyxeI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\invoice-management.js"
@@ -2173,8 +2173,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "0rb7fxuiid",
-      "Integrity": "PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE=",
+      "Fingerprint": "opyd2cr9h4",
+      "Integrity": "BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\invoice-management.js"
@@ -7727,13 +7727,13 @@
       ]
     },
     {
-      "Route": "js/invoice-management.0rb7fxuiid.js",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-0rb7fxuiid.gz",
+      "Route": "js/invoice-management.js",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-opyd2cr9h4.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000259740260"
+          "Quality": "0.000254452926"
         }
       ],
       "ResponseHeaders": [
@@ -7743,19 +7743,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3849"
+          "Value": "3929"
         },
         {
           "Name": "ETag",
-          "Value": "\"pX6eEyBXVWDkfDiqXgOshu5vDRAESHVPwKcrNx+kTp8=\""
+          "Value": "\"U/gWvcsDfHVh/GKk3XsNUX+/ZkwhXGL9WVxgU9FyxeI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 14:16:13 GMT"
+          "Value": "Sun, 15 Jun 2025 14:50:54 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -7771,26 +7771,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE=\""
+          "Value": "W/\"BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "0rb7fxuiid"
-        },
-        {
-          "Name": "label",
-          "Value": "js/invoice-management.js"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE="
+          "Value": "sha256-BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI="
         }
       ]
     },
     {
-      "Route": "js/invoice-management.0rb7fxuiid.js",
+      "Route": "js/invoice-management.js",
       "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\invoice-management.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -7800,7 +7792,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16865"
+          "Value": "17674"
         },
         {
           "Name": "Content-Type",
@@ -7808,11 +7800,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE=\""
+          "Value": "\"BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 14:16:13 GMT"
+          "Value": "Sun, 15 Jun 2025 14:50:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI="
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.js.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-opyd2cr9h4.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3929"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"U/gWvcsDfHVh/GKk3XsNUX+/ZkwhXGL9WVxgU9FyxeI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 15 Jun 2025 14:50:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-U/gWvcsDfHVh/GKk3XsNUX+/ZkwhXGL9WVxgU9FyxeI="
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.opyd2cr9h4.js",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-opyd2cr9h4.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000254452926"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3929"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"U/gWvcsDfHVh/GKk3XsNUX+/ZkwhXGL9WVxgU9FyxeI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 15 Jun 2025 14:50:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "opyd2cr9h4"
+        },
+        {
+          "Name": "label",
+          "Value": "js/invoice-management.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI="
+        }
+      ]
+    },
+    {
+      "Route": "js/invoice-management.opyd2cr9h4.js",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\invoice-management.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17674"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 15 Jun 2025 14:50:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7822,7 +7959,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "0rb7fxuiid"
+          "Value": "opyd2cr9h4"
         },
         {
           "Name": "label",
@@ -7830,13 +7967,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE="
+          "Value": "sha256-BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI="
         }
       ]
     },
     {
-      "Route": "js/invoice-management.0rb7fxuiid.js.gz",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-0rb7fxuiid.gz",
+      "Route": "js/invoice-management.opyd2cr9h4.js.gz",
+      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-opyd2cr9h4.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7845,7 +7982,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3849"
+          "Value": "3929"
         },
         {
           "Name": "Content-Type",
@@ -7853,11 +7990,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pX6eEyBXVWDkfDiqXgOshu5vDRAESHVPwKcrNx+kTp8=\""
+          "Value": "\"U/gWvcsDfHVh/GKk3XsNUX+/ZkwhXGL9WVxgU9FyxeI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 14:16:13 GMT"
+          "Value": "Sun, 15 Jun 2025 14:50:54 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7875,7 +8012,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "0rb7fxuiid"
+          "Value": "opyd2cr9h4"
         },
         {
           "Name": "label",
@@ -7883,144 +8020,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-pX6eEyBXVWDkfDiqXgOshu5vDRAESHVPwKcrNx+kTp8="
-        }
-      ]
-    },
-    {
-      "Route": "js/invoice-management.js",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-0rb7fxuiid.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000259740260"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3849"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"pX6eEyBXVWDkfDiqXgOshu5vDRAESHVPwKcrNx+kTp8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 14:16:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE="
-        }
-      ]
-    },
-    {
-      "Route": "js/invoice-management.js",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\wwwroot\\js\\invoice-management.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "16865"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 14:16:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE="
-        }
-      ]
-    },
-    {
-      "Route": "js/invoice-management.js.gz",
-      "AssetFile": "C:\\Users\\ASUS\\OneDrive\\Máy tính\\Code\\All_File\\Cong nghe phan mem\\SPA\\obj\\Debug\\net9.0\\compressed\\ssxrcn4fkq-0rb7fxuiid.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3849"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"pX6eEyBXVWDkfDiqXgOshu5vDRAESHVPwKcrNx+kTp8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 14:16:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-pX6eEyBXVWDkfDiqXgOshu5vDRAESHVPwKcrNx+kTp8="
+          "Value": "sha256-U/gWvcsDfHVh/GKk3XsNUX+/ZkwhXGL9WVxgU9FyxeI="
         }
       ]
     },

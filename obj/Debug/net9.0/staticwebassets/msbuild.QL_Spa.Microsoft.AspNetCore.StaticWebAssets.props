@@ -408,8 +408,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>0rb7fxuiid</Fingerprint>
-      <Integrity>PCpfrl/0H5w8GT1l07DSbWuXszdKgzvHplcn2T8XTUE=</Integrity>
+      <Fingerprint>opyd2cr9h4</Fingerprint>
+      <Integrity>BC2r3u49qcnqrOqAvMqjtERavNs9dbWatFlGWTwSmxI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\invoice-management.js'))</OriginalItemSpec>

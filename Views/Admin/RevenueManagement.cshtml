@@ -1,0 +1,380 @@
+@{
+    ViewData["Title"] = "Quản lý Doanh Thu";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">@ViewData["Title"]</h1>
+
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Admin">Tổng quan</a></li>
+        <li class="breadcrumb-item active">Quản lý Doanh Thu</li>
+    </ol>
+
+    <!-- Revenue Summary Cards -->
+    <div class="row">
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h5 class="mb-0">Tổng doanh thu</h5>
+                        <div class="display-6 mt-2" id="total-revenue">Đang tải...</div>
+                    </div>
+                    <div class="display-5"><i class="fas fa-money-bill-wave"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h5 class="mb-0">Doanh thu tháng này</h5>
+                        <div class="display-6 mt-2" id="month-revenue">Đang tải...</div>
+                    </div>
+                    <div class="display-5"><i class="fas fa-calendar-alt"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Range Filter -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-filter me-1"></i>
+            Lọc theo khoảng thời gian
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="startDate" class="form-label">Từ ngày</label>
+                        <input type="date" class="form-control" id="startDate">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="endDate" class="form-label">Đến ngày</label>
+                        <input type="date" class="form-control" id="endDate">
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button class="btn btn-primary mb-3" id="filterInvoices">
+                        <i class="fas fa-search me-1"></i> Lọc hóa đơn
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtered Invoices Results -->
+    <div class="card mb-4" id="filteredInvoicesCard" style="display: none;">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Kết quả lọc hóa đơn <span id="dateRangeLabel" class="text-muted"></span>
+        </div>
+        <div class="card-body">
+            <!-- Summary of filtered results -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h6 class="mb-0">Tổng số hóa đơn</h6>
+                            <div class="h4 mt-2" id="filtered-total-count">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h6 class="mb-0">Doanh thu</h6>
+                            <div class="h4 mt-2" id="filtered-revenue">0 VNĐ</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h6 class="mb-0">Chờ thanh toán</h6>
+                            <div class="h4 mt-2" id="filtered-pending-count">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-danger text-white">
+                        <div class="card-body">
+                            <h6 class="mb-0">Đang nợ</h6>
+                            <div class="h4 mt-2" id="filtered-pending-amount">0 VNĐ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtered invoices table -->
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="filteredInvoicesTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Mã HĐ</th>
+                            <th>Khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Ngày tạo</th>
+                            <th>Tổng tiền</th>
+                            <th>Đã thanh toán</th>
+                            <th>Còn lại</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filteredInvoicesTableBody">
+                        <!-- Table data will be loaded via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue Chart Card -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-line me-1"></i>
+            Thống kê doanh thu theo tháng
+        </div>
+        <div class="card-body">
+            <canvas id="revenueChart" width="100%" height="40"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="position-fixed bottom-0 end-0 p-3" id="toastContainer" style="z-index: 11"></div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/invoice-management.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Set default date values (current month)
+            const today = new Date();
+            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            
+            $('#startDate').val(firstDayOfMonth.toISOString().substring(0, 10));
+            $('#endDate').val(today.toISOString().substring(0, 10));
+            
+            // Fetch revenue statistics from API
+            $.ajax({
+                url: '/api/Invoice/RevenueStatistics',
+                type: 'GET',
+                success: function(data) {
+                    // Format currency for display
+                    const formatter = new Intl.NumberFormat('vi-VN', { 
+                        style: 'currency', 
+                        currency: 'VND' 
+                    });
+                    
+                    // Update total revenue display
+                    $('#total-revenue').text(formatter.format(data.totalRevenue));
+                    
+                    // Get current month revenue
+                    const currentMonth = new Date().getMonth() + 1; // JavaScript months are 0-indexed
+                    const currentMonthRevenue = data.revenueByMonth.find(m => m.Month === currentMonth)?.Revenue || 0;
+                    $('#month-revenue').text(formatter.format(currentMonthRevenue));
+                    
+                    // Render chart with monthly data
+                    renderRevenueChart(data.revenueByMonth);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching revenue statistics:', error);
+                    $('#total-revenue').text('Lỗi khi tải dữ liệu');
+                    $('#month-revenue').text('Lỗi khi tải dữ liệu');
+                }
+            });
+            
+            // Filter invoices by date range
+            $('#filterInvoices').on('click', function() {
+                const startDate = $('#startDate').val();
+                const endDate = $('#endDate').val();
+                
+                if (!startDate || !endDate) {
+                    showToast('Lỗi', 'Vui lòng chọn khoảng thời gian', 'danger');
+                    return;
+                }
+                
+                if (new Date(startDate) > new Date(endDate)) {
+                    showToast('Lỗi', 'Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc', 'danger');
+                    return;
+                }
+                
+                // Show loading indicator
+                $('#filteredInvoicesTableBody').html('<tr><td colspan="9" class="text-center"><div class="spinner-border text-primary" role="status"></div> Đang tải dữ liệu...</td></tr>');
+                $('#filteredInvoicesCard').show();
+                
+                // Format the date range for display
+                const formattedStartDate = new Date(startDate).toLocaleDateString('vi-VN');
+                const formattedEndDate = new Date(endDate).toLocaleDateString('vi-VN');
+                $('#dateRangeLabel').text(`(${formattedStartDate} - ${formattedEndDate})`);
+                
+                // Fetch invoices within the date range
+                $.ajax({
+                    url: `/api/Invoice/ByDateRange?startDate=${startDate}&endDate=${endDate}`,
+                    type: 'GET',
+                    success: function(data) {
+                        // Update summary cards
+                        const formatter = new Intl.NumberFormat('vi-VN', { 
+                            style: 'currency', 
+                            currency: 'VND' 
+                        });
+                        
+                        $('#filtered-total-count').text(data.summary.totalCount);
+                        $('#filtered-revenue').text(formatter.format(data.summary.totalRevenue));
+                        $('#filtered-pending-count').text(data.summary.pendingCount);
+                        $('#filtered-pending-amount').text(formatter.format(data.summary.pendingRevenue));
+                        
+                        // Render invoices table
+                        renderFilteredInvoicesTable(data.invoices);
+                        
+                        showToast('Thành công', `Đã tìm thấy ${data.invoices.length} hóa đơn trong khoảng thời gian đã chọn`, 'success');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching invoices by date range:', error);
+                        $('#filteredInvoicesTableBody').html('<tr><td colspan="9" class="text-center text-danger">Đã xảy ra lỗi khi tải dữ liệu</td></tr>');
+                        showToast('Lỗi', 'Không thể tải dữ liệu hóa đơn', 'danger');
+                    }
+                });
+            });
+            
+            // Function to render revenue chart
+            function renderRevenueChart(revenueByMonth) {
+                // Convert data for Chart.js
+                const monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 
+                                   'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+                const labels = revenueByMonth.map(item => monthNames[item.Month - 1]);
+                const revenues = revenueByMonth.map(item => item.Revenue);
+                
+                // Create the chart
+                var ctx = document.getElementById('revenueChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Doanh thu (VNĐ)',
+                            data: revenues,
+                            backgroundColor: 'rgba(40, 167, 69, 0.6)',
+                            borderColor: 'rgba(40, 167, 69, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return new Intl.NumberFormat('vi-VN').format(value) + ' VNĐ';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return new Intl.NumberFormat('vi-VN').format(context.raw) + ' VNĐ';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Function to render filtered invoices table
+            function renderFilteredInvoicesTable(invoices) {
+                let tableHtml = '';
+                
+                if (invoices.length === 0) {
+                    tableHtml = '<tr><td colspan="9" class="text-center">Không tìm thấy hóa đơn nào trong khoảng thời gian này</td></tr>';
+                } else {
+                    const formatter = new Intl.NumberFormat('vi-VN', { 
+                        style: 'currency', 
+                        currency: 'VND' 
+                    });
+                    
+                    invoices.forEach(invoice => {
+                        const remaining = invoice.finalAmount - invoice.paidAmount;
+                        let statusBadge = '';
+                        
+                        switch (invoice.status) {
+                            case 'Chờ thanh toán':
+                                statusBadge = '<span class="badge bg-warning">Chờ thanh toán</span>';
+                                break;
+                            case 'Đã thanh toán':
+                                statusBadge = '<span class="badge bg-success">Đã thanh toán</span>';
+                                break;
+                            case 'Đã hủy':
+                                statusBadge = '<span class="badge bg-danger">Đã hủy</span>';
+                                break;
+                            default:
+                                statusBadge = `<span class="badge bg-secondary">${invoice.status}</span>`;
+                        }
+                        
+                        tableHtml += `
+                            <tr>
+                                <td>${invoice.invoiceId}</td>
+                                <td>${invoice.customerName}</td>
+                                <td>${invoice.customerPhone}</td>
+                                <td>${new Date(invoice.createdDate).toLocaleString('vi-VN')}</td>
+                                <td>${formatter.format(invoice.finalAmount)}</td>
+                                <td>${formatter.format(invoice.paidAmount)}</td>
+                                <td>${formatter.format(remaining)}</td>
+                                <td>${statusBadge}</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-info view-details" data-id="${invoice.invoiceId}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-primary edit-payment" data-id="${invoice.invoiceId}">
+                                            <i class="fas fa-money-bill"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+                
+                $('#filteredInvoicesTableBody').html(tableHtml);
+                
+                // Initialize DataTable for better searching/sorting
+                if ($.fn.DataTable.isDataTable('#filteredInvoicesTable')) {
+                    $('#filteredInvoicesTable').DataTable().destroy();
+                }
+                
+                $('#filteredInvoicesTable').DataTable({
+                    responsive: true,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Vietnamese.json'
+                    }
+                });
+                
+                // Set up event listeners for buttons
+                $('.view-details').on('click', function() {
+                    const invoiceId = $(this).data('id');
+                    showInvoiceDetails(invoiceId);
+                });
+                
+                $('.edit-payment').on('click', function() {
+                    const invoiceId = $(this).data('id');
+                    showEditPaymentModal(invoiceId);
+                });
+            }
+        });
+    </script>
+}
+
+@section Styles {
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+}

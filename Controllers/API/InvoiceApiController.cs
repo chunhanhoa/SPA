@@ -441,6 +441,109 @@ namespace QL_Spa.Controllers.Api
                 return StatusCode(500, new { success = false, message = "Lỗi khi lấy thống kê hóa đơn" });
             }
         }
+
+        // GET: api/Invoice/RevenueStatistics
+        [HttpGet("RevenueStatistics")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetRevenueStatistics()
+        {
+            try
+            {
+                // Calculate total revenue from paid invoices
+                var totalRevenue = await _context.Invoices
+                    .Where(i => i.Status == "Đã thanh toán")
+                    .SumAsync(i => i.FinalAmount);
+
+                // Calculate revenue by month for the current year
+                var currentYear = DateTime.Now.Year;
+                var revenueByMonth = await _context.Invoices
+                    .Where(i => i.Status == "Đã thanh toán" && i.CreatedDate.Year == currentYear)
+                    .GroupBy(i => i.CreatedDate.Month)
+                    .Select(g => new
+                    {
+                        Month = g.Key,
+                        Revenue = g.Sum(i => i.FinalAmount)
+                    })
+                    .OrderBy(r => r.Month)
+                    .ToListAsync();
+
+                // Fill in missing months with zero revenue
+                var allMonths = Enumerable.Range(1, 12)
+                    .Select(month => new
+                    {
+                        Month = month,
+                        Revenue = revenueByMonth.FirstOrDefault(r => r.Month == month)?.Revenue ?? 0
+                    })
+                    .ToList();
+
+                return Ok(new
+                {
+                    totalRevenue,
+                    revenueByMonth = allMonths
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy thống kê doanh thu");
+                return StatusCode(500, new { success = false, message = "Lỗi khi lấy thống kê doanh thu" });
+            }
+        }
+
+        // GET: api/Invoice/ByDateRange
+        [HttpGet("ByDateRange")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetInvoicesByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                // Adjust endDate to include the entire day
+                endDate = endDate.AddDays(1).AddSeconds(-1);
+
+                _logger.LogInformation($"Fetching invoices from {startDate} to {endDate}");
+
+                var invoices = await _context.Invoices
+                    .Include(i => i.Customer)
+                    .Where(i => i.CreatedDate >= startDate && i.CreatedDate <= endDate)
+                    .OrderByDescending(i => i.CreatedDate)
+                    .ToListAsync();
+
+                var result = invoices.Select(invoice => new
+                {
+                    invoiceId = invoice.InvoiceId,
+                    createdDate = invoice.CreatedDate,
+                    totalAmount = invoice.TotalAmount,
+                    discount = invoice.Discount,
+                    finalAmount = invoice.FinalAmount,
+                    paidAmount = invoice.PaidAmount,
+                    status = invoice.Status,
+                    customerName = invoice.Customer?.FullName ?? "N/A",
+                    customerPhone = invoice.Customer?.Phone ?? "N/A"
+                }).ToList();
+
+                // Calculate summary data
+                var totalRevenue = invoices.Where(i => i.Status == "Đã thanh toán").Sum(i => i.FinalAmount);
+                var pendingRevenue = invoices.Where(i => i.Status == "Chờ thanh toán").Sum(i => i.FinalAmount - i.PaidAmount);
+                var totalCount = invoices.Count;
+                var paidCount = invoices.Count(i => i.Status == "Đã thanh toán");
+                var pendingCount = invoices.Count(i => i.Status == "Chờ thanh toán");
+
+                return Ok(new { 
+                    invoices = result,
+                    summary = new {
+                        totalRevenue,
+                        pendingRevenue,
+                        totalCount,
+                        paidCount,
+                        pendingCount
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi lấy hóa đơn theo khoảng thời gian");
+                return StatusCode(500, new { success = false, message = "Lỗi khi lấy dữ liệu hóa đơn" });
+            }
+        }
     }
 
     public class UpdateInvoiceStatusRequest

@@ -91,7 +91,12 @@
 
                         <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/ServiceManagement") ? "active" : "")" href="/Admin/ServiceManagement">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-spa"></i></div>
-                            Quản dịch vụ
+                            Quản lý dịch vụ
+                        </a>
+                        
+                        <a class="nav-link @(Context.Request.Path.StartsWithSegments("/Admin/RevenueManagement") ? "active" : "")" href="/Admin/RevenueManagement">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Quản lý Doanh Thu
                         </a>
                         
 

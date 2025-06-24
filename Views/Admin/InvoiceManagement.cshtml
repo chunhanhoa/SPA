@@ -140,6 +140,24 @@
             // Set a global flag to control page reload behavior
             window.shouldReloadAfterAction = true;
             
+            // Add debug controls (can be removed in production)
+            $('#toastContainer').append(`
+                <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 1050;">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="toggleReload" checked>
+                        <label class="form-check-label text-white bg-dark p-2 rounded" for="toggleReload">
+                            Auto-reload after actions
+                        </label>
+                    </div>
+                </div>
+            `);
+            
+            $('#toggleReload').change(function() {
+                window.shouldReloadAfterAction = $(this).is(':checked');
+                showToast('Thông báo', 
+                    window.shouldReloadAfterAction ? 'Đã bật tự động tải lại trang sau khi thực hiện thao tác' : 'Đã tắt tự động tải lại trang',
+                    'info');
+            });
             
             // Thêm xử lý cho các nút thao tác khác trên trang
             $(document).on('click', '.quick-action-btn', function() {

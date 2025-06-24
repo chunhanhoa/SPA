@@ -46,6 +46,17 @@ function setupEventListeners() {
         calculateFinalAmount();
     });
 
+    $(document).on('click', '.view-details', function() {
+        const invoiceId = $(this).data('id');
+        showInvoiceDetails(invoiceId);
+    });
+
+    $(document).on('click', '.update-status', function() {
+        const invoiceId = $(this).data('id');
+        const currentStatus = $(this).data('status');
+        showUpdateStatusModal(invoiceId, currentStatus);
+    });
+
     $(document).on('click', '.quick-action-btn', function() {
         const action = $(this).data('action');
         const invoiceId = $(this).data('id');
@@ -137,6 +148,12 @@ function renderInvoicesTable(data) {
             'status': invoice.status,
             'actions': `
                 <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-info view-details" data-id="${invoice.invoiceId}">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-warning update-status" data-id="${invoice.invoiceId}" data-status="${invoice.status}">
+                        <i class="fas fa-edit"></i>
+                    </button>
                     <button type="button" class="btn btn-primary edit-payment" data-id="${invoice.invoiceId}">
                         <i class="fas fa-money-bill"></i>
                     </button>

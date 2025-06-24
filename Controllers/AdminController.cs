@@ -225,6 +225,20 @@ namespace QL_Spa.Controllers
             
             return View();
         }
+        
+        [Authorize(Roles = "Admin")]
+        public IActionResult RevenueManagement()
+        {
+            _logger.LogInformation("Admin accessing RevenueManagement page");
+            
+            if (!User.IsInRole("Admin"))
+            {
+                _logger.LogWarning("Non-admin user attempted to access RevenueManagement: {Username}", User.Identity.Name);
+                return Forbid();
+            }
+            
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string userId)
